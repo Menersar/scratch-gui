@@ -9,6 +9,7 @@ import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import tabStyles from 'react-tabs/style/react-tabs.css';
 import VM from 'scratch-vm';
 import Renderer from 'scratch-render';
+import {isRendererSupported, isBrowserSupported} from '../../lib/sidekick-environment-support-prober';
 
 import Blocks from '../../containers/blocks.jsx';
 import CostumeTab from '../../containers/costume-tab.jsx';
@@ -50,7 +51,7 @@ const messages = defineMessages({
 
 // Cache this value to only retrieve it once the first time.
 // Assume that it doesn't change for a session.
-let isRendererSupported = null;
+// let isRendererSupported = null;
 
 const GUIComponent = props => {
     const {
@@ -136,9 +137,9 @@ const GUIComponent = props => {
         tabSelected: classNames(tabStyles.reactTabsTabSelected, styles.isSelected)
     };
 
-    if (isRendererSupported === null) {
-        isRendererSupported = Renderer.isSupported();
-    }
+    // if (isRendererSupported === null) {
+    //     isRendererSupported = Renderer.isSupported();
+    // }
 
     return (<MediaQuery minWidth={layout.fullSizeMinWidth}>{isFullSize => {
         const stageSize = resolveStageSize(stageSizeMode, isFullSize);
@@ -146,7 +147,8 @@ const GUIComponent = props => {
         return isPlayerOnly ? (
             <StageWrapper
                 isFullScreen={isFullScreen}
-                isRendererSupported={isRendererSupported}
+                // isRendererSupported={isRendererSupported}
+                isRendererSupported={isRendererSupported()}
                 isRtl={isRtl}
                 loading={loading}
                 stageSize={STAGE_SIZE_MODES.large}
@@ -179,7 +181,8 @@ const GUIComponent = props => {
                 {isCreating ? (
                     <Loader messageId="gui.loader.creating" />
                 ) : null}
-                {isRendererSupported ? null : (
+                {/* {isRendererSupported ? null : ( */}
+                {isRendererSupported() ? null : (
                     <WebGlModal isRtl={isRtl} />
                 )}
                 {tipsLibraryVisible ? (
@@ -346,7 +349,8 @@ const GUIComponent = props => {
                         <Box className={classNames(styles.stageAndTargetWrapper, styles[stageSize])}>
                             <StageWrapper
                                 isFullScreen={isFullScreen}
-                                isRendererSupported={isRendererSupported}
+                                // isRendererSupported={isRendererSupported}
+                                isRendererSupported={isRendererSupported()}
                                 isRtl={isRtl}
                                 stageSize={stageSize}
                                 vm={vm}
