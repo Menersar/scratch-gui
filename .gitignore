@@ -16,5 +16,6 @@ package-lock.json
 /.opt-in
 
 # Generated translation files
+
 /translations
 /locale
