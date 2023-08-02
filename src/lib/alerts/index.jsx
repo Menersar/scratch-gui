@@ -129,8 +129,8 @@ const alerts = [
         clearList: ['createSuccess', 'creating', 'createCopySuccess', 'creatingCopy',
             'createRemixSuccess', 'creatingRemix', 'saveSuccess', 'saving'],
         showDownload: true,
-        showSaveNow: true,
-        closeButton: false,
+        // showSaveNow: true,
+        closeButton: true,
         content: (
             <FormattedMessage
                 defaultMessage="Project could not save."
@@ -143,7 +143,7 @@ const alerts = [
     {
         alertId: 'saveSuccess',
         alertType: AlertTypes.INLINE,
-        clearList: ['saveSuccess', 'saving', 'savingError'],
+        clearList: ['saveSuccess', 'saving', 'savingError', 'sidekickSaveToDiskSuccess'],
         content: (
             <FormattedMessage
                 defaultMessage="Project saved."
@@ -158,12 +158,40 @@ const alerts = [
     {
         alertId: 'saving',
         alertType: AlertTypes.INLINE,
-        clearList: ['saveSuccess', 'saving', 'savingError'],
+        clearList: ['saveSuccess', 'saving', 'savingError', 'sidekickSaveToDiskSuccess'],
         content: (
             <FormattedMessage
-                defaultMessage="Saving project…"
+                defaultMessage="Saving project …"
                 description="Message indicating that project is in process of saving"
                 id="gui.alerts.saving"
+            />
+        ),
+        iconSpinner: true,
+        level: AlertLevels.INFO
+    },
+    {
+        alertId: 'sidekickSaveToDiskSuccess',
+        alertType: AlertTypes.INLINE,
+        clearList: ['saveSuccess', 'saving', 'savingError', 'sidekickSaveToDiskSuccess'],
+        content: (
+            <FormattedMessage
+                defaultMessage="Saved to your computer."
+                description="Message indicating that project was successfully saved to the user's disk"
+                id="gui.alerts.savedToDisk"
+            />
+        ),
+        iconURL: successImage,
+        level: AlertLevels.SUCCESS,
+        maxDisplaySecs: 3
+    },
+    {
+        alertId: 'sidekickAutosaving',
+        alertType: AlertTypes.INLINE,
+        content: (
+            <FormattedMessage
+                defaultMessage="Creating restore point …"
+                description="Message indicating that a restore point is in process of being created"
+                id="gui.alerts.autosaving"
             />
         ),
         iconSpinner: true,

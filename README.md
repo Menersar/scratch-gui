@@ -1,4 +1,21 @@
 # scratch-gui
+
+<!-- !!! CHANGE !!! -->
+<!-- image: `https://trampoline.turbowarp.org/avatars/${userId}`,
+image: `https://uploads.scratch.mit.edu/users/avatars/${userId}`, -->
+
+<!-- https://mixality.github.io/Sidekick/[website]
+https://github.com/Mixality/Sidekick#[documentation] -->
+
+<!-- Source: https://de.scratch-wiki.info/wiki/Scratch_API, https://scratch.mit.edu/discuss/topic/173389/?page=1#post-1667158, https://en.scratch-wiki.info/wiki/Scratch_API
+Example: https://api.scratch.mit.edu/projects/866721495 -->
+<!-- `https://trampoline.turbowarp.org/api/projects/${projectId}` -->
+<!-- `https://api.scratch.mit.edu/projects/${projectId}`, -->
+
+https://menersar.github.io/Sidekick/[website]
+https://github.com/Menersar/Sidekick#[documentation]
+
+
 #### Scratch GUI is a set of React components that comprise the interface for creating and running Scratch 3.0 projects
 
 ## Installation

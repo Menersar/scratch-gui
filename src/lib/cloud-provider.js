@@ -1,6 +1,12 @@
 import log from './log.js';
 import throttle from 'lodash.throttle';
 
+const anonymizeUsername = username => {
+    if (/^player\d{2,7}$/i.test(username)) {
+        return 'player';
+    }
+    return username;
+};
 
 class CloudProvider {
     /**
@@ -15,7 +21,7 @@ class CloudProvider {
      */
     constructor (cloudHost, vm, username, projectId) {
         this.vm = vm;
-        this.username = username;
+        this.username = anonymizeUsername(username);
         this.projectId = projectId;
         this.cloudHost = cloudHost;
 
@@ -29,7 +35,9 @@ class CloudProvider {
 
         // Send a message to the cloud server at a rate of no more
         // than 10 messages/sec.
-        this.sendCloudData = throttle(this._sendCloudData, 100);
+        // !!! ???
+        // Set cloud variables' change to a higher range (100 -> 50).
+        this.sendCloudData = throttle(this._sendCloudData, 50);
     }
 
     /**
@@ -40,7 +48,11 @@ class CloudProvider {
         this.connectionAttempts += 1;
 
         try {
-            this.connection = new WebSocket((location.protocol === 'http:' ? 'ws://' : 'wss://') + this.cloudHost);
+            // Check if the the variable 'cloudHost' does already include 'ws://' and 'wss://' and only append them if not.
+            if (!this.cloudHost || (!this.cloudHost.includes('ws://') && !this.cloudHost.includes('wss://'))) {
+                this.cloudHost = (location.protocol === 'http:' ? 'ws://' : 'wss://') + this.cloudHost;
+            }
+            this.connection = new WebSocket(this.cloudHost);
         } catch (e) {
             log.warn('Websocket support is not available in this browser', e);
             this.connection = null;
@@ -85,10 +97,28 @@ class CloudProvider {
         this.queuedData = [];
     }
 
-    onClose () {
+    // Parameter with additional error information.
+    onClose (e) {
+        // No reconnection attempts if specific (following) error codes are given and read.
+        // Error code 4002: "Username Error".
+        if (e && e.code === 4002) {
+            log.info('Cloud username is invalid. Not reconnecting.');
+            this.onInvalidUsername();
+            return;
+        }
+        // Error code 4004: "Project Unavailable".
+        if (e && e.code === 4004) {
+            log.info('Cloud variables are disabled for this project. Not reconnecting.');
+            return;
+        }
+
         log.info(`Closed connection to websocket`);
         const randomizedTimeout = this.randomizeDuration(this.exponentialTimeout());
         this.setTimeout(this.openConnection.bind(this), randomizedTimeout);
+    }
+
+    onInvalidUsername () {
+        /* no-op */
     }
 
     exponentialTimeout () {

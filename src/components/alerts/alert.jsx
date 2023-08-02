@@ -53,7 +53,7 @@ const AlertComponent = ({
         <div className={styles.alertMessage}>
             {extensionName ? (
                 <FormattedMessage
-                    defaultMessage="Scratch lost connection to {extensionName}."
+                    defaultMessage="Sidekick lost connection to {extensionName}."
                     description="Message indicating that an extension peripheral has been disconnected"
                     id="gui.alerts.lostPeripheralConnection"
                     values={{
@@ -128,7 +128,7 @@ AlertComponent.propTypes = {
     onDownload: PropTypes.func,
     onReconnect: PropTypes.func,
     onSaveNow: PropTypes.func,
-    showDownload: PropTypes.func,
+    showDownload: PropTypes.bool,
     showReconnect: PropTypes.bool,
     showSaveNow: PropTypes.bool
 };

@@ -23,6 +23,38 @@ import {
 import log from './log';
 import storage from './storage';
 
+import {fetchProjectMeta} from './sidekick-project-meta-fetcher-hoc.jsx';
+import {MISSING_PROJECT_ID} from './sidekick-missing-project';
+import VM from 'scratch-vm';
+import * as progressMonitor from '../components/loader/sidekick-progress-monitor';
+
+// !!!
+// Project tokens (hacky).
+const fetchProjectToken = async projectId => {
+    if (projectId === '0') {
+        return null;
+    }
+    // !!!
+    // Parse ?token=abcdef
+    const searchParams = new URLSearchParams(location.search);
+    if (searchParams.has('token')) {
+        return searchParams.get('token');
+    }
+    // !!!
+    // Parse #1?token=abcdef
+    const hashParams = new URLSearchParams(location.hash.split('?')[1]);
+    if (hashParams.has('token')) {
+        return hashParams.get('token');
+    }
+    try {
+        const metadata = await fetchProjectMeta(projectId);
+        return metadata.project_token;
+    } catch (e) {
+        log.error(e);
+        throw new Error('Cannot access project token. Project is probably unshared. See https://docs.turbowarp.org/unshared-projects');
+    }
+};
+
 /* Higher Order Component to provide behavior for loading projects by id. If
  * there's no id, the default project is loaded.
  * @param {React.Component} WrappedComponent component to receive projectData prop
@@ -72,8 +104,47 @@ const ProjectFetcherHOC = function (WrappedComponent) {
             }
         }
         fetchProject (projectId, loadingState) {
-            return storage
-                .load(storage.AssetType.Project, projectId, storage.DataFormat.JSON)
+            // Stop the VM (after clearing it) so it does not run during a project fetching process.
+            this.props.vm.clear();
+            this.props.vm.stop();
+            let assetPromise;
+            // !!! ???
+            // When running in node.
+            let projectUrl = typeof URLSearchParams === 'undefined' ?
+                null :
+                new URLSearchParams(location.search).get('project_url');
+            if (projectUrl) {
+                if (!projectUrl.startsWith('http:') && !projectUrl.startsWith('https:')) {
+                    projectUrl = `https://${projectUrl}`;
+                }
+                assetPromise = progressMonitor.fetchWithProgress(projectUrl)
+                    .then(returnOfRequest => {
+                        if (!returnOfRequest.ok) {
+                            throw new Error(`Request returned status ${returnOfRequest.status}`);
+                        }
+                        return returnOfRequest.arrayBuffer();
+                    })
+                    .then(buffer => ({data: buffer}));
+            } else {
+                assetPromise = fetchProjectToken(projectId)
+                    .then(token => {
+                        storage.setProjectToken(token);
+                        return storage.load(storage.AssetType.Project, projectId, storage.DataFormat.JSON);
+                    });
+            }
+            return assetPromise
+                .then(projectAsset => {
+                    // !!! ???
+                    // Load 'missing project' page if the project data appears to be HTML (404 page).
+                    // (https://projects.scratch.mit.edu/9999999999999999999999).
+                    if (projectAsset && projectAsset.data) {
+                        const firstChar = projectAsset.data[0];
+                        if (firstChar === '<' || firstChar === '<'.charCodeAt(0)) {
+                            return storage.load(storage.AssetType.Project, MISSING_PROJECT_ID, storage.DataFormat.JSON);
+                        }
+                    }
+                    return projectAsset;
+                })
                 .then(projectAsset => {
                     if (projectAsset) {
                         this.props.onFetchedProjectData(projectAsset.data, loadingState);
@@ -132,7 +203,8 @@ const ProjectFetcherHOC = function (WrappedComponent) {
         projectToken: PropTypes.string,
         projectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         reduxProjectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        setProjectId: PropTypes.func
+        setProjectId: PropTypes.func,
+        vm: PropTypes.instanceOf(VM)
     };
     ProjectFetcherComponent.defaultProps = {
         assetHost: 'https://assets.scratch.mit.edu',
@@ -145,7 +217,8 @@ const ProjectFetcherHOC = function (WrappedComponent) {
         isLoadingProject: getIsLoading(state.scratchGui.projectState.loadingState),
         isShowingProject: getIsShowingProject(state.scratchGui.projectState.loadingState),
         loadingState: state.scratchGui.projectState.loadingState,
-        reduxProjectId: state.scratchGui.projectState.projectId
+        reduxProjectId: state.scratchGui.projectState.projectId,
+        vm: state.scratchGui.vm
     });
     const mapDispatchToProps = dispatch => ({
         onActivateTab: tab => dispatch(activateTab(tab)),

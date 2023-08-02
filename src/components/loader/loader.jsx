@@ -1,5 +1,5 @@
 import React from 'react';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage, defineMessages, intlShape, injectIntl} from 'react-intl';
 import classNames from 'classnames';
 import styles from './loader.css';
 import PropTypes from 'prop-types';
@@ -7,98 +7,34 @@ import PropTypes from 'prop-types';
 import topBlock from './top-block.svg';
 import middleBlock from './middle-block.svg';
 import bottomBlock from './bottom-block.svg';
-const messages = [
-    {
-        message: (
-            <FormattedMessage
-                defaultMessage="Creating blocks …"
-                description="One of the loading messages"
-                id="gui.loader.message1"
-            />
-        ),
-        weight: 50
+
+import bindAll from 'lodash.bindall';
+
+import * as progressMonitor from './sidekick-progress-monitor';
+
+const messages = defineMessages({
+    generic: {
+        defaultMessage: 'Loading project …',
+        description: 'Initial generic loading message',
+        id: 'gui.loader.generic'
     },
-    {
-        message: (
-            <FormattedMessage
-                defaultMessage="Loading sprites …"
-                description="One of the loading messages"
-                id="gui.loader.message2"
-            />
-        ),
-        weight: 50
+    projectData: {
+        defaultMessage: 'Downloading project data …',
+        description: 'Appears when loading project data',
+        id: 'gui.loader.data'
     },
-    {
-        message: (
-            <FormattedMessage
-                defaultMessage="Loading sounds …"
-                description="One of the loading messages"
-                id="gui.loader.message3"
-            />
-        ),
-        weight: 50
+    assetsKnown: {
+        defaultMessage: 'Downloading assets ({complete}/{total}) …',
+        description: 'Appears when loading project assets and amount of assets is known',
+        id: 'gui.loader.assets.known'
     },
-    {
-        message: (
-            <FormattedMessage
-                defaultMessage="Loading extensions …"
-                description="One of the loading messages"
-                id="gui.loader.message4"
-            />
-        ),
-        weight: 50
-    },
-    {
-        message: (
-            <FormattedMessage
-                defaultMessage="Creating blocks …"
-                description="One of the loading messages"
-                id="gui.loader.message1"
-            />
-        ),
-        weight: 20
-    },
-    {
-        message: (
-            <FormattedMessage
-                defaultMessage="Herding cats …"
-                description="One of the loading messages"
-                id="gui.loader.message5"
-            />
-        ),
-        weight: 1
-    },
-    {
-        message: (
-            <FormattedMessage
-                defaultMessage="Transmitting nanos …"
-                description="One of the loading messages"
-                id="gui.loader.message6"
-            />
-        ),
-        weight: 1
-    },
-    {
-        message: (
-            <FormattedMessage
-                defaultMessage="Inflating gobos …"
-                description="One of the loading messages"
-                id="gui.loader.message7"
-            />
-        ),
-        weight: 1
-    },
-    {
-        message: (
-            <FormattedMessage
-                defaultMessage="Preparing emojis …"
-                description="One of the loading messages"
-                id="gui.loader.message8"
-            />
-        ),
-        weight: 1
+    assetsUnknown: {
+        defaultMessage: 'Downloading assets …',
+        description: 'Appears when loading project assets but amount of assets is unknown',
+        id: 'gui.loader.assets.unknown'
     }
-];
+});
+
 const mainMessages = {
     'gui.loader.headline': (
         <FormattedMessage
@@ -117,34 +53,75 @@ const mainMessages = {
 };
 
 class LoaderComponent extends React.Component {
+
     constructor (props) {
         super(props);
-        this.state = {
-            messageNumber: this.chooseRandomMessage()
-        };
+        this._state = 0;
+        this.progress = 0;
+        this.complete = 0;
+        this.total = 0;
+        bindAll(this, [
+            'barInnerRef',
+            'handleProgressChange',
+            'messageRef'
+        ]);
     }
+
     componentDidMount () {
-        // Start an interval to choose a new message every 5 seconds
-        this.intervalId = setInterval(() => {
-            this.setState({messageNumber: this.chooseRandomMessage()});
-        }, 5000);
+        // // Start an interval to choose a new message every 5 seconds
+        progressMonitor.setProgressHandler(this.handleProgressChange);
+        this.updateMessage();
     }
+
+    componentDidUpdate () {
+        this.update();
+    }
+
     componentWillUnmount () {
-        clearInterval(this.intervalId);
+        progressMonitor.setProgressHandler(() => {});
     }
-    chooseRandomMessage () {
-        let messageNumber;
-        const sum = messages.reduce((acc, m) => acc + m.weight, 0);
-        let rand = sum * Math.random();
-        for (let i = 0; i < messages.length; i++) {
-            rand -= messages[i].weight;
-            if (rand <= 0) {
-                messageNumber = i;
-                break;
-            }
+
+    handleProgressChange (state, progress, complete, total) {
+        if (state !== this._state) {
+            this._state = state;
+            this.updateMessage();
         }
-        return messageNumber;
+        this.progress = progress;
+        this.complete = complete;
+        this.total = total;
+        this.update();
     }
+
+    update () {
+        this.barInner.style.width = `${this.progress * 100}%`;
+        if (this._state === 2) {
+            this.updateMessage();
+        }
+    }
+
+    updateMessage () {
+        if (this._state === 0) {
+            this.message.textContent = this.props.intl.formatMessage(messages.generic);
+        } else if (this._state === 1) {
+            this.message.textContent = this.props.intl.formatMessage(messages.projectData);
+        } else if (this.total > 0) {
+            this.message.textContent = this.props.intl.formatMessage(messages.assetsKnown, {
+                complete: this.complete,
+                total: this.total
+            });
+        } else {
+            this.message.textContent = this.props.intl.formatMessage(messages.assetsUnknown);
+        }
+    }
+
+    barInnerRef (element) {
+        this.barInner = element;
+    }
+
+    messageRef (element) {
+        this.message = element;
+    }
+
     render () {
         return (
             <div
@@ -173,17 +150,14 @@ class LoaderComponent extends React.Component {
                     <div className={styles.messageContainerOuter}>
                         <div
                             className={styles.messageContainerInner}
-                            style={{transform: `translate(0, -${this.state.messageNumber * 25}px)`}}
-                        >
-                            {messages.map((m, i) => (
-                                <div
-                                    className={styles.message}
-                                    key={i}
-                                >
-                                    {m.message}
-                                </div>
-                            ))}
-                        </div>
+                            ref={this.messageRef}
+                            />
+                    </div>
+                    <div className={styles.sidekickProgressOuter}>
+                        <div
+                            className={styles.sidekickProgressInner}
+                            ref={this.barInnerRef}
+                        />
                     </div>
                 </div>
             </div>
@@ -193,11 +167,12 @@ class LoaderComponent extends React.Component {
 
 LoaderComponent.propTypes = {
     isFullScreen: PropTypes.bool,
-    messageId: PropTypes.string
+    messageId: PropTypes.string,
+    intl: intlShape.isRequired,
 };
 LoaderComponent.defaultProps = {
     isFullScreen: false,
     messageId: 'gui.loader.headline'
 };
 
-export default LoaderComponent;
+export default injectIntl(LoaderComponent);

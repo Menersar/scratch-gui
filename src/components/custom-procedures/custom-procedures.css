@@ -11,6 +11,11 @@
     padding: 1.5rem 2.25rem;
 }
 
+[theme="dark"] .body {
+    color: $text-primary;
+    background: $ui-secondary;
+}
+
 .body input[type="checkbox"],
 .body input[type="radio"] {
     margin: 3px;
@@ -50,6 +55,10 @@
     cursor: pointer;
     transition: all 0.2s;
     flex-basis: 100px;
+}
+
+[theme="dark"] .option-card {
+    background: $ui-tertiary;
 }
 
 .option-card:hover {
@@ -103,4 +112,8 @@
 
 [dir="rtl"] .button-row button + button {
     margin-right: 0.5rem;
+}
+
+.cancel-button {
+    color: black;
 }

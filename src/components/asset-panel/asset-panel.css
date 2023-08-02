@@ -10,6 +10,10 @@
     font-size: 0.85rem;
 }
 
+[theme="dark"] .wrapper {
+    background: $ui-primary;
+}
+
 [dir="ltr"] .wrapper {
     border-top-right-radius: $space;
     border-bottom-right-radius: $space;

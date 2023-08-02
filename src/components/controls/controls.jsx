@@ -9,6 +9,9 @@ import TurboMode from '../turbo-mode/turbo-mode.jsx';
 
 import styles from './controls.css';
 
+import FramerateIndicator from '../sidekick-framerate-indicator/framerate-indicator.jsx';
+import {STAGE_SIZE_MODES} from '../../lib/layout-constants.js';
+
 const messages = defineMessages({
     goTitle: {
         id: 'gui.controls.go',
@@ -30,6 +33,9 @@ const Controls = function (props) {
         onGreenFlagClick,
         onStopAllClick,
         turbo,
+        framerate,
+        interpolation,
+        isSmall,
         ...componentProps
     } = props;
     return (
@@ -48,8 +54,14 @@ const Controls = function (props) {
                 onClick={onStopAllClick}
             />
             {turbo ? (
-                <TurboMode />
+                <TurboMode isSmall={isSmall} />
             ) : null}
+            {!isSmall && (
+                <FramerateIndicator
+                    framerate={framerate}
+                    interpolation={interpolation}
+                />
+            )}
         </div>
     );
 };
@@ -60,12 +72,16 @@ Controls.propTypes = {
     intl: intlShape.isRequired,
     onGreenFlagClick: PropTypes.func.isRequired,
     onStopAllClick: PropTypes.func.isRequired,
-    turbo: PropTypes.bool
+    turbo: PropTypes.bool,
+    framerate: PropTypes.number,
+    interpolation: PropTypes.bool,
+    isSmall: PropTypes.bool
 };
 
 Controls.defaultProps = {
     active: false,
-    turbo: false
+    turbo: false,
+    isSmall: false
 };
 
 export default injectIntl(Controls);

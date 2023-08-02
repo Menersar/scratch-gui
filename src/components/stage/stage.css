@@ -13,6 +13,9 @@
     border: $stage-standard-border-width solid $ui-black-transparent;
     overflow: hidden;
 
+    /* use light theme for all stage objects */
+    color-scheme: light;
+
     /* @todo: This is for overriding the value being set somewhere. Where is it being set? */
     background-color: transparent;
 
@@ -27,7 +30,8 @@
 }
 
 .stage.full-screen {
-    border: $stage-full-screen-border-width solid rgb(126, 133, 151);
+    /* Do not render a border in fullscreen modus */
+    /* border: $stage-full-screen-border-width solid rgb(126, 133, 151); */
 }
 
 .with-color-picker {
@@ -36,7 +40,10 @@
 }
 
 .color-picker-background {
-    position: absolute;
+    /* Change position from 'absolute' to 'fixed' */
+    /* absolute: The box's position (and possibly size) is specified with the 'top', 'right', 'bottom', and 'left' properties. These properties specify offsets with respect to the box's 'containing block'. */
+    /* fixed: The box's position is calculated according to the 'absolute' model, but in addition, the box is fixed with respect to some reference. As with the 'absolute' model, the box's margins do not collapse with any other margins. */
+    position: fixed;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.55);
@@ -81,7 +88,7 @@ stage doesn't "spill" out from under its rounded corners. instead, shift these o
     top: 0;
     left: 0;
     z-index: $z-index-dragging-sprite;
-    filter: drop-shadow(5px 5px 5px $ui-black-transparent);
+    filter: drop-shadow(5px 5px 5px $ui-black-transparent-default);
 }
 
 .stage-bottom-wrapper {
@@ -147,7 +154,7 @@ stage doesn't "spill" out from under its rounded corners. instead, shift these o
 }
 
 
-
+/* ??? */
 @keyframes flash {
     0% { opacity: 1; }
     100% { opacity: 0; }

@@ -22,6 +22,10 @@
     margin-top: calc(2 * $space);
 }
 
+.name-input {
+    width: 100%;
+}
+
 .input-group {
     display: flex;
     flex-direction: row;
@@ -84,6 +88,10 @@ $border-radius: 0.25rem;
     margin: 0px;
 }
 
+[theme="dark"] .button {
+    background-color: $ui-primary;
+}
+
 .button > img {
     flex-grow: 1;
     max-width: 100%;
@@ -103,11 +111,21 @@ $border-radius: 0.25rem;
     user-select: none;
 }
 
+[theme="dark"] .round-button {
+    border-color: transparent;
+}
+
 .round-button > img {
     flex-grow: 1;
     max-width: 100%;
     max-height: 100%;
     /*min-width: 1.5rem;*/
+}
+
+.round-button-outer {
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 
 [dir="rtl"] .undo-icon, [dir="rtl"] .redo-icon {
@@ -222,4 +240,45 @@ $border-radius: 0.25rem;
 
 .button:disabled > img {
     opacity: 0.25;
+}
+
+.effects {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: calc(2 * $space);
+}
+
+/* !!! ??? */
+.advanced-info {
+
+}
+
+.duration {
+    font-weight: bold;
+}
+
+.alert {
+    margin-top: calc(2 * $space);
+    border-radius: 5px;
+    padding: $space;
+    display: flex;
+    align-items: center;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.too-large {
+    background-color: rgba(255, 119, 0, 0.3);
+    border-color: rgb(255, 119, 0);
+}
+
+.stereo {
+    background-color: rgba(145, 145, 255, 0.3);
+    border-color: rgb(145, 145, 255)
 }

@@ -1,0 +1,169 @@
+.template {
+
+
+    /* motion-primary: #D9D9D9;
+motion-tertiary: #F9F9F9;
+motion-transparent: #e8edf1; */
+
+
+    /* looks-secondary (border) */
+    color: 1px solid rgb(76, 151, 255);
+    /* looks-transparent (box-shadow) */
+    color: 0px 0px 0px 3px hsla(215, 100%, 65%, 0.2);
+
+    /* motion-primary */
+    color: hsl(0, 100%, 65%);
+    color: #4d97ff;
+    color: hsl(145, 100%, 65%);
+
+    /* motion-tertiary */
+    color: hsl(0, 60%, 50%);
+    color: #3373cc;
+    color: hsl(145, 60%, 50%);
+
+    /* motion-transparent */
+    color: hsla(0, 100%, 65%, 0.35);
+    color: hsla(215, 100%, 65%, 0.35);
+    color: hsla(145, 100%, 65%, 0.35);
+
+
+    /* Main greys */
+    /* grey 1 */
+    color: #e1e1e1;
+    color: #757575; /* shadow version */
+    /* grey 2 */
+    color: #ababab;
+    color: #595959; /* shadow version */
+    /* grey 3 */
+    color: #575757;
+    color: #2d2d2d; /* shadow version (#333) */
+    /* grey 4 (#1e1e1e) */
+    color: #272727;
+
+    /* Main greens */
+    /* green 1 */
+    color: #c6ddaf;
+    /* green 2 */
+    color: #b7d59b;
+    /* green 3 */
+    color: #63a93d;
+    color: #345820; /* shadow version */
+
+
+
+
+    color: #ff4c4c;
+    color: #e64444;
+    color: #c73a3a;
+
+    color: #29beb8;
+    color: #3aa8a4;
+    color: #3aa8a4;
+
+    /* defaultExtensionColors */
+    color: #0FBD8C;
+    color: #0DA57A;
+    color: #0B8E69;
+
+    /* ui primary */
+    color: rgb(242, 242, 242); /* #E5F0FF */
+    /* ui primary dark*/
+    color: rgb(37, 41, 50);
+    /* ui-secondary */
+    color: rgb(237, 237, 237); /* #E9F1FC */
+    /* ui-tertiary */
+    color: rgb(229, 229, 229); /* #D9E3F2 */
+    /* ui-tertiary-dark */
+    color: rgb(34, 39, 46);
+
+    /* ui */
+    color: rgb(233, 241, 252);
+    color: rgb(229, 240, 255);
+    color: rgb(217, 227, 242);
+
+    /* ui-modal-overlay */
+    color: hsla(215, 100%, 65%, 0.5); /* 50% transparent version of motion-primary */
+    /* ui-modal-overlay-dark */
+    color: hsla(0, 0%, 1%, 0.5);
+
+    /* ui-white */
+    color: hsla(0, 100%, 100%, 1); /* #FFFFFF */
+    /* ui-white-dim */
+    color: hsla(0, 100%, 100%, 0.75); /* 25% transparent version of ui-white */
+
+    /* ui background */
+    color: hsl(215, 65%, 55%);
+    /* ui background dark */
+    color: hsl(214, 13%, 20%);
+
+    /* text-primary */
+    color: hsla(225, 15%, 40%, 1);
+    color: rgba(87, 94, 117, 1);
+    /* text-primary-dark */
+    color: rgb(211, 215, 220);
+
+    /* motion primary */
+    color: rgb(53, 129, 234); /* #4286F3 */
+    /* motion primary dark*/
+    color: rgb(45, 51, 59); /* #4C97FF */
+    /* motion tertiary */
+    color: hsla(215, 60%, 50%, 1); /* #3373CC */
+
+    /* extensions-primary */
+    color: hsla(163, 85%, 40%, 1); /* #0FBD8C */
+    /* extensions-tertiary */
+    color: hsla(163, 85%, 30%, 1); /* #0B8E69 */
+    /* extensions-light */
+    color: hsla(163, 57%, 85%, 1); /* opaque version of extensions-transparent, on white bg */
+
+    /* drop-highlight */
+    color: hsla(215, 100%, 77%, 1); /* lighter than motion-primary */
+    /* drop-highlight dark */
+    color: rgb(46, 52, 64);
+
+    /* ______________________________________________________________________________________________________________________________ */
+
+    /* red */
+    color: #ff661a;
+    color: #e64d00;
+
+    /* sound */
+    color: #cf63cf;
+    color: #bd42bd;
+
+    /* control */
+    color: #ffab1a;
+
+    /* error primary */
+    /* data */
+    color: #ff8c1a;
+
+    /* error light*/
+    color: #ffb366;
+
+    /* pen */
+    color: #0fbd8c;
+    color: #0b8e69;
+
+    /* alert */
+    .alert.warn {
+        background: #FFF0DF;
+        border: 1px solid #FF8C1A;
+        box-shadow: 0px 0px 0px 2px rgba(255, 140, 26, 0.25);
+    }
+    .alert.success {
+        background: #c3efe2;
+        border: 1px solid #0b8e69;
+        /* box-shadow: 0px 0px 0px 2px rgba(195, 239, 226, 1); */
+        box-shadow: 0px 0px 0px 2px rgba(195, 239, 226, 0.25);
+    }
+    .alert-message {
+        color: #555;
+        font-weight: bold;
+        font-size: .8125rem;
+        line-height: .875rem;
+        display: flex;
+        align-items: center;
+        padding-right: .5rem;
+    }
+}

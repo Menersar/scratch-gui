@@ -5,6 +5,7 @@ const initialState = {
     showBranding: false,
     isFullScreen: false,
     isPlayerOnly: false,
+    isEmbedded: false,
     hasEverEnteredEditor: true
 };
 

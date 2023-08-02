@@ -16,6 +16,7 @@ import {
     activateColorPicker,
     deactivateColorPicker
 } from '../reducers/color-picker';
+import {setHighQualityPenState} from '../reducers/sidekick';
 
 const colorPickerRadius = 20;
 const dragThreshold = 3; // Same as the block drag threshold
@@ -35,6 +36,7 @@ class Stage extends React.Component {
             'onStartDrag',
             'onStopDrag',
             'onWheel',
+            'onContextMenu',
             'updateRect',
             'questionListener',
             'setDragCanvas',
@@ -56,7 +58,17 @@ class Stage extends React.Component {
             this.canvas = this.renderer.canvas;
         } else {
             this.canvas = document.createElement('canvas');
-            this.renderer = new Renderer(this.canvas);
+            this.renderer = new Renderer(
+                this.canvas,
+                -this.props.customStageSize.width / 2,
+                this.props.customStageSize.width / 2,
+                -this.props.customStageSize.height / 2,
+                this.props.customStageSize.height / 2
+            );
+            this.props.vm.setStageSize(
+                this.props.customStageSize.width,
+                this.props.customStageSize.height,
+            );
             this.props.vm.attachRenderer(this.renderer);
 
             // Only attach a video provider once because it is stateful
@@ -67,6 +79,8 @@ class Stage extends React.Component {
             // possible to use CSS to style the canvas to have a different
             // default color
             this.props.vm.renderer.draw();
+
+            this.props.vm.renderer.on('UseHighQualityRenderChanged', this.props.onHighQualityPenChanged);
         }
         this.props.vm.attachV2BitmapAdapter(new V2BitmapAdapter());
     }
@@ -78,9 +92,12 @@ class Stage extends React.Component {
     }
     shouldComponentUpdate (nextProps, nextState) {
         return this.props.stageSize !== nextProps.stageSize ||
+            this.props.customStageSize !== nextProps.customStageSize ||
+            this.props.dimensions !== nextProps.dimensions ||
             this.props.isColorPicking !== nextProps.isColorPicking ||
             this.state.colorInfo !== nextState.colorInfo ||
             this.props.isFullScreen !== nextProps.isFullScreen ||
+            this.props.isWindowFullScreen !== nextProps.isWindowFullScreen ||
             this.state.question !== nextState.question ||
             this.props.micIndicator !== nextProps.micIndicator ||
             this.props.isStarted !== nextProps.isStarted;
@@ -109,14 +126,16 @@ class Stage extends React.Component {
         });
     }
     startColorPickingLoop () {
-        this.intervalId = setInterval(() => {
+        const callback = () => {
+            this.animationFrameId = requestAnimationFrame(callback);
             if (typeof this.pickX === 'number') {
                 this.setState({colorInfo: this.getColorInfo(this.pickX, this.pickY)});
             }
-        }, 30);
+        };
+        this.animationFrameId = requestAnimationFrame(callback);
     }
     stopColorPickingLoop () {
-        clearInterval(this.intervalId);
+        cancelAnimationFrame(this.animationFrameId);
     }
     attachMouseEvents (canvas) {
         document.addEventListener('mousemove', this.onMouseMove);
@@ -126,6 +145,7 @@ class Stage extends React.Component {
         canvas.addEventListener('mousedown', this.onMouseDown);
         canvas.addEventListener('touchstart', this.onMouseDown);
         canvas.addEventListener('wheel', this.onWheel);
+        canvas.addEventListener('contextmenu', this.onContextMenu);
     }
     detachMouseEvents (canvas) {
         document.removeEventListener('mousemove', this.onMouseMove);
@@ -135,6 +155,7 @@ class Stage extends React.Component {
         canvas.removeEventListener('mousedown', this.onMouseDown);
         canvas.removeEventListener('touchstart', this.onMouseDown);
         canvas.removeEventListener('wheel', this.onWheel);
+        canvas.removeEventListener('contextmenu', this.onContextMenu);
     }
     attachRectEvents () {
         window.addEventListener('resize', this.updateRect);
@@ -162,6 +183,9 @@ class Stage extends React.Component {
         };
     }
     handleDoubleClick (e) {
+        if (this.props.disableEditingTargetChange) {
+            return;
+        }
         const {x, y} = getEventXY(e);
         // Set editing target from cursor position, if clicking on a sprite.
         const mousePosition = [x - this.rect.left, y - this.rect.top];
@@ -223,6 +247,7 @@ class Stage extends React.Component {
         });
         const data = {
             isDown: false,
+            button: e.button,
             x: x - this.rect.left,
             y: y - this.rect.top,
             canvasWidth: this.rect.width,
@@ -261,7 +286,8 @@ class Stage extends React.Component {
             // Immediately update the color picker info
             this.setState({colorInfo: this.getColorInfo(this.pickX, this.pickY)});
         } else {
-            if (e.button === 0 || (window.TouchEvent && e instanceof TouchEvent)) {
+            const isTouchEvent = window.TouchEvent && e instanceof TouchEvent;
+            if (e.button === 0 || isTouchEvent) {
                 this.setState({
                     mouseDown: true,
                     mouseDownPosition: mousePosition,
@@ -273,13 +299,14 @@ class Stage extends React.Component {
             }
             const data = {
                 isDown: true,
+                button: e.button,
                 x: mousePosition[0],
                 y: mousePosition[1],
                 canvasWidth: this.rect.width,
                 canvasHeight: this.rect.height
             };
             this.props.vm.postIOData('mouse', data);
-            if (e.preventDefault) {
+            if (isTouchEvent && e.preventDefault) {
                 // Prevent default to prevent touch from dragging page
                 e.preventDefault();
                 // But we do want any active input to be blurred
@@ -295,6 +322,11 @@ class Stage extends React.Component {
             deltaY: e.deltaY
         };
         this.props.vm.postIOData('mouseWheel', data);
+    }
+    onContextMenu (e) {
+        if (this.props.vm.runtime.ioDevices.mouse.usesRightClickDown) {
+            e.preventDefault();
+        }
     }
     cancelMouseDownTimeout () {
         if (this.state.mouseDownTimeoutId !== null) {
@@ -409,6 +441,7 @@ class Stage extends React.Component {
         const {
             vm, // eslint-disable-line no-unused-vars
             onActivateColorPicker, // eslint-disable-line no-unused-vars
+            disableEditingTargetChange, // eslint-disable-line no-unused-vars
             ...props
         } = this.props;
         return (
@@ -429,11 +462,21 @@ Stage.propTypes = {
     isColorPicking: PropTypes.bool,
     isFullScreen: PropTypes.bool.isRequired,
     isStarted: PropTypes.bool,
+    isPlayerOnly: PropTypes.bool,
+    isWindowFullScreen: PropTypes.bool,
     micIndicator: PropTypes.bool,
+    highQualityPen: PropTypes.bool,
+    useEditorDragStyle: PropTypes.bool,
+    disableEditingTargetChange: PropTypes.bool,
     onActivateColorPicker: PropTypes.func,
     onDeactivateColorPicker: PropTypes.func,
+    onHighQualityPenChanged: PropTypes.func,
     stageSize: PropTypes.oneOf(Object.keys(STAGE_DISPLAY_SIZES)).isRequired,
-    useEditorDragStyle: PropTypes.bool,
+    customStageSize: PropTypes.shape({
+        width: PropTypes.number,
+        height: PropTypes.number
+    }),
+    dimensions: PropTypes.arrayOf(PropTypes.number),
     vm: PropTypes.instanceOf(VM).isRequired
 };
 
@@ -443,16 +486,28 @@ Stage.defaultProps = {
 
 const mapStateToProps = state => ({
     isColorPicking: state.scratchGui.colorPicker.active,
-    isFullScreen: state.scratchGui.mode.isFullScreen,
+    isFullScreen: state.scratchGui.mode.isFullScreen || state.scratchGui.mode.isEmbedded,
     isStarted: state.scratchGui.vmStatus.started,
+    isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
+    isWindowFullScreen: state.scratchGui.gui.isWindowFullScreen,
     micIndicator: state.scratchGui.micIndicator,
+    highQualityPen: state.scratchGui.gui.highQualityPen,
+    // ???
     // Do not use editor drag style in fullscreen or player mode.
-    useEditorDragStyle: !(state.scratchGui.mode.isFullScreen || state.scratchGui.mode.isPlayerOnly)
+    useEditorDragStyle: !(state.scratchGui.mode.isFullScreen || state.scratchGui.mode.isPlayerOnly),
+    disableEditingTargetChange: (
+        state.scratchGui.mode.isFullScreen ||
+        state.scratchGui.mode.isEmbedded ||
+        state.scratchGui.mode.isPlayerOnly
+    ),
+    customStageSize: state.scratchGui.customStageSize,
+    dimensions: state.scratchGui.gui.dimensions
 });
 
 const mapDispatchToProps = dispatch => ({
     onActivateColorPicker: () => dispatch(activateColorPicker()),
-    onDeactivateColorPicker: color => dispatch(deactivateColorPicker(color))
+    onDeactivateColorPicker: color => dispatch(deactivateColorPicker(color)),
+    onHighQualityPenChanged: enabled => dispatch(setHighQualityPenState(enabled))
 });
 
 export default connect(

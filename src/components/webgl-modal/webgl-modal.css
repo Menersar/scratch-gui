@@ -44,6 +44,11 @@
     text-align: center;
 }
 
+[theme="dark"] .body {
+    color: $text-primary;
+    background: $ui-primary;
+}
+
 /* Confirmation buttons at the bottom of the modal */
 .button-row {
     margin: 1.5rem 0;

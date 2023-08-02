@@ -8,6 +8,8 @@ const MENU_EDIT = 'editMenu';
 const MENU_LANGUAGE = 'languageMenu';
 const MENU_LOGIN = 'loginMenu';
 const MENU_MODE = 'modeMenu';
+// !!! CHANGE: MENU_ERRORS -> MENU_ERROR !!!
+const MENU_ERRORS = 'errorMenu';
 
 
 const initialState = {
@@ -17,7 +19,8 @@ const initialState = {
     [MENU_EDIT]: false,
     [MENU_LANGUAGE]: false,
     [MENU_LOGIN]: false,
-    [MENU_MODE]: false
+    [MENU_MODE]: false,
+    [MENU_ERRORS]: false
 };
 
 const reducer = function (state, action) {
@@ -64,6 +67,9 @@ const loginMenuOpen = state => state.scratchGui.menus[MENU_LOGIN];
 const openModeMenu = () => openMenu(MENU_MODE);
 const closeModeMenu = () => closeMenu(MENU_MODE);
 const modeMenuOpen = state => state.scratchGui.menus[MENU_MODE];
+const openErrorsMenu = () => openMenu(MENU_ERRORS);
+const closeErrorsMenu = () => closeMenu(MENU_ERRORS);
+const errorsMenuOpen = state => state.scratchGui.menus[MENU_ERRORS];
 
 
 export {
@@ -89,5 +95,8 @@ export {
     loginMenuOpen,
     openModeMenu,
     closeModeMenu,
-    modeMenuOpen
+    modeMenuOpen,
+    openErrorsMenu,
+    closeErrorsMenu,
+    errorsMenuOpen
 };

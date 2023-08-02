@@ -3,6 +3,9 @@ import costumePayload from './backpack/costume-payload';
 import soundPayload from './backpack/sound-payload';
 import spritePayload from './backpack/sprite-payload';
 import codePayload from './backpack/code-payload';
+import localBackpackAPI from './sidekick-local-backpack-api';
+
+export const LOCAL_API = '_local_';
 
 // Add a new property for the full thumbnail url, which includes the host.
 // Also include a full body url for loading sprite zips
@@ -19,6 +22,12 @@ const getBackpackContents = ({
     limit,
     offset
 }) => new Promise((resolve, reject) => {
+    if (host === LOCAL_API) {
+        return resolve(localBackpackAPI.getBackpackContents({
+            limit,
+            offset
+        }));
+    }
     xhr({
         method: 'GET',
         uri: `${host}/${username}?limit=${limit}&offset=${offset}`,
@@ -42,6 +51,15 @@ const saveBackpackObject = ({
     body, // Base64-encoded body of the object being saved
     thumbnail // Base64-encoded JPEG thumbnail of the object being saved
 }) => new Promise((resolve, reject) => {
+    if (host === LOCAL_API) {
+        return resolve(localBackpackAPI.saveBackpackObject({
+            type,
+            mime,
+            name,
+            body,
+            thumbnail
+        }));
+    }
     xhr({
         method: 'POST',
         uri: `${host}/${username}`,
@@ -61,6 +79,11 @@ const deleteBackpackObject = ({
     token,
     id
 }) => new Promise((resolve, reject) => {
+    if (host === LOCAL_API) {
+        return resolve(localBackpackAPI.deleteBackpackObject({
+            id
+        }));
+    }
     xhr({
         method: 'DELETE',
         uri: `${host}/${username}/${id}`,
@@ -71,6 +94,20 @@ const deleteBackpackObject = ({
         }
         return resolve(response.body);
     });
+});
+
+const updateBackpackObject = ({
+    host,
+    id,
+    name
+}) => new Promise((resolve, reject) => {
+    if (host === LOCAL_API) {
+        return resolve(localBackpackAPI.updateBackpackObject({
+            id,
+            name
+        }));
+    }
+    reject(new Error('updateBackpackObject not supported'));
 });
 
 // Two types of backpack items are not retreivable through storage
@@ -93,6 +130,7 @@ export {
     getBackpackContents,
     saveBackpackObject,
     deleteBackpackObject,
+    updateBackpackObject,
     costumePayload,
     soundPayload,
     spritePayload,

@@ -1,0 +1,113 @@
+.template {
+    /* ui primary */
+    color: rgb(242, 242, 242); /* #E5F0FF */
+    /* ui primary dark*/
+    color: rgb(37, 41, 50);
+    /* ui-secondary */
+    color: rgb(237, 237, 237); /* #E9F1FC */
+    /* ui-tertiary */
+    color: rgb(229, 229, 229); /* #D9E3F2 */
+    /* ui-tertiary-dark */
+    color: rgb(34, 39, 46);
+
+    /* ui-modal-overlay */
+    color: hsla(215, 100%, 65%, 0.5); /* 50% transparent version of motion-primary */
+    /* ui-modal-overlay-dark */
+    color: hsla(0, 0%, 1%, 0.5);
+
+    /* ui-white */
+    color: hsla(0, 100%, 100%, 1); /* #FFFFFF */
+    /* ui-white-dim */
+    color: hsla(0, 100%, 100%, 0.75); /* 25% transparent version of ui-white */
+
+    /* ui background */
+    color: hsl(215, 65%, 55%);
+    /* ui background dark */
+    color: hsl(214, 13%, 20%);
+
+    /* text-primary */
+    color: hsla(225, 15%, 40%, 1);
+    /* text-primary-dark */
+    color: rgb(211, 215, 220);
+
+    /* motion primary */
+    color: rgb(53, 129, 234); /* #4286F3 */
+    /* motion primary dark*/
+    color: rgb(45, 51, 59); /* #4C97FF */
+    /* motion tertiary */
+    color: hsla(215, 60%, 50%, 1); /* #3373CC */
+
+    /* extensions-primary */
+    color: hsla(163, 85%, 40%, 1); /* #0FBD8C */
+    /* extensions-tertiary */
+    color: hsla(163, 85%, 30%, 1); /* #0B8E69 */
+    /* extensions-light */
+    color: hsla(163, 57%, 85%, 1); /* opaque version of extensions-transparent, on white bg */
+
+    /* drop-highlight */
+    color: hsla(215, 100%, 77%, 1); /* lighter than motion-primary */
+    /* drop-highlight dark */
+    color: rgb(46, 52, 64);
+
+    /* ______________________________________________________________________________________________________________________________ */
+
+    /* ui colors */
+    color: #e5f0ff;
+    color: #e9f1fc;
+    color: #d9e3f2;
+
+    /* ui white */
+    color: #ffffff;
+
+    /* ui black */
+    /* 000000 */
+    color: #000000;
+
+    /* text */
+    color: #575e75;
+
+    /* motion primary */
+    /* ui-modal-overlay */
+    color: #4d97ff;
+
+    /* motion tertiary*/
+    /* 3373CC */
+    color: #3373cc;
+
+    /* motion dark */
+    /* 333333 */
+    color: #333333;
+
+    /* red */
+    color: #ff661a;
+    color: #e64d00;
+
+    /* sound */
+    color: #cf63cf;
+    color: #bd42bd;
+
+    /* control */
+    /* FFAB1A */
+    color: #ffab1a;
+
+    /* error primary */
+    /* data */
+    color: #ff8c1a;
+
+    /* error light*/
+    color: #ffb366;
+
+    /* pen */
+    /* extension primary*/
+    color: #0fbd8c;
+
+    /* pen */
+    /* extension tertiary*/
+    color: #0b8e69;
+
+    /* extension light*/
+    color: #c3efe2;
+
+    /* drop highlight */
+    color: #8abbff;
+}

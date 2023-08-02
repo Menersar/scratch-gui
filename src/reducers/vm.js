@@ -1,9 +1,14 @@
 import VM from 'scratch-vm';
 import storage from '../lib/storage';
+import {MAXIMUM_CLOUD_VARIABLES} from '../lib/sidekick-cloud-limits';
 
 const SET_VM = 'scratch-gui/vm/SET_VM';
+
 const defaultVM = new VM();
 defaultVM.attachStorage(storage);
+defaultVM.setCompatibilityMode(true);
+defaultVM.runtime.cloudOptions.limit = MAXIMUM_CLOUD_VARIABLES;
+
 const initialState = defaultVM;
 
 const reducer = function (state, action) {

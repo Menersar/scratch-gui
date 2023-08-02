@@ -4,15 +4,16 @@
 
 .monitor-container {
     position: absolute;
-    background: $ui-primary;
+    background: $ui-primary-light;
     z-index: $z-index-monitor;
-    border: 1px solid $ui-black-transparent;
+    border: 1px solid $ui-black-transparent-default;
     border-radius: calc($space / 2);
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 0.75rem;
     transition: box-shadow 0.2s;
     pointer-events: all;
     overflow: hidden;
+    color: #575e75;
 }
 
 .monitor:hover {
@@ -78,22 +79,25 @@
 
 .list-header {
     background: $ui-white;
-    border-bottom: 1px solid $ui-black-transparent;
+    border-bottom: 1px solid $ui-black-transparent-default;
     text-align: center;
     padding: 3px;
     font-size: 0.75rem;
     font-weight: bold;
-    color: $text-primary;
+    color: $text-primary-light;
     width: 100%;
 }
 
 .list-body {
-    background: $ui-primary;
+    background: $ui-primary-light;
     width: 100%;
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-    height: calc(100% - 44px);
+    /* ??? */
+    /* height: calc(100% - 44px); */
+    /* ??? */
+    flex-grow: 1;
 }
 
 .list-row {
@@ -108,7 +112,7 @@
 
 .list-index {
     font-weight: bold;
-    color: $text-primary;
+    color: $text-primary-light;
     margin: 0 3px;
 }
 
@@ -118,7 +122,7 @@
     color: white;
     margin: 0 3px;
     border-radius: calc($space / 2);
-    border: 1px solid $ui-black-transparent;
+    border: 1px solid $ui-black-transparent-default;
     flex-grow: 1;
     height: 22px;
 }
@@ -131,7 +135,9 @@
     padding: 3px;
     font-size: 0.75rem;
     font-weight: bold;
-    color: $text-primary;
+    color: $text-primary-light;
+    /* ??? */
+    border-top: 1px solid $ui-black-transparent-default;
 }
 
 .list-empty {

@@ -32,7 +32,7 @@ const modes = {
 
 const MonitorComponent = props => (
     <ContextMenuTrigger
-        disable={!props.draggable}
+        disable={!props.draggable && !props.onExport}
         holdToDisplay={props.mode === 'slider' ? -1 : 1000}
         id={`monitor-${props.label}`}
     >
@@ -47,6 +47,8 @@ const MonitorComponent = props => (
                 className={styles.monitorContainer}
                 componentRef={props.componentRef}
                 onDoubleClick={props.mode === 'list' || !props.draggable ? null : props.onNextMode}
+                data-id={props.id}
+                data-opcode={props.opcode}
             >
                 {React.createElement(modes[props.mode], {
                     categoryColor: categories[props.category],
@@ -60,7 +62,7 @@ const MonitorComponent = props => (
             // the context menus `position: fixed`. For more details, see
             // http://meyerweb.com/eric/thoughts/2011/09/12/un-fixing-fixed-elements-with-css-transforms/
             <ContextMenu id={`monitor-${props.label}`}>
-                {props.onSetModeToDefault &&
+                {props.onSetModeToDefault && props.draggable &&
                     <MenuItem onClick={props.onSetModeToDefault}>
                         <FormattedMessage
                             defaultMessage="normal readout"
@@ -68,7 +70,7 @@ const MonitorComponent = props => (
                             id="gui.monitor.contextMenu.default"
                         />
                     </MenuItem>}
-                {props.onSetModeToLarge &&
+                {props.onSetModeToLarge && props.draggable &&
                     <MenuItem onClick={props.onSetModeToLarge}>
                         <FormattedMessage
                             defaultMessage="large readout"
@@ -76,7 +78,7 @@ const MonitorComponent = props => (
                             id="gui.monitor.contextMenu.large"
                         />
                     </MenuItem>}
-                {props.onSetModeToSlider &&
+                {props.onSetModeToSlider && props.draggable &&
                     <MenuItem onClick={props.onSetModeToSlider}>
                         <FormattedMessage
                             defaultMessage="slider"
@@ -84,7 +86,7 @@ const MonitorComponent = props => (
                             id="gui.monitor.contextMenu.slider"
                         />
                     </MenuItem>}
-                {props.onSliderPromptOpen && props.mode === 'slider' &&
+                {props.onSliderPromptOpen && props.mode === 'slider' && props.draggable &&
                     <BorderedMenuItem onClick={props.onSliderPromptOpen}>
                         <FormattedMessage
                             defaultMessage="change slider range"
@@ -108,7 +110,7 @@ const MonitorComponent = props => (
                             id="gui.monitor.contextMenu.export"
                         />
                     </MenuItem>}
-                {props.onHide &&
+                {props.onHide && props.draggable &&
                     <BorderedMenuItem onClick={props.onHide}>
                         <FormattedMessage
                             defaultMessage="hide"
@@ -130,6 +132,7 @@ MonitorComponent.propTypes = {
     category: PropTypes.oneOf(Object.keys(categories)),
     componentRef: PropTypes.func.isRequired,
     draggable: PropTypes.bool.isRequired,
+    id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     mode: PropTypes.oneOf(monitorModes),
     onDragEnd: PropTypes.func.isRequired,
@@ -140,7 +143,8 @@ MonitorComponent.propTypes = {
     onSetModeToDefault: PropTypes.func,
     onSetModeToLarge: PropTypes.func,
     onSetModeToSlider: PropTypes.func,
-    onSliderPromptOpen: PropTypes.func
+    onSliderPromptOpen: PropTypes.func,
+    opcode: PropTypes.string.isRequired
 };
 
 MonitorComponent.defaultProps = {

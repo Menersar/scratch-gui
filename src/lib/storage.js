@@ -1,6 +1,7 @@
 import ScratchStorage from 'scratch-storage';
 
 import defaultProject from './default-project';
+import missingProject from './sidekick-missing-project';
 
 /**
  * Wrapper for ScratchStorage which adds default web sources.
@@ -27,10 +28,10 @@ class Storage extends ScratchStorage {
             this.getAssetCreateConfig.bind(this),
             this.getAssetCreateConfig.bind(this)
         );
-        this.addWebStore(
-            [this.AssetType.Sound],
-            asset => `static/extension-assets/scratch3_music/${asset.assetId}.${asset.dataFormat}`
-        );
+        // this.addWebStore(
+        //     [this.AssetType.Sound],
+        //     asset => `static/extension-assets/scratch3_music/${asset.assetId}.${asset.dataFormat}`
+        // );
     }
     setProjectHost (projectHost) {
         this.projectHost = projectHost;
@@ -79,6 +80,13 @@ class Storage extends ScratchStorage {
     cacheDefaultProject () {
         const defaultProjectAssets = defaultProject(this.translator);
         defaultProjectAssets.forEach(asset => this.builtinHelper._store(
+            this.AssetType[asset.assetType],
+            this.DataFormat[asset.dataFormat],
+            asset.data,
+            asset.id
+        ));
+        const missingProjectAssets = missingProject(this.translator);
+        missingProjectAssets.forEach(asset => this.builtinHelper._store(
             this.AssetType[asset.assetType],
             this.DataFormat[asset.dataFormat],
             asset.data,

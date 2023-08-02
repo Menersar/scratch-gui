@@ -2,6 +2,7 @@ import {BitmapAdapter, sanitizeSvg} from 'scratch-svg-renderer';
 import randomizeSpritePosition from './randomize-sprite-position.js';
 import bmpConverter from './bmp-converter';
 import gifDecoder from './gif-decoder';
+import fixSVG from './sidekick-svg-fixer';
 
 /**
  * Extract the file name given a string of the form fileName + ext
@@ -91,19 +92,21 @@ const createVMAsset = function (storage, assetType, dataFormat, data) {
  * @param {ArrayBuffer | string} fileData The costume data to load (this can be a base64 string
  * iff the image is a bitmap)
  * @param {string} fileType The MIME type of this file
- * @param {ScratchStorage} storage The ScratchStorage instance to cache the costume data
+ * @param {VM} vm The ScratchStorage instance to cache the costume data
  * @param {Function} handleCostume The function to execute on the costume object returned after
  * caching this costume in storage - This function should be responsible for
  * adding the costume to the VM and handling other UI flow that should come after adding the costume
  * @param {Function} handleError The function to execute if there is an error parsing the costume
  */
-const costumeUpload = function (fileData, fileType, storage, handleCostume, handleError = () => {}) {
+const costumeUpload = function (fileData, fileType, vm, handleCostume, handleError = () => {}) {
+    const storage = vm.runtime.storage;
     let costumeFormat = null;
     let assetType = null;
     switch (fileType) {
     case 'image/svg+xml': {
         // run svg bytes through scratch-svg-renderer's sanitization code
         fileData = sanitizeSvg.sanitizeByteStream(fileData);
+        fileData = fixSVG(fileData);
 
         costumeFormat = storage.DataFormat.SVG;
         assetType = storage.AssetType.ImageVector;
@@ -118,7 +121,7 @@ const costumeUpload = function (fileData, fileType, storage, handleCostume, hand
         // Convert .bmp files to .png to compress them. .bmps are completely uncompressed,
         // and would otherwise take up a lot of storage space and take much longer to upload and download.
         bmpConverter(fileData).then(dataUrl => {
-            costumeUpload(dataUrl, 'image/png', storage, handleCostume);
+            costumeUpload(dataUrl, 'image/png', vm, handleCostume);
         });
         return; // Return early because we're triggering another proper costumeUpload
     }
@@ -127,10 +130,17 @@ const costumeUpload = function (fileData, fileType, storage, handleCostume, hand
         assetType = storage.AssetType.ImageBitmap;
         break;
     }
+    case 'image/webp': {
+        // Convert to png as with image/bmp (no native webp support from Scratch).
+        bmpConverter(fileData, 'image/webp').then(dataUrl => {
+            costumeUpload(dataUrl, 'image/png', vm, handleCostume);
+        });
+        return;
+    }
     case 'image/gif': {
         let costumes = [];
         gifDecoder(fileData, (frameNumber, dataUrl, numFrames) => {
-            costumeUpload(dataUrl, 'image/png', storage, costumes_ => {
+            costumeUpload(dataUrl, 'image/png', vm, costumes_ => {
                 costumes = costumes.concat(costumes_);
                 if (frameNumber === numFrames - 1) {
                     handleCostume(costumes);
@@ -145,6 +155,11 @@ const costumeUpload = function (fileData, fileType, storage, handleCostume, hand
     }
 
     const bitmapAdapter = new BitmapAdapter();
+    if (bitmapAdapter.setStageSize) {
+        const width = vm.runtime.stageWidth;
+        const height = vm.runtime.stageHeight;
+        bitmapAdapter.setStageSize(width, height);
+    }
     const addCostumeFromBuffer = function (dataBuffer) {
         const vmCostume = createVMAsset(
             storage,
@@ -208,7 +223,7 @@ const soundUpload = function (fileData, fileType, storage, handleSound, handleEr
     handleSound(vmSound);
 };
 
-const spriteUpload = function (fileData, fileType, spriteName, storage, handleSprite, handleError = () => {}) {
+const spriteUpload = function (fileData, fileType, spriteName, vm, handleSprite, handleError = () => {}) {
     switch (fileType) {
     case '':
     case 'application/zip': { // We think this is a .sprite2 or .sprite3 file
@@ -217,11 +232,12 @@ const spriteUpload = function (fileData, fileType, spriteName, storage, handleSp
     }
     case 'image/svg+xml':
     case 'image/png':
+    case 'image/webp':
     case 'image/bmp':
     case 'image/jpeg':
     case 'image/gif': {
         // Make a sprite from an image by making it a costume first
-        costumeUpload(fileData, fileType, storage, vmCostumes => {
+        costumeUpload(fileData, fileType, vm, vmCostumes => {
             vmCostumes.forEach((costume, i) => {
                 costume.name = `${spriteName}${i ? i + 1 : ''}`;
             });

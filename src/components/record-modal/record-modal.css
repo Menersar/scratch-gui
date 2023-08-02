@@ -10,6 +10,10 @@
     padding: 1.5rem 2.25rem;
 }
 
+[theme="dark"] .body {
+    background: $ui-secondary;
+}
+
 .visualization-container {
     display: flex;
     justify-content: space-around;

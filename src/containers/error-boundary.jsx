@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import BrowserModalComponent from '../components/browser-modal/browser-modal.jsx';
+// import {connect} from 'react-redux';
+// import BrowserModalComponent from '../components/browser-modal/browser-modal.jsx';
 import CrashMessageComponent from '../components/crash-message/crash-message.jsx';
 import log from '../lib/log.js';
 import {recommendedBrowser} from '../lib/supported-browser';
 
+// Renamed and changed variables:
+// hasError -> error (false (Boolean) -> null (Error))
+// errorId -> errorInfo (React.ErrorInfo)
 class ErrorBoundary extends React.Component {
     constructor (props) {
         super(props);
@@ -28,6 +31,34 @@ class ErrorBoundary extends React.Component {
         errorInfo = errorInfo || {
             componentStack: 'Unknown component stack'
         };
+
+        // // Log errors to analytics, leaving out browsers that are not in our recommended set
+        // if (recommendedBrowser() && window.Sentry) {
+        //     window.Sentry.withScope(scope => {
+        //         Object.keys(errorInfo).forEach(key => {
+        //             scope.setExtra(key, errorInfo[key]);
+        //         });
+        //         scope.setExtra('action', this.props.action);
+        //         window.Sentry.captureException(error);
+        //     });
+        // }
+
+        // // Display fallback UI
+        // this.setState({
+        //     hasError: true,
+        //     errorId: window.Sentry ? window.Sentry.lastEventId() : null
+        // });
+
+        // only remember the first error: later errors might just be side effects of that first one
+        if (!this.state.error) {
+            // store error & errorInfo for debugging
+            this.setState({
+                // hasError: true,
+                error,
+                errorInfo,
+                errorMessage: `${(error && error.message) || error}`
+            });
+        }
 
         // only remember the first error: later errors might just be side effects of that first one
         if (!this.state.error) {
@@ -55,17 +86,22 @@ class ErrorBoundary extends React.Component {
 
     render () {
         if (this.state.error) {
-            if (recommendedBrowser()) {
-                return (
-                    <CrashMessageComponent
-                        onReload={this.handleReload}
-                    />
-                );
-            }
-            return (<BrowserModalComponent
-                error
-                isRtl={this.props.isRtl}
-                onBack={this.handleBack}
+            // if (recommendedBrowser()) {
+            //     return (
+            //         <CrashMessageComponent
+            //             onReload={this.handleReload}
+            //         />
+            //     );
+            // }
+            // return (<BrowserModalComponent
+            //     error
+            //     isRtl={this.props.isRtl}
+            //     onBack={this.handleBack}
+            // />);
+            return (<CrashMessageComponent
+                eventId={this.state.errorInfo}
+                onReload={this.handleReload}
+                errorMessage={this.state.errorMessage}
             />);
         }
         return this.props.children;
@@ -74,15 +110,17 @@ class ErrorBoundary extends React.Component {
 
 ErrorBoundary.propTypes = {
     action: PropTypes.string.isRequired, // Used for defining tracking action
-    children: PropTypes.node,
-    isRtl: PropTypes.bool
+    children: PropTypes.node
+    // isRtl: PropTypes.bool
 };
 
-const mapStateToProps = state => ({
-    isRtl: state.locales.isRtl
-});
+// const mapStateToProps = state => ({
+//     isRtl: state.locales.isRtl
+// });
 
-// no-op function to prevent dispatch prop being passed to component
-const mapDispatchToProps = () => ({});
+// // ???
+// // no-op function to prevent dispatch prop being passed to component
+// const mapDispatchToProps = () => ({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(ErrorBoundary);
+// export default connect(mapStateToProps, mapDispatchToProps)(ErrorBoundary);
+export default ErrorBoundary;

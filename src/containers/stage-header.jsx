@@ -5,6 +5,7 @@ import VM from 'scratch-vm';
 import {STAGE_SIZE_MODES} from '../lib/layout-constants';
 import {setStageSize} from '../reducers/stage-size';
 import {setFullScreen} from '../reducers/mode';
+import {openSettingsModal} from '../reducers/modals';
 
 import {connect} from 'react-redux';
 
@@ -44,10 +45,14 @@ class StageHeader extends React.Component {
 
 StageHeader.propTypes = {
     isFullScreen: PropTypes.bool,
+    isWindowFullScreen: PropTypes.bool,
     isPlayerOnly: PropTypes.bool,
+    isEmbedded: PropTypes.bool,
     onSetStageUnFull: PropTypes.func.isRequired,
+    onOpenSettings: PropTypes.func.isRequired,
     showBranding: PropTypes.bool,
     stageSizeMode: PropTypes.oneOf(Object.keys(STAGE_SIZE_MODES)),
+    dimensions: PropTypes.arrayOf(PropTypes.number),
     vm: PropTypes.instanceOf(VM).isRequired
 };
 
@@ -55,14 +60,18 @@ const mapStateToProps = state => ({
     stageSizeMode: state.scratchGui.stageSize.stageSize,
     showBranding: state.scratchGui.mode.showBranding,
     isFullScreen: state.scratchGui.mode.isFullScreen,
-    isPlayerOnly: state.scratchGui.mode.isPlayerOnly
+    isWindowFullScreen: state.scratchGui.gui.isWindowFullScreen,
+    isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
+    isEmbedded: state.scratchGui.mode.isEmbedded,
+    dimensions: state.scratchGui.gui.dimensions
 });
 
 const mapDispatchToProps = dispatch => ({
     onSetStageLarge: () => dispatch(setStageSize(STAGE_SIZE_MODES.large)),
     onSetStageSmall: () => dispatch(setStageSize(STAGE_SIZE_MODES.small)),
     onSetStageFull: () => dispatch(setFullScreen(true)),
-    onSetStageUnFull: () => dispatch(setFullScreen(false))
+    onSetStageUnFull: () => dispatch(setFullScreen(false)),
+    onOpenSettings: () => dispatch(openSettingsModal())
 });
 
 export default connect(

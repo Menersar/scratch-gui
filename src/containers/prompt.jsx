@@ -4,6 +4,8 @@ import bindAll from 'lodash.bindall';
 import PromptComponent from '../components/prompt/prompt.jsx';
 import VM from 'scratch-vm';
 
+import {SCRATCH_MAX_CLOUD_VARIABLES} from '../lib/sidekick-cloud-limits.js';
+
 class Prompt extends React.Component {
     constructor (props) {
         super(props);
@@ -17,9 +19,13 @@ class Prompt extends React.Component {
         ]);
         this.state = {
             inputValue: '',
-            globalSelected: true,
+            canAddCloudVariable: (props.vm && props.vm.runtime.canAddCloudVariable()) || false,
             cloudSelected: false,
-            canAddCloudVariable: (props.vm && props.vm.runtime.canAddCloudVariable()) || false
+            globalSelected: true,
+            isAddingCloudVariableScratchSafe: (
+                props.vm &&
+                props.vm.runtime.getNumberOfCloudVariables() < SCRATCH_MAX_CLOUD_VARIABLES
+            ) || false
         };
     }
     handleKeyPress (event) {
@@ -57,8 +63,9 @@ class Prompt extends React.Component {
             <PromptComponent
                 canAddCloudVariable={this.state.canAddCloudVariable}
                 cloudSelected={this.state.cloudSelected}
-                defaultValue={this.props.defaultValue}
                 globalSelected={this.state.globalSelected}
+                isAddingCloudVariableScratchSafe={this.state.isAddingCloudVariableScratchSafe}
+                defaultValue={this.props.defaultValue}
                 isStage={this.props.isStage}
                 showListMessage={this.props.showListMessage}
                 label={this.props.label}

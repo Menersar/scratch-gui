@@ -8,6 +8,8 @@ import Modal from '../../containers/modal.jsx';
 
 import styles from './prompt.css';
 
+import {SCRATCH_MAX_CLOUD_VARIABLES} from '../../lib/sidekick-cloud-limits.js';
+
 
 const messages = defineMessages({
     forAllSpritesMessage: {
@@ -121,6 +123,43 @@ const PromptComponent = props => (
                         </Box> : null}
                 </div> : null}
 
+                {props.cloudSelected && !props.isAddingCloudVariableScratchSafe && (
+                <Box className={styles.infoMessage}>
+                    <FormattedMessage
+                        // eslint-disable-next-line max-len
+                        defaultMessage="If you make this cloud variable, the project will exceed Scratch's limit of {number} variables, and some variables will not function if you upload the project to Scratch."
+                        // eslint-disable-next-line max-len
+                        description="Warning that appears when adding a new cloud variable will make it exceeded Scratch's cloud variable limit. number will be 10."
+                        id="gui.scratchUnsafeCloud"
+                        values={{
+                            number: SCRATCH_MAX_CLOUD_VARIABLES
+                        }}
+                    />
+                </Box>
+            )}
+
+            {props.cloudSelected && props.canAddCloudVariable && (
+                <Box className={styles.infoMessage}>
+                    <FormattedMessage
+                        /* eslint-disable-next-line max-len */
+                        defaultMessage="Although you can create cloud variables, they won't work unless this project is uploaded to Scratch or converted using a tool like the {packager}."
+                        description="Reminder that cloud variables may not work when the editor is open"
+                        values={{
+                            packager: (
+                                <a
+                                    href="https://packager.turbowarp.org"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {'Sidekick Packager'}
+                                </a>
+                            )
+                        }}
+                        id="gui.cantUseCloud"
+                    />
+                </Box>
+            )}
+
             <Box className={styles.buttonRow}>
                 <button
                     className={styles.cancelButton}
@@ -153,6 +192,8 @@ PromptComponent.propTypes = {
     defaultValue: PropTypes.string,
     globalSelected: PropTypes.bool.isRequired,
     isStage: PropTypes.bool.isRequired,
+    // !!! ???
+    isAddingCloudVariableScratchSafe: PropTypes.bool.isRequired,
     showListMessage: PropTypes.bool.isRequired,
     label: PropTypes.string.isRequired,
     onCancel: PropTypes.func.isRequired,

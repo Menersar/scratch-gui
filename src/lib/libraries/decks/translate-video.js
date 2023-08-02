@@ -3,8 +3,13 @@
  * Utility function to look up whether a translated video exists for a locale.
  */
 
+
+// Commented out since the videos are not needed for Sidekick application.
+
+
 // TODO: ja-Hira are copies of ja, replace with real ja-Hira when available.
 const videos = {
+    /*
     'intro-move-sayhello': {
         'en': 'rpjvs3v9gj',
         'it': '2im6c1f9kn',
@@ -185,6 +190,7 @@ const videos = {
     'talking': {
         en: 'j0208mq4qi'
     }
+    */
 };
 
 /**

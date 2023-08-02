@@ -15,6 +15,10 @@
     z-index: $z-index-stage-header;
 }
 
+[theme="dark"] .stage-header-wrapper-overlay {
+    background-color: #111;
+}
+
 .stage-menu-wrapper {
     display: flex;
     margin: auto;
@@ -24,6 +28,22 @@
     height: $stage-menu-height;
     padding-top: $space;
     padding-bottom: $space;
+}
+
+.embedded {
+    background-color: transparent;
+}
+
+.embed-buttons {
+    display: flex;
+}
+
+[dir="ltr"] .embed-buttons > *:not(:last-child) {
+    margin-right: .2rem;
+}
+
+[dir="rtl"] .embed-buttons > *:not(:last-child) {
+    margin-left: .2rem;
 }
 
 .embed-scratch-logo img {
@@ -60,6 +80,10 @@
     cursor: pointer;
 }
 
+[theme="dark"] .stage-button {
+    background: $ui-secondary;
+}
+
 .stage-button-icon {
     width: 100%;
     height: 100%;
@@ -93,4 +117,15 @@
 
 .stage-button-toggled-off {
     filter: saturate(0);
+}
+
+[theme="dark"] .stage-button-toggled-off img {
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+}
+
+/* for the fullscreen button */
+[theme="dark"] .stage-button:not(.stage-button-first):not(.stage-button-last) img {
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
 }

@@ -36,6 +36,7 @@ import storage from '../lib/storage';
 import vmListenerHOC from '../lib/vm-listener-hoc.jsx';
 import vmManagerHOC from '../lib/vm-manager-hoc.jsx';
 import cloudManagerHOC from '../lib/cloud-manager-hoc.jsx';
+import SidekickFullScreenResizerHOC from '../lib/sidekick-fullscreen-resizer-hoc.jsx';
 
 import GUIComponent from '../components/gui/gui.jsx';
 import {setIsScratchDesktop} from '../lib/isScratchDesktop.js';
@@ -105,6 +106,8 @@ GUI.propTypes = {
     isScratchDesktop: PropTypes.bool,
     isShowingProject: PropTypes.bool,
     isTotallyNormal: PropTypes.bool,
+    isEmbedded: PropTypes.bool,
+    isFullScreen: PropTypes.bool,
     loadingStateVisible: PropTypes.bool,
     onProjectLoaded: PropTypes.func,
     onSeeCommunity: PropTypes.func,
@@ -137,14 +140,17 @@ const mapStateToProps = state => {
         connectionModalVisible: state.scratchGui.modals.connectionModal,
         costumeLibraryVisible: state.scratchGui.modals.costumeLibrary,
         costumesTabVisible: state.scratchGui.editorTab.activeTabIndex === COSTUMES_TAB_INDEX,
+        customExtensionModalVisible: state.scratchGui.modals.customExtensionModal,
         error: state.scratchGui.projectState.error,
         isError: getIsError(loadingState),
-        isFullScreen: state.scratchGui.mode.isFullScreen,
         isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
+        isEmbedded: state.scratchGui.mode.isEmbedded,
+        isFullScreen: state.scratchGui.mode.isFullScreen || state.scratchGui.mode.isEmbedded,
         isRtl: state.locales.isRtl,
         isShowingProject: getIsShowingProject(loadingState),
         loadingStateVisible: state.scratchGui.modals.loadingProject,
         projectId: state.scratchGui.projectState.projectId,
+        settingsModalVisible: state.scratchGui.modals.settingsModal,
         soundsTabVisible: state.scratchGui.editorTab.activeTabIndex === SOUNDS_TAB_INDEX,
         targetIsStage: (
             state.scratchGui.targets.stage &&
@@ -152,6 +158,7 @@ const mapStateToProps = state => {
         ),
         telemetryModalVisible: state.scratchGui.modals.telemetryModal,
         tipsLibraryVisible: state.scratchGui.modals.tipsLibrary,
+        usernameModalVisible: state.scratchGui.modals.usernameModal,
         vm: state.scratchGui.vm
     };
 };
@@ -178,14 +185,15 @@ const WrappedGui = compose(
     LocalizationHOC,
     ErrorBoundaryHOC('Top Level App'),
     FontLoaderHOC,
-    QueryParserHOC,
+    // QueryParserHOC,
     ProjectFetcherHOC,
     TitledHOC,
     ProjectSaverHOC,
     vmListenerHOC,
     vmManagerHOC,
     SBFileUploaderHOC,
-    cloudManagerHOC
+    cloudManagerHOC,
+    SidekickFullScreenResizerHOC
 )(ConnectedGUI);
 
 WrappedGui.setAppElement = ReactModal.setAppElement;

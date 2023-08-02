@@ -13,7 +13,7 @@ const messages = defineMessages({
     defaultProjectTitle: {
         id: 'gui.gui.defaultProjectTitle',
         description: 'Default title for project',
-        defaultMessage: 'Scratch Project'
+        defaultMessage: 'Sidekick Project'
     }
 });
 
@@ -34,21 +34,25 @@ const TitledHOC = function (WrappedComponent) {
             if (this.props.isShowingWithoutId && prevProps.isAnyCreatingNewState) {
                 // reset title to default
                 const defaultProjectTitle = this.handleReceivedProjectTitle();
-                this.props.onUpdateProjectTitle(defaultProjectTitle);
+                this.props.onUpdateProjectTitle(defaultProjectTitle, true);
             }
             // if the projectTitle hasn't changed, but the reduxProjectTitle
             // HAS changed, we need to report that change to the projectTitle's owner
             if (this.props.reduxProjectTitle !== prevProps.reduxProjectTitle &&
                 this.props.reduxProjectTitle !== this.props.projectTitle) {
-                this.props.onUpdateProjectTitle(this.props.reduxProjectTitle);
+                const defaultProjectTitle = this.props.intl.formatMessage(messages.defaultProjectTitle);
+                this.props.onUpdateProjectTitle(this.props.reduxProjectTitle,
+                    this.props.reduxProjectTitle === defaultProjectTitle);
             }
         }
         handleReceivedProjectTitle (requestedTitle) {
             let newTitle = requestedTitle;
+            let isDefault = false;
             if (newTitle === null || typeof newTitle === 'undefined') {
                 newTitle = this.props.intl.formatMessage(messages.defaultProjectTitle);
+                isDefault = true;
             }
-            this.props.onChangedProjectTitle(newTitle);
+            this.props.onChangedProjectTitle(newTitle, isDefault);
             return newTitle;
         }
         render () {

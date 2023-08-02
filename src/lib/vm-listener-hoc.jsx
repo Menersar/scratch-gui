@@ -12,6 +12,18 @@ import {setProjectChanged, setProjectUnchanged} from '../reducers/project-change
 import {setRunningState, setTurboState, setStartedState} from '../reducers/vm-status';
 import {showExtensionAlert} from '../reducers/alerts';
 import {updateMicIndicator} from '../reducers/mic-indicator';
+import {setCustomStageSize} from '../reducers/custom-stage-size';
+import {
+    setFramerateState,
+    setCompilerOptionsState,
+    addCompileError,
+    clearCompileErrors,
+    setRuntimeOptionsState,
+    setInterpolationState,
+    setHasCloudVariables
+} from '../reducers/sidekick';
+
+let compileErrorCounter = 0;
 
 /*
  * Higher Order Component to manage events emitted by the VM
@@ -26,7 +38,9 @@ const vmListenerHOC = function (WrappedComponent) {
                 'handleKeyDown',
                 'handleKeyUp',
                 'handleProjectChanged',
-                'handleTargetsUpdate'
+                'handleTargetsUpdate',
+                'handleCloudDataUpdate',
+                'handleCompileError'
             ]);
             // We have to start listening to the vm here rather than in
             // componentDidMount because the HOC mounts the wrapped component,
@@ -42,10 +56,21 @@ const vmListenerHOC = function (WrappedComponent) {
             this.props.vm.on('PROJECT_RUN_START', this.props.onProjectRunStart);
             this.props.vm.on('PROJECT_RUN_STOP', this.props.onProjectRunStop);
             this.props.vm.on('PROJECT_CHANGED', this.handleProjectChanged);
+            this.props.vm.on('HAS_CLOUD_DATA_UPDATE', this.handleCloudDataUpdate);
             this.props.vm.on('RUNTIME_STARTED', this.props.onRuntimeStarted);
+            this.props.vm.on('RUNTIME_STOPPED', this.props.onRuntimeStopped);
             this.props.vm.on('PROJECT_START', this.props.onGreenFlag);
             this.props.vm.on('PERIPHERAL_CONNECTION_LOST_ERROR', this.props.onShowExtensionAlert);
+            this.props.vm.on('COMPILE_ERROR', this.handleCompileError);
+            // !!! ???
             this.props.vm.on('MIC_LISTENING', this.props.onMicListeningUpdate);
+            this.props.vm.on('MIC_LISTENING', this.props.onMicListeningUpdate);
+            this.props.vm.on('COMPILER_OPTIONS_CHANGED', this.props.onCompilerOptionsChanged);
+            this.props.vm.on('RUNTIME_OPTIONS_CHANGED', this.props.onRuntimeOptionsChanged);
+            this.props.vm.on('FRAMERATE_CHANGED', this.props.onFramerateChanged);
+            this.props.vm.on('INTERPOLATION_CHANGED', this.props.onInterpolationChanged);
+            this.props.vm.on('RUNTIME_STARTED', this.props.onClearCompileErrors);
+            this.props.vm.on('STAGE_SIZE_CHANGED', this.props.onStageSizeChanged);
 
         }
         componentDidMount () {
@@ -90,12 +115,23 @@ const vmListenerHOC = function (WrappedComponent) {
             const key = (!e.key || e.key === 'Dead') ? e.keyCode : e.key;
             this.props.vm.postIOData('keyboard', {
                 key: key,
+                keyCode: e.keyCode,
                 isDown: true
             });
 
             // Prevent space/arrow key from scrolling the page.
             if (e.keyCode === 32 || // 32=space
                 (e.keyCode >= 37 && e.keyCode <= 40)) { // 37, 38, 39, 40 are arrows
+                e.preventDefault();
+            }
+
+            // Backspace: Disable functionality to go back.
+            if (e.keyCode === 8) {
+                e.preventDefault();
+            }
+
+            // ' and /: Disable functionality to open quick find (Firefox).
+            if (e.keyCode === 222 || e.keyCode === 191) {
                 e.preventDefault();
             }
         }
@@ -105,6 +141,7 @@ const vmListenerHOC = function (WrappedComponent) {
             const key = (!e.key || e.key === 'Dead') ? e.keyCode : e.key;
             this.props.vm.postIOData('keyboard', {
                 key: key,
+                keyCode: e.keyCode,
                 isDown: false
             });
 
@@ -113,11 +150,33 @@ const vmListenerHOC = function (WrappedComponent) {
                 e.preventDefault();
             }
         }
+        handleCloudDataUpdate (hasCloudVariables) {
+            if (this.props.hasCloudVariables !== hasCloudVariables) {
+                this.props.onHasCloudVariablesChanged(hasCloudVariables);
+            }
+        }
+        handleCompileError (target, error) {
+            const errorMessage = `${error}`;
+            // !!!
+            // TODO: Find and fix cause of this certain known error types (we ignore here).
+            if (errorMessage.includes('edge-activated hat')) {
+                return;
+            }
+            if (errorMessage.includes('Script explicitly disables compilation')) {
+                return;
+            }
+            this.props.onCompileError({
+                sprite: target.getName(),
+                error: errorMessage,
+                id: compileErrorCounter++
+            });
+        }
         render () {
             const {
                 /* eslint-disable no-unused-vars */
                 attachKeyboardEvents,
                 projectChanged,
+                hasCloudVariables,
                 shouldUpdateTargets,
                 shouldUpdateProjectChanged,
                 onBlockDragUpdate,
@@ -128,13 +187,22 @@ const vmListenerHOC = function (WrappedComponent) {
                 onMonitorsUpdate,
                 onTargetsUpdate,
                 onProjectChanged,
+                onHasCloudVariablesChanged,
+                onFramerateChanged,
+                onInterpolationChanged,
+                onCompilerOptionsChanged,
+                onRuntimeOptionsChanged,
+                onStageSizeChanged,
                 onProjectRunStart,
                 onProjectRunStop,
                 onProjectSaved,
                 onRuntimeStarted,
+                onRuntimeStopped,
                 onTurboModeOff,
                 onTurboModeOn,
                 onShowExtensionAlert,
+                onCompileError,
+                onClearCompileErrors,
                 /* eslint-enable no-unused-vars */
                 ...props
             } = this.props;
@@ -147,18 +215,28 @@ const vmListenerHOC = function (WrappedComponent) {
         onGreenFlag: PropTypes.func,
         onKeyDown: PropTypes.func,
         onKeyUp: PropTypes.func,
+        onStageSizeChanged: PropTypes.func,
+        onCompileError: PropTypes.func,
+        onClearCompileErrors: PropTypes.func,
         onMicListeningUpdate: PropTypes.func.isRequired,
         onMonitorsUpdate: PropTypes.func.isRequired,
         onProjectChanged: PropTypes.func.isRequired,
+        onHasCloudVariablesChanged: PropTypes.func.isRequired,
+        onFramerateChanged: PropTypes.func.isRequired,
+        onInterpolationChanged: PropTypes.func.isRequired,
+        onCompilerOptionsChanged: PropTypes.func.isRequired,
+        onRuntimeOptionsChanged: PropTypes.func.isRequired,
         onProjectRunStart: PropTypes.func.isRequired,
         onProjectRunStop: PropTypes.func.isRequired,
         onProjectSaved: PropTypes.func.isRequired,
         onRuntimeStarted: PropTypes.func.isRequired,
+        onRuntimeStopped: PropTypes.func.isRequired,
         onShowExtensionAlert: PropTypes.func.isRequired,
         onTargetsUpdate: PropTypes.func.isRequired,
         onTurboModeOff: PropTypes.func.isRequired,
         onTurboModeOn: PropTypes.func.isRequired,
         projectChanged: PropTypes.bool,
+        hasCloudVariables: PropTypes.bool,
         shouldUpdateTargets: PropTypes.bool,
         shouldUpdateProjectChanged: PropTypes.bool,
         username: PropTypes.string,
@@ -170,6 +248,7 @@ const vmListenerHOC = function (WrappedComponent) {
     };
     const mapStateToProps = state => ({
         projectChanged: state.scratchGui.projectChanged,
+        hasCloudVariables: state.scratchGui.gui.hasCloudVariables,
         // Do not emit target or project updates in fullscreen or player only mode
         // or when recording sounds (it leads to garbled recordings on low-power machines)
         shouldUpdateTargets: !state.scratchGui.mode.isFullScreen && !state.scratchGui.mode.isPlayerOnly &&
@@ -178,9 +257,12 @@ const vmListenerHOC = function (WrappedComponent) {
         shouldUpdateProjectChanged: !state.scratchGui.mode.isFullScreen && !state.scratchGui.mode.isPlayerOnly,
         vm: state.scratchGui.vm,
         username: state.session && state.session.session && state.session.session.user ?
-            state.session.session.user.username : ''
+            state.session.session.user.username : state.scratchGui.gui ? state.scratchGui.gui.username : ''
     });
     const mapDispatchToProps = dispatch => ({
+        onStageSizeChanged: (width, height) => dispatch(setCustomStageSize(width, height)),
+        onCompileError: errors => dispatch(addCompileError(errors)),
+        onClearCompileErrors: () => dispatch(clearCompileErrors()),
         onTargetsUpdate: data => {
             dispatch(updateTargets(data.targetList, data.editingTarget));
         },
@@ -193,8 +275,14 @@ const vmListenerHOC = function (WrappedComponent) {
         onProjectRunStart: () => dispatch(setRunningState(true)),
         onProjectRunStop: () => dispatch(setRunningState(false)),
         onProjectChanged: () => dispatch(setProjectChanged()),
+        onHasCloudVariablesChanged: hasCloudVariables => dispatch(setHasCloudVariables(hasCloudVariables)),
+        onFramerateChanged: framerate => dispatch(setFramerateState(framerate)),
+        onInterpolationChanged: interpolation => dispatch(setInterpolationState(interpolation)),
+        onCompilerOptionsChanged: options => dispatch(setCompilerOptionsState(options)),
+        onRuntimeOptionsChanged: options => dispatch(setRuntimeOptionsState(options)),
         onProjectSaved: () => dispatch(setProjectUnchanged()),
         onRuntimeStarted: () => dispatch(setStartedState(true)),
+        onRuntimeStopped: () => dispatch(setStartedState(false)),
         onTurboModeOn: () => dispatch(setTurboState(true)),
         onTurboModeOff: () => dispatch(setTurboState(false)),
         onShowExtensionAlert: data => {

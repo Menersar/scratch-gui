@@ -5,6 +5,7 @@ import makeToolboxXML from '../lib/make-toolbox-xml';
 import PropTypes from 'prop-types';
 import React from 'react';
 import VMScratchBlocks from '../lib/blocks';
+import AddonHooks from '../addons/hooks';
 import VM from 'scratch-vm';
 
 import log from '../lib/log.js';
@@ -14,15 +15,16 @@ import ExtensionLibrary from './extension-library.jsx';
 import extensionData from '../lib/libraries/extensions/index.jsx';
 import CustomProcedures from './custom-procedures.jsx';
 import errorBoundaryHOC from '../lib/error-boundary-hoc.jsx';
-import {BLOCKS_DEFAULT_SCALE, STAGE_DISPLAY_SIZES} from '../lib/layout-constants';
 import DropAreaHOC from '../lib/drop-area-hoc.jsx';
+import LoadScratchBlocksHOC from '../lib/sidekick-load-scratch-blocks-hoc.jsx';
+import {BLOCKS_DEFAULT_SCALE, STAGE_DISPLAY_SIZES} from '../lib/layout-constants';
 import DragConstants from '../lib/drag-constants';
 import defineDynamicBlock from '../lib/define-dynamic-block';
 
 import {connect} from 'react-redux';
 import {updateToolbox} from '../reducers/toolbox';
 import {activateColorPicker} from '../reducers/color-picker';
-import {closeExtensionLibrary, openSoundRecorder, openConnectionModal} from '../reducers/modals';
+import {closeExtensionLibrary, openSoundRecorder, openConnectionModal, openCustomExtensionModal} from '../reducers/modals';
 import {activateCustomProcedures, deactivateCustomProcedures} from '../reducers/custom-procedures';
 import {setConnectionModalExtensionId} from '../reducers/connection-modal';
 import {updateMetrics} from '../reducers/workspace-metrics';
@@ -50,6 +52,10 @@ class Blocks extends React.Component {
     constructor (props) {
         super(props);
         this.ScratchBlocks = VMScratchBlocks(props.vm, false);
+        window.ScratchBlocks = this.ScratchBlocks;
+        AddonHooks.blockly = this.ScratchBlocks;
+        AddonHooks.blocklyCallbacks.forEach(i => i());
+        AddonHooks.blocklyCallbacks.length = 0;
         bindAll(this, [
             'attachVM',
             'detachVM',
@@ -88,6 +94,11 @@ class Blocks extends React.Component {
         this.toolboxUpdateQueue = [];
     }
     componentDidMount () {
+        this.props.vm.setCompilerOptions({
+            warpTimer: true
+        });
+        this.props.vm.setInEditor(false);
+
         this.ScratchBlocks = VMScratchBlocks(this.props.vm, this.props.useCatBlocks);
         this.ScratchBlocks.prompt = this.handlePromptStart;
         this.ScratchBlocks.statusButtonCallback = this.handleConnectionModalStart;
@@ -118,6 +129,16 @@ class Blocks extends React.Component {
         toolboxWorkspace.registerButtonCallback('MAKE_A_VARIABLE', varListButtonCallback(''));
         toolboxWorkspace.registerButtonCallback('MAKE_A_LIST', varListButtonCallback('list'));
         toolboxWorkspace.registerButtonCallback('MAKE_A_PROCEDURE', procButtonCallback);
+        toolboxWorkspace.registerButtonCallback('EXTENSION_CALLBACK', block => {
+            this.props.vm.handleExtensionButtonPress(block.callbackData_);
+        });
+        toolboxWorkspace.registerButtonCallback('OPEN_EXTENSION_DOCS', block => {
+            const docsURI = block.callbackData_;
+            const url = new URL(docsURI);
+            if (url.protocol === 'http:' || url.protocol === 'https:') {
+                window.open(docsURI, '_blank');
+            }
+        });
 
         // Store the xml of the toolbox that is actually rendered.
         // This is used in componentDidUpdate instead of prevProps, because
@@ -132,6 +153,7 @@ class Blocks extends React.Component {
             this.setToolboxRefreshEnabled(false);
         };
 
+        // !!! ???
         // @todo change this when blockly supports UI events
         addFunctionListener(this.workspace, 'translate', this.onWorkspaceMetricsChange);
         addFunctionListener(this.workspace, 'zoom', this.onWorkspaceMetricsChange);
@@ -141,6 +163,11 @@ class Blocks extends React.Component {
         // If locale changes while not visible it will get handled in didUpdate
         if (this.props.isVisible) {
             this.setLocale();
+        }
+
+        // For added extensions if Blocks not mounted.
+        for (const category of this.props.vm.runtime._blockInfo) {
+            this.handleExtensionAdded(category);
         }
     }
     shouldComponentUpdate (nextProps, nextState) {
@@ -152,7 +179,8 @@ class Blocks extends React.Component {
             this.props.customProceduresVisible !== nextProps.customProceduresVisible ||
             this.props.locale !== nextProps.locale ||
             this.props.anyModalVisible !== nextProps.anyModalVisible ||
-            this.props.stageSize !== nextProps.stageSize
+            this.props.stageSize !== nextProps.stageSize ||
+            this.props.customStageSize !== nextProps.customStageSize
         );
     }
     componentDidUpdate (prevProps) {
@@ -169,7 +197,7 @@ class Blocks extends React.Component {
         }
 
         if (this.props.isVisible === prevProps.isVisible) {
-            if (this.props.stageSize !== prevProps.stageSize) {
+            if (this.props.stageSize !== prevProps.stageSize || this.props.customStageSize !== prevProps.customStageSize) {
                 // force workspace to redraw for the new stage size
                 window.dispatchEvent(new Event('resize'));
             }
@@ -197,7 +225,8 @@ class Blocks extends React.Component {
         this.detachVM();
         this.workspace.dispose();
         clearTimeout(this.toolboxUpdateTimeout);
-
+        this.props.vm.setInEditor(false);
+        // !!!
         // Clear the flyout blocks so that they can be recreated on mount.
         this.props.vm.clearFlyoutBlocks();
     }
@@ -544,6 +573,7 @@ class Blocks extends React.Component {
             anyModalVisible,
             canUseCloud,
             customProceduresVisible,
+            customStageSize,
             extensionLibraryVisible,
             options,
             stageSize,
@@ -553,6 +583,7 @@ class Blocks extends React.Component {
             onActivateColorPicker,
             onOpenConnectionModal,
             onOpenSoundRecorder,
+            onOpenCustomExtensionModal,
             updateToolboxState,
             onActivateCustomProcedures,
             onRequestCloseExtensionLibrary,
@@ -590,6 +621,7 @@ class Blocks extends React.Component {
                         vm={vm}
                         onCategorySelected={this.handleCategorySelected}
                         onRequestClose={onRequestCloseExtensionLibrary}
+                        onOpenCustomExtensionModal={this.props.onOpenCustomExtensionModal}
                     />
                 ) : null}
                 {customProceduresVisible ? (
@@ -609,6 +641,10 @@ Blocks.propTypes = {
     anyModalVisible: PropTypes.bool,
     canUseCloud: PropTypes.bool,
     customProceduresVisible: PropTypes.bool,
+    customStageSize: PropTypes.shape({
+        width: PropTypes.number,
+        height: PropTypes.number
+    }),
     extensionLibraryVisible: PropTypes.bool,
     isRtl: PropTypes.bool,
     isVisible: PropTypes.bool,
@@ -618,6 +654,7 @@ Blocks.propTypes = {
     onActivateCustomProcedures: PropTypes.func,
     onOpenConnectionModal: PropTypes.func,
     onOpenSoundRecorder: PropTypes.func,
+    onOpenCustomExtensionModal: PropTypes.func,
     onRequestCloseCustomProcedures: PropTypes.func,
     onRequestCloseExtensionLibrary: PropTypes.func,
     options: PropTypes.shape({
@@ -627,7 +664,7 @@ Blocks.propTypes = {
             wheel: PropTypes.bool,
             startScale: PropTypes.number
         }),
-        colours: PropTypes.shape({
+        colors: PropTypes.shape({
             workspace: PropTypes.string,
             flyout: PropTypes.string,
             toolbox: PropTypes.string,
@@ -697,6 +734,7 @@ const mapStateToProps = state => ({
     messages: state.locales.messages,
     toolboxXML: state.scratchGui.toolbox.toolboxXML,
     customProceduresVisible: state.scratchGui.customProcedures.active,
+    customStageSize: state.scratchGui.customStageSize,
     workspaceMetrics: state.scratchGui.workspaceMetrics,
     useCatBlocks: isTimeTravel2020(state)
 });
@@ -711,6 +749,9 @@ const mapDispatchToProps = dispatch => ({
     onOpenSoundRecorder: () => {
         dispatch(activateTab(SOUNDS_TAB_INDEX));
         dispatch(openSoundRecorder());
+    },
+    onOpenCustomExtensionModal: () => {
+        dispatch(openCustomExtensionModal());
     },
     onRequestCloseExtensionLibrary: () => {
         dispatch(closeExtensionLibrary());
@@ -730,5 +771,5 @@ export default errorBoundaryHOC('Blocks')(
     connect(
         mapStateToProps,
         mapDispatchToProps
-    )(Blocks)
+    )(LoadScratchBlocksHOC(Blocks))
 );

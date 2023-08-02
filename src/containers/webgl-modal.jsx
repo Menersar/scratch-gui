@@ -4,18 +4,24 @@ import PropTypes from 'prop-types';
 import WebGlModalComponent from '../components/webgl-modal/webgl-modal.jsx';
 
 class WebGlModal extends React.Component {
-    handleCancel () {
-        window.history.back();
-    }
     render () {
         return (
             <WebGlModalComponent
                 isRtl={this.props.isRtl}
-                onBack={this.handleCancel}
             />
         );
     }
 }
+
+// Component written as a pure function
+// (Source: https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/prefer-stateless-function.md)
+// const WebGlModal = function (props) {
+//     const {
+//         isRtl
+//     } = props.isRtl;
+
+//     return <WebGlModalComponent>{isRtl}</WebGlModalComponent>;
+// };
 
 WebGlModal.propTypes = {
     isRtl: PropTypes.bool

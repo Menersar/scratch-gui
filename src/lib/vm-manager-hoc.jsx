@@ -29,9 +29,10 @@ const vmManagerHOC = function (WrappedComponent) {
         }
         componentDidMount () {
             if (!this.props.vm.initialized) {
+                window.vm = this.props.vm;
                 this.audioEngine = new AudioEngine();
                 this.props.vm.attachAudioEngine(this.audioEngine);
-                this.props.vm.setCompatibilityMode(true);
+                // this.props.vm.setCompatibilityMode(true);
                 this.props.vm.initialized = true;
                 this.props.vm.setLocale(this.props.locale, this.props.messages);
             }
@@ -52,6 +53,8 @@ const vmManagerHOC = function (WrappedComponent) {
             }
         }
         loadProject () {
+            // Stop the VM so that it does not run while loading new projects.
+            this.props.vm.stop();
             return this.props.vm.loadProject(this.props.projectData)
                 .then(() => {
                     this.props.onLoadedProject(this.props.loadingState, this.props.canSave);

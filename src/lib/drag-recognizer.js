@@ -37,6 +37,10 @@ class DragRecognizer {
     }
 
     start (event) {
+        // !!! ???
+        if (typeof event.button === 'number' && event.button !== 0) {
+            return;
+        }
         this._initialOffset = getEventXY(event);
         this._bindListeners();
     }
@@ -44,7 +48,7 @@ class DragRecognizer {
     gestureInProgress () {
         return this._gestureState !== DragRecognizer.STATE_UNIDENTIFIED;
     }
-    
+
     reset () {
         this._unbindListeners();
         this._initialOffset = null;

@@ -4,7 +4,9 @@ import React from 'react';
 import VM from 'scratch-vm';
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
 
+import log from '../lib/log';
 import extensionLibraryContent from '../lib/libraries/extensions/index.jsx';
+import extensionTags from '../lib/libraries/sidekick-extension-tags';
 
 import LibraryComponent from '../components/library/library.jsx';
 import extensionIcon from '../components/action-menu/icon--sprite.svg';
@@ -15,10 +17,16 @@ const messages = defineMessages({
         description: 'Heading for the extension library',
         id: 'gui.extensionLibrary.chooseAnExtension'
     },
-    extensionUrl: {
-        defaultMessage: 'Enter the URL of the extension',
-        description: 'Prompt for unoffical extension url',
-        id: 'gui.extensionLibrary.extensionUrl'
+    // extensionUrl: {
+    //     defaultMessage: 'Enter the URL of the extension',
+    //     description: 'Prompt for unoffical extension url',
+    //     id: 'gui.extensionLibrary.extensionUrl'
+    // },
+    incompatible: {
+        // eslint-disable-next-line max-len
+        defaultMessage: 'This extension is incompatible with Scratch. Projects made with it cannot be uploaded to the Scratch website. Are you sure you want to enable it?',
+        description: 'Confirm loading Scratch-incompatible extension',
+        id: 'gui.confirmIncompatibleExtension'
     }
 });
 
@@ -30,19 +38,34 @@ class ExtensionLibrary extends React.PureComponent {
         ]);
     }
     handleItemSelect (item) {
-        const id = item.extensionId;
-        let url = item.extensionURL ? item.extensionURL : id;
-        if (!item.disabled && !id) {
-            // eslint-disable-next-line no-alert
-            url = prompt(this.props.intl.formatMessage(messages.extensionUrl));
+        if (item.href) {
+            return;
         }
-        if (id && !item.disabled) {
-            if (this.props.vm.extensionManager.isExtensionLoaded(url)) {
-                this.props.onCategorySelected(id);
+        const extensionId = item.extensionId;
+        const isCustomURL = !item.disabled && !extensionId;
+        if (isCustomURL) {
+            this.props.onOpenCustomExtensionModal();
+            return;
+        }
+
+        // eslint-disable-next-line no-alert
+        if (item.incompatibleWithScratch && !confirm(this.props.intl.formatMessage(messages.incompatible))) {
+            return;
+        }
+
+        const url = item.extensionURL ? item.extensionURL : extensionId;
+        if (!item.disabled) {
+            if (this.props.vm.extensionManager.isExtensionLoaded(extensionId)) {
+                this.props.onCategorySelected(extensionId);
             } else {
                 this.props.vm.extensionManager.loadExtensionURL(url).then(() => {
-                    this.props.onCategorySelected(id);
-                });
+                    this.props.onCategorySelected(extensionId);
+                })
+                    .catch(err => {
+                        log.error(err);
+                        // eslint-disable-next-line no-alert
+                        alert(err);
+                    });
             }
         }
     }
@@ -56,6 +79,7 @@ class ExtensionLibrary extends React.PureComponent {
                 data={extensionLibraryThumbnailData}
                 filterable={false}
                 id="extensionLibrary"
+                tags={extensionTags}
                 title={this.props.intl.formatMessage(messages.extensionTitle)}
                 visible={this.props.visible}
                 onItemSelected={this.handleItemSelect}
@@ -69,6 +93,7 @@ ExtensionLibrary.propTypes = {
     intl: intlShape.isRequired,
     onCategorySelected: PropTypes.func,
     onRequestClose: PropTypes.func,
+    onOpenCustomExtensionModal: PropTypes.func,
     visible: PropTypes.bool,
     vm: PropTypes.instanceOf(VM).isRequired // eslint-disable-line react/no-unused-prop-types
 };

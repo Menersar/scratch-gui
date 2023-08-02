@@ -124,6 +124,7 @@ class LibraryItem extends React.PureComponent {
                 isPlaying={this.props.isPlaying}
                 name={this.props.name}
                 showPlayButton={this.props.showPlayButton}
+                incompatibleWithScratch={this.props.incompatibleWithScratch}
                 onBlur={this.handleBlur}
                 onClick={this.handleClick}
                 onFocus={this.handleFocus}
@@ -154,6 +155,7 @@ LibraryItem.propTypes = {
     ]),
     id: PropTypes.number.isRequired,
     insetIconURL: PropTypes.string,
+    href: PropTypes.string,
     internetConnectionRequired: PropTypes.bool,
     isPlaying: PropTypes.bool,
     name: PropTypes.oneOfType([
@@ -163,7 +165,8 @@ LibraryItem.propTypes = {
     onMouseEnter: PropTypes.func.isRequired,
     onMouseLeave: PropTypes.func.isRequired,
     onSelect: PropTypes.func.isRequired,
-    showPlayButton: PropTypes.bool
+    showPlayButton: PropTypes.bool,
+    incompatibleWithScratch: PropTypes.bool
 };
 
 export default injectIntl(LibraryItem);

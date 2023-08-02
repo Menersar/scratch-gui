@@ -62,6 +62,7 @@ const projectData = translateFunction => {
                         md5ext: '83a9787d4cb6f3b7632b4ddfebf74367.wav'
                     }
                 ],
+                // sounds: [],
                 volume: 100
             },
             {
@@ -71,16 +72,21 @@ const projectData = translateFunction => {
                 lists: {},
                 broadcasts: {},
                 blocks: {},
+                comments: {},
                 currentCostume: 0,
                 costumes: [
                     {
+                        // assetId: 'bcf454acf82e4504149f7ffe07081dbc',
                         assetId: 'bcf454acf82e4504149f7ffe07081dbc',
                         name: translator(messages.costume, {index: 1}),
                         bitmapResolution: 1,
+                        // md5ext: 'bcf454acf82e4504149f7ffe07081dbc.svg',
                         md5ext: 'bcf454acf82e4504149f7ffe07081dbc.svg',
                         dataFormat: 'svg',
-                        rotationCenterX: 48,
-                        rotationCenterY: 50
+                        // rotationCenterX: 48,
+                        rotationCenterX: 50.383295,
+                        // rotationCenterY: 50
+                        rotationCenterY: 50.882895
                     },
                     {
                         assetId: '0fb9be3e8397c983338cb71dc84d0b25',
@@ -88,8 +94,8 @@ const projectData = translateFunction => {
                         bitmapResolution: 1,
                         md5ext: '0fb9be3e8397c983338cb71dc84d0b25.svg',
                         dataFormat: 'svg',
-                        rotationCenterX: 46,
-                        rotationCenterY: 53
+                        rotationCenterX: 50.383295,
+                        rotationCenterY: 50.882895
                     }
                 ],
                 sounds: [
@@ -116,10 +122,13 @@ const projectData = translateFunction => {
         meta: {
             semver: '3.0.0',
             vm: '0.1.0',
-            agent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36' // eslint-disable-line max-len
+            // ??? !!!
+            // eslint-disable-next-line max-len
+            // agent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36' // eslint-disable-line max-len
+            // ??? !!!
+            agent: ''
         }
     });
 };
-
 
 export default projectData;

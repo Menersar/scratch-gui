@@ -5,6 +5,8 @@
 
 import queryString from 'query-string';
 
+export const LANGUAGE_KEY = 'sidekick:language';
+
 /**
  * look for language setting in the browser. Check against supported locales.
  * If there's a parameter in the URL, override the browser setting
@@ -12,6 +14,17 @@ import queryString from 'query-string';
  * @return {string} the preferred locale
  */
 const detectLocale = supportedLocales => {
+    // Language read from localStorage.
+    try {
+        const storedLanguage = localStorage.getItem(LANGUAGE_KEY);
+        if (storedLanguage && supportedLocales.includes(storedLanguage)) {
+            return storedLanguage;
+        }
+    } catch (e) {
+        /* ignore */
+        /* no-op */
+    }
+
     let locale = 'en'; // default
     let browserLocale = window.navigator.userLanguage || window.navigator.language;
     browserLocale = browserLocale.toLowerCase();

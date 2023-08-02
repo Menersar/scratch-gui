@@ -16,6 +16,7 @@ const StageWrapperComponent = function (props) {
         isFullScreen,
         isRtl,
         isRendererSupported,
+        isEmbedded,
         loading,
         stageSize,
         vm
@@ -25,7 +26,10 @@ const StageWrapperComponent = function (props) {
         <Box
             className={classNames(
                 styles.stageWrapper,
-                {[styles.fullScreen]: isFullScreen}
+                // Now also correctly displayed full screen in dark mode (style added to file stage-wrapper.css)
+                {[styles.fullScreen]: isFullScreen},
+                // Displays without colors in embeds (style added to file stage-wrapper.css)
+                {[styles.embedded]: isEmbedded}
             )}
             dir={isRtl ? 'rtl' : 'ltr'}
         >
@@ -56,6 +60,7 @@ StageWrapperComponent.propTypes = {
     isFullScreen: PropTypes.bool,
     isRendererSupported: PropTypes.bool.isRequired,
     isRtl: PropTypes.bool.isRequired,
+    isEmbedded: PropTypes.bool,
     loading: PropTypes.bool,
     stageSize: PropTypes.oneOf(Object.keys(STAGE_DISPLAY_SIZES)).isRequired,
     vm: PropTypes.instanceOf(VM).isRequired

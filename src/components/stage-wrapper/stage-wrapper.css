@@ -2,6 +2,11 @@
 @import "../../css/colors.css";
 @import "../../css/z-index.css";
 
+/* Keeps loading screen in the stage */
+.stage-wrapper {
+    position: relative;
+}
+
 .stage-wrapper * {
     box-sizing: border-box;
 }
@@ -27,4 +32,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+[theme="dark"] .stage-wrapper.full-screen {
+    background-color: #111;
+}
+
+.stage-wrapper.embedded {
+    background-color: transparent;
 }

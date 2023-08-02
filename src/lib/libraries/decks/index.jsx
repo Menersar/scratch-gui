@@ -1,4 +1,7 @@
-import React from 'react';
+// Commented out since decks are not needed for Sidekick application.
+
+
+/* import React from 'react';
 import {FormattedMessage} from 'react-intl';
 
 // Tutorial thumbnails: Avoid using any text that would need to be
@@ -64,10 +67,14 @@ import addBackdropThumb from './thumbnails/add-backdrop.jpg';
 import addEffectsThumb from './thumbnails/add-effects.jpg';
 import moveArrowKeysThumb from './thumbnails/move-arrow-keys.jpg';
 import spinThumb from './thumbnails/spin.jpg';
+ */
+
 
 export default {
 
-    'intro-move-sayhello': {
+
+    /*
+     'intro-move-sayhello': {
         name: (
             <FormattedMessage
                 defaultMessage="Getting Started"
@@ -370,7 +377,7 @@ export default {
         ],
         urlId: 'imagine'
     },
-    
+
     'Make-Music': {
         name: (
             <FormattedMessage
@@ -1230,7 +1237,7 @@ export default {
         ],
         urlId: 'code-cartoon'
     },
-    
+
     'cartoon-network': {
         name: (
             <FormattedMessage
@@ -2033,4 +2040,7 @@ export default {
         urlId: 'whatsnew',
         hidden: true
     }
+ */
+
+
 };

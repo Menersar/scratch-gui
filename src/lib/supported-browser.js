@@ -1,22 +1,24 @@
-import bowser from 'bowser';
+// Support browser that is able to parse the generated JS.
+// import bowser from 'bowser';
 
-const minVersions = {
-    chrome: '63',
-    msedge: '15',
-    firefox: '57',
-    safari: '11'
-};
+// const minVersions = {
+//     chrome: '63',
+//     msedge: '15',
+//     firefox: '57',
+//     safari: '11'
+// };
 
 /**
  * Helper function to determine if the browser is supported at all.
  * @returns {boolean} False if the platform is definitely not supported.
  */
-const supportedBrowser = () => {
-    if (bowser.msie) {
-        return false;
-    }
-    return true;
-};
+const supportedBrowser = () => true;
+// const supportedBrowser = () => {
+//     if (bowser.msie) {
+//         return false;
+//     }
+//     return true;
+// };
 
 /**
  * Helper function to determine if the browser meets the minimum recommended version
@@ -25,10 +27,10 @@ const supportedBrowser = () => {
  * NOTE: uses strict_mode==true so that any browser not listed in the minVersions
  *   always returns false
  */
-
-const recommendedBrowser = () =>
-    !bowser.isUnsupportedBrowser(minVersions, true) ||
-    window.navigator.userAgent.toLowerCase().indexOf('googlebot') !== -1;
+const recommendedBrowser = () => true;
+// const recommendedBrowser = () =>
+//     !bowser.isUnsupportedBrowser(minVersions, true) ||
+//     window.navigator.userAgent.toLowerCase().indexOf('googlebot') !== -1;
 
 export {
     supportedBrowser as default,

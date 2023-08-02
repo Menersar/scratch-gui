@@ -1,3 +1,5 @@
+import LazyScratchBlocks from './sidekick-lazy-scratch-blocks';
+
 /**
  * Connect scratch blocks with the vm
  * @param {VirtualMachine} vm - The scratch vm
@@ -5,7 +7,8 @@
  * @return {ScratchBlocks} ScratchBlocks connected with the vm
  */
 export default function (vm, useCatBlocks) {
-    const ScratchBlocks = useCatBlocks ? require('cat-blocks') : require('scratch-blocks');
+    // const ScratchBlocks = useCatBlocks ? require('cat-blocks') : require('scratch-blocks');
+    const ScratchBlocks = LazyScratchBlocks.get();
     const jsonForMenuBlock = function (name, menuOptionsFn, colors, start) {
         return {
             message0: '%1',
@@ -175,9 +178,11 @@ export default function (vm, useCatBlocks) {
     };
 
     ScratchBlocks.Blocks.motion_pointtowards_menu.init = function () {
+        const random = ScratchBlocks.ScratchMsgs.translate('MOTION_POINTTOWARDS_RANDOM', 'random direction');
         const mouse = ScratchBlocks.ScratchMsgs.translate('MOTION_POINTTOWARDS_POINTER', 'mouse-pointer');
         const json = jsonForMenuBlock('TOWARDS', spriteMenu, motionColors, [
-            [mouse, '_mouse_']
+            [mouse, '_mouse_'],
+            [random, '_random_']
         ]);
         this.jsonInit(json);
     };

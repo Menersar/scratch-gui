@@ -6,6 +6,8 @@ import {connect} from 'react-redux';
 
 import ControlsComponent from '../components/controls/controls.jsx';
 
+import {STAGE_SIZE_MODES} from '../lib/layout-constants.js';
+
 class Controls extends React.Component {
     constructor (props) {
         super(props);
@@ -16,8 +18,18 @@ class Controls extends React.Component {
     }
     handleGreenFlagClick (e) {
         e.preventDefault();
-        if (e.shiftKey) {
-            this.props.vm.setTurboMode(!this.props.turbo);
+        // Make settings toggleable via alternative keyboard shortcuts or context menu items.
+        if (e.shiftKey || e.altKey || e.type === 'contextmenu') {
+            if (e.shiftKey) {
+                this.props.vm.setTurboMode(!this.props.turbo);
+            }
+            if (e.altKey || e.type === 'contextmenu') {
+                if (this.props.framerate === 30) {
+                    this.props.vm.setFramerate(60);
+                } else {
+                    this.props.vm.setFramerate(30);
+                }
+            }
         } else {
             if (!this.props.isStarted) {
                 this.props.vm.start();
@@ -40,7 +52,7 @@ class Controls extends React.Component {
         return (
             <ControlsComponent
                 {...props}
-                active={projectRunning}
+                active={projectRunning && isStarted}
                 turbo={turbo}
                 onGreenFlagClick={this.handleGreenFlagClick}
                 onStopAllClick={this.handleStopAllClick}
@@ -53,13 +65,18 @@ Controls.propTypes = {
     isStarted: PropTypes.bool.isRequired,
     projectRunning: PropTypes.bool.isRequired,
     turbo: PropTypes.bool.isRequired,
+    interpolation: PropTypes.bool.isRequired,
+    isSmall: PropTypes.bool,
+    framerate: PropTypes.number.isRequired,
     vm: PropTypes.instanceOf(VM)
 };
 
 const mapStateToProps = state => ({
-    isStarted: state.scratchGui.vmStatus.running,
+    isStarted: state.scratchGui.vmStatus.started,
     projectRunning: state.scratchGui.vmStatus.running,
-    turbo: state.scratchGui.vmStatus.turbo
+    turbo: state.scratchGui.vmStatus.turbo,
+    interpolation: state.scratchGui.vmStatus.interpolation,
+    framerate: state.scratchGui.vmStatus.framerate
 });
 // no-op function to prevent dispatch prop being passed to component
 const mapDispatchToProps = () => ({});

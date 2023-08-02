@@ -1,3 +1,4 @@
+import {guiReducers} from '../index.js';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Provider} from 'react-redux';
@@ -5,10 +6,10 @@ import {createStore, combineReducers, compose} from 'redux';
 import ConnectedIntlProvider from './connected-intl-provider.jsx';
 
 import localesReducer, {initLocale, localesInitialState} from '../reducers/locales';
-
 import {setPlayer, setFullScreen} from '../reducers/mode.js';
+import AddonHooks from '../addons/hooks';
 
-import locales from 'scratch-l10n';
+import locales from 'sidekick-l10n';
 import {detectLocale} from './detect-locale';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -42,18 +43,21 @@ const AppStateHOC = function (WrappedComponent, localesOnly) {
                 initialState = {locales: initializedLocales};
                 enhancer = composeEnhancers();
             } else {
+                // ??? wtf? ???
                 // You are right, this is gross. But it's necessary to avoid
                 // importing unneeded code that will crash unsupported browsers.
                 const guiRedux = require('../reducers/gui');
+                // const guiRedux = guiReducers.guiReducer;
                 const guiReducer = guiRedux.default;
                 const {
                     guiInitialState,
                     guiMiddleware,
                     initFullScreen,
                     initPlayer,
-                    initTelemetryModal
+                    initTelemetryModal,
+                    initEmbedded
                 } = guiRedux;
-                const {ScratchPaintReducer} = require('scratch-paint');
+                const {ScratchPaintReducer} = require('./sidekick-scratch-paint');
 
                 let initializedGui = guiInitialState;
                 if (props.isFullScreen || props.isPlayerOnly) {
@@ -65,6 +69,9 @@ const AppStateHOC = function (WrappedComponent, localesOnly) {
                     }
                 } else if (props.showTelemetryModal) {
                     initializedGui = initTelemetryModal(initializedGui);
+                }
+                if (props.isEmbedded) {
+                    initializedGui = initEmbedded(initializedGui);
                 }
                 reducers = {
                     locales: localesReducer,
@@ -78,11 +85,18 @@ const AppStateHOC = function (WrappedComponent, localesOnly) {
                 enhancer = composeEnhancers(guiMiddleware);
             }
             const reducer = combineReducers(reducers);
+            const reducer2 = (previousState, action) => {
+                const nextState = reducer(previousState, action);
+                AddonHooks.appStateReducer(action, previousState, nextState);
+                return nextState;
+            };
             this.store = createStore(
-                reducer,
+                reducer2,
                 initialState,
                 enhancer
             );
+            window.ReduxStore = this.store;
+            AddonHooks.appStateStore = this.store;
         }
         componentDidUpdate (prevProps) {
             if (localesOnly) return;
@@ -115,6 +129,7 @@ const AppStateHOC = function (WrappedComponent, localesOnly) {
         isFullScreen: PropTypes.bool,
         isPlayerOnly: PropTypes.bool,
         isTelemetryEnabled: PropTypes.bool,
+        isEmbedded: PropTypes.bool,
         showTelemetryModal: PropTypes.bool
     };
     return AppStateWrapper;

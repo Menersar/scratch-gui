@@ -23,6 +23,7 @@ class SpriteSelectorItem extends React.PureComponent {
             'handleDelete',
             'handleDuplicate',
             'handleExport',
+            'handleRename',
             'handleMouseEnter',
             'handleMouseLeave',
             'handleMouseDown',
@@ -99,8 +100,12 @@ class SpriteSelectorItem extends React.PureComponent {
         this.props.onDuplicateButtonClick(this.props.id);
     }
     handleExport (e) {
-        e.stopPropagation();
+        e.stopPropagation(); // To prevent from bubbling back to handleClick
         this.props.onExportButtonClick(this.props.id);
+    }
+    handleRename (e) {
+        e.stopPropagation(); // To prevent from bubbling back to handleClick
+        this.props.onRenameButtonClick(this.props.id);
     }
     handleMouseLeave () {
         this.props.dispatchSetHoveredSprite(null);
@@ -122,6 +127,7 @@ class SpriteSelectorItem extends React.PureComponent {
             onDeleteButtonClick,
             onDuplicateButtonClick,
             onExportButtonClick,
+            onRenameButtonClick,
             dragPayload,
             receivedBlocks,
             costumeURL,
@@ -138,6 +144,7 @@ class SpriteSelectorItem extends React.PureComponent {
                 onDeleteButtonClick={onDeleteButtonClick ? this.handleDelete : null}
                 onDuplicateButtonClick={onDuplicateButtonClick ? this.handleDuplicate : null}
                 onExportButtonClick={onExportButtonClick ? this.handleExport : null}
+                onRenameButtonClick={onRenameButtonClick ? this.handleExport : null}
                 onMouseDown={this.handleMouseDown}
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
@@ -148,20 +155,25 @@ class SpriteSelectorItem extends React.PureComponent {
 }
 
 SpriteSelectorItem.propTypes = {
-    asset: PropTypes.instanceOf(storage.Asset),
+    // eslint-disable-next-line react/forbid-prop-types
+    asset: PropTypes.any,
     costumeURL: PropTypes.string,
     dispatchSetHoveredSprite: PropTypes.func.isRequired,
-    dragPayload: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    // eslint-disable-next-line react/forbid-prop-types
+    dragPayload: PropTypes.any,
     dragType: PropTypes.string,
     dragging: PropTypes.bool,
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    // eslint-disable-next-line react/forbid-prop-types
+    id: PropTypes.any,
     index: PropTypes.number,
-    name: PropTypes.string,
+    // eslint-disable-next-line react/forbid-prop-types
+    name: PropTypes.any,
     onClick: PropTypes.func,
     onDeleteButtonClick: PropTypes.func,
     onDrag: PropTypes.func.isRequired,
     onDuplicateButtonClick: PropTypes.func,
     onExportButtonClick: PropTypes.func,
+    onRenameButtonClick: PropTypes.func,
     receivedBlocks: PropTypes.bool.isRequired,
     selected: PropTypes.bool,
     vm: PropTypes.instanceOf(VM).isRequired

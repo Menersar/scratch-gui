@@ -2042,19 +2042,19 @@
         "variables": {},
         "costumes": [
             {
-                "assetId": "bcf454acf82e4504149f7ffe07081dbc",
+                "assetId": "_bcf454acf82e4504149f7ffe07081dbc",
                 "name": "cat-a",
                 "bitmapResolution": 1,
-                "md5ext": "bcf454acf82e4504149f7ffe07081dbc.svg",
+                "md5ext": "_bcf454acf82e4504149f7ffe07081dbc.svg",
                 "dataFormat": "svg",
                 "rotationCenterX": 48,
                 "rotationCenterY": 50
             },
             {
-                "assetId": "0fb9be3e8397c983338cb71dc84d0b25",
+                "assetId": "_0fb9be3e8397c983338cb71dc84d0b25",
                 "name": "cat-b",
                 "bitmapResolution": 1,
-                "md5ext": "0fb9be3e8397c983338cb71dc84d0b25.svg",
+                "md5ext": "_0fb9be3e8397c983338cb71dc84d0b25.svg",
                 "dataFormat": "svg",
                 "rotationCenterX": 46,
                 "rotationCenterY": 53
@@ -2147,6 +2147,56 @@
                 "rate": 44100,
                 "sampleCount": 1032,
                 "md5ext": "83a9787d4cb6f3b7632b4ddfebf74367.wav"
+            }
+        ],
+        "blocks": {}
+    },
+    {
+        "name": "Sidekick",
+        "tags": [
+            "animals",
+            "cat",
+            "kitten",
+            "kitty",
+            "mammal",
+            "grey",
+            "cape",
+            "green",
+            "sidekick",
+            "sidekick cat",
+            "logo"
+        ],
+        "isStage": false,
+        "variables": {},
+        "costumes": [
+            {
+                "assetId": "bcf454acf82e4504149f7ffe07081dbc",
+                "name": "Sidekick1",
+                "bitmapResolution": 1,
+                "md5ext": "bcf454acf82e4504149f7ffe07081dbc.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 50.383295,
+                "rotationCenterY": 50.882895
+            },
+            {
+                "assetId": "0fb9be3e8397c983338cb71dc84d0b25",
+                "name": "Sidekick2",
+                "bitmapResolution": 1,
+                "md5ext": "0fb9be3e8397c983338cb71dc84d0b25.svg",
+                "dataFormat": "svg",
+                "rotationCenterX": 50.383295,
+                "rotationCenterY": 50.882895
+            }
+        ],
+        "sounds": [
+            {
+                "assetId": "83c36d806dc92327b9e7049a565c6bff",
+                "name": "Meow",
+                "dataFormat": "wav",
+                "format": "",
+                "rate": 44100,
+                "sampleCount": 37376,
+                "md5ext": "83c36d806dc92327b9e7049a565c6bff.wav"
             }
         ],
         "blocks": {}

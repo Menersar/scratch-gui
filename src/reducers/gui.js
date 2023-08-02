@@ -27,6 +27,8 @@ import toolboxReducer, {toolboxInitialState} from './toolbox';
 import vmReducer, {vmInitialState} from './vm';
 import vmStatusReducer, {vmStatusInitialState} from './vm-status';
 import workspaceMetricsReducer, {workspaceMetricsInitialState} from './workspace-metrics';
+import sidekickReducer, {sidekickInitialState} from './sidekick';
+import customStageSizeReducer, {customStageSizeInitialState} from './custom-stage-size';
 import throttle from 'redux-throttle';
 
 import decks from '../lib/libraries/decks/index.jsx';
@@ -45,6 +47,7 @@ const guiInitialState = {
     mode: modeInitialState,
     hoveredTarget: hoveredTargetInitialState,
     stageSize: stageSizeInitialState,
+    customStageSize: customStageSizeInitialState,
     menus: menuInitialState,
     micIndicator: micIndicatorInitialState,
     modals: modalsInitialState,
@@ -61,7 +64,8 @@ const guiInitialState = {
     toolbox: toolboxInitialState,
     vm: vmInitialState,
     vmStatus: vmStatusInitialState,
-    workspaceMetrics: workspaceMetricsInitialState
+    workspaceMetrics: workspaceMetricsInitialState,
+    sidekick: sidekickInitialState
 };
 
 const initPlayer = function (currentState) {
@@ -71,6 +75,7 @@ const initPlayer = function (currentState) {
         {mode: {
             isFullScreen: currentState.mode.isFullScreen,
             isPlayerOnly: true,
+            isEmbedded: false,
             // When initializing in player mode, make sure to reset
             // hasEverEnteredEditorMode
             hasEverEnteredEditor: false
@@ -84,6 +89,7 @@ const initFullScreen = function (currentState) {
         {mode: {
             isFullScreen: true,
             isPlayerOnly: currentState.mode.isPlayerOnly,
+            isEmbedded: false,
             hasEverEnteredEditor: currentState.mode.hasEverEnteredEditor
         }}
     );
@@ -95,8 +101,9 @@ const initEmbedded = function (currentState) {
         currentState,
         {mode: {
             showBranding: true,
-            isFullScreen: true,
+            isFullScreen: false,
             isPlayerOnly: true,
+            isEmbedded: true,
             hasEverEnteredEditor: false
         }}
     );
@@ -141,6 +148,7 @@ const guiReducer = combineReducers({
     colorPicker: colorPickerReducer,
     connectionModal: connectionModalReducer,
     customProcedures: customProceduresReducer,
+    customStageSize: customStageSizeReducer,
     editorTab: editorTabReducer,
     mode: modeReducer,
     hoveredTarget: hoveredTargetReducer,
@@ -161,7 +169,8 @@ const guiReducer = combineReducers({
     toolbox: toolboxReducer,
     vm: vmReducer,
     vmStatus: vmStatusReducer,
-    workspaceMetrics: workspaceMetricsReducer
+    workspaceMetrics: workspaceMetricsReducer,
+    sidekick: sidekickReducer
 });
 
 export {

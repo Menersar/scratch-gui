@@ -22,7 +22,7 @@ class LibraryItemComponent extends React.PureComponent {
                     {
                         [styles.disabled]: this.props.disabled
                     },
-                    this.props.extensionId ? styles.libraryItemExtension : null,
+                    typeof this.props.extensionId === 'string' ? styles.libraryItemExtension : null,
                     this.props.hidden ? styles.hidden : null
                 )}
                 onClick={this.props.onClick}
@@ -53,7 +53,7 @@ class LibraryItemComponent extends React.PureComponent {
                     </div>
                 ) : null}
                 <div
-                    className={this.props.extensionId ?
+                    className={typeof this.props.extensionId === 'string' ?
                         classNames(styles.featuredExtensionText, styles.featuredText) : styles.featuredText
                     }
                 >
@@ -106,6 +106,16 @@ class LibraryItemComponent extends React.PureComponent {
                         </div>
                     </div>
                 ) : null}
+                {this.props.incompatibleWithScratch && (
+                    <div className={styles.incompatibleWithScratch}>
+                        <FormattedMessage
+                            // eslint-disable-next-line max-len
+                            defaultMessage="Not compatible with Scratch."
+                            description="Warning that appears on extensions that won't work in Scratch."
+                            id="gui.extensions.incompatible"
+                        />
+                    </div>
+                )}
             </div>
         ) : (
             <Box
@@ -132,7 +142,10 @@ class LibraryItemComponent extends React.PureComponent {
                     >
                         <ScratchImage
                             className={styles.libraryItemImage}
+                            loading="lazy"
                             imageSource={this.props.iconSource}
+                            // !!!
+                            // !!! src={this.props.iconURL}
                         />
                     </Box>
                 </Box>
@@ -178,7 +191,8 @@ LibraryItemComponent.propTypes = {
     onMouseLeave: PropTypes.func.isRequired,
     onPlay: PropTypes.func.isRequired,
     onStop: PropTypes.func.isRequired,
-    showPlayButton: PropTypes.bool
+    showPlayButton: PropTypes.bool,
+    incompatibleWithScratch: PropTypes.bool,
 };
 
 LibraryItemComponent.defaultProps = {

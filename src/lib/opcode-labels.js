@@ -88,6 +88,11 @@ const messages = defineMessages({
         description: 'Label for the current date monitor when shown on the stage. Shows the current day of the month',
         id: 'gui.opcodeLabels.date'
     },
+    sensing_dayssince2000: {
+        defaultMessage: 'days since 2000',
+        description: 'Label for the days since 2000 monitor when show on the stage',
+        id: 'gui.opcode.2000'
+    },
     sensing_current_dayofweek: {
         defaultMessage: 'day of week',
         description: 'Label for the current day of week monitor when shown on the stage',
@@ -112,6 +117,21 @@ const messages = defineMessages({
         defaultMessage: 'timer',
         description: 'Label for the timer monitor when shown on the stage',
         id: 'gui.opcodeLabels.timer'
+    },
+    sensing_mousedown: {
+        defaultMessage: 'mouse down?',
+        description: 'Label for the mouse down monitor when show on the stage',
+        id: 'gui.opcode.mousedown'
+    },
+    sensing_mousex: {
+        defaultMessage: 'mouse x',
+        description: 'Label for the mouse x monitor when show on the stage',
+        id: 'gui.opcode.mousex'
+    },
+    sensing_mousey: {
+        defaultMessage: 'mouse y',
+        description: 'Label for the mouse y monitor when show on the stage',
+        id: 'gui.opcode.mousey'
     }
 });
 
@@ -154,7 +174,11 @@ class OpcodeLabels {
             sensing_loudness: {category: 'sensing'},
             sensing_username: {category: 'sensing'},
             sensing_current: {category: 'sensing'},
-            sensing_timer: {category: 'sensing'}
+            sensing_dayssince2000: {category: 'sensing'},
+            sensing_timer: {category: 'sensing'},
+            sensing_mousedown: {category: 'sensing'},
+            sensing_mousex: {category: 'sensing'},
+            sensing_mousey: {category: 'sensing'}
         };
 
         // Initialize opcodeMap with default strings
@@ -227,7 +251,11 @@ class OpcodeLabels {
                 return this._translator(messages.sensing_current_second);
             }
         };
+        this._opcodeMap.sensing_dayssince2000.labelFn = () => this._translator(messages.sensing_dayssince2000);
         this._opcodeMap.sensing_timer.labelFn = () => this._translator(messages.sensing_timer);
+        this._opcodeMap.sensing_mousedown.labelFn = () => this._translator(messages.sensing_mousedown);
+        this._opcodeMap.sensing_mousex.labelFn = () => this._translator(messages.sensing_mousex);
+        this._opcodeMap.sensing_mousey.labelFn = () => this._translator(messages.sensing_mousey);
     }
 
     /**

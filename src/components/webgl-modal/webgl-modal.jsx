@@ -20,7 +20,7 @@ const WebGlModal = ({intl, ...props}) => (
         className={styles.modalContent}
         contentLabel={intl.formatMessage({...messages.label})}
         overlayClassName={styles.modalOverlay}
-        onRequestClose={props.onBack}
+        // onRequestClose={props.onBack}
     >
         <div dir={props.isRtl ? 'rtl' : 'ltr'}>
             <Box className={styles.illustration} />
@@ -32,7 +32,7 @@ const WebGlModal = ({intl, ...props}) => (
                 <p>
                     { /* eslint-disable max-len */ }
                     <FormattedMessage
-                        defaultMessage="Unfortunately it looks like your browser or computer {webGlLink}. This technology is needed for Scratch 3.0 to run."
+                        defaultMessage="Unfortunately it looks like your browser or computer {webGlLink}. This technology is needed for the Scratch 3.0 site to run. You can try to update your browser and / or graphics drivers or restart your computer."
                         description="WebGL missing message"
                         id="gui.webglModal.description"
                         values={{
@@ -53,7 +53,8 @@ const WebGlModal = ({intl, ...props}) => (
                     { /* eslint-enable max-len */ }
                 </p>
 
-                <Box className={styles.buttonRow}>
+
+                {/* <Box className={styles.buttonRow}>
                     <button
                         className={styles.backButton}
                         onClick={props.onBack}
@@ -86,7 +87,9 @@ const WebGlModal = ({intl, ...props}) => (
                             )
                         }}
                     />
-                </div>
+                </div> */}
+
+
             </Box>
         </div>
     </ReactModal>
@@ -94,8 +97,8 @@ const WebGlModal = ({intl, ...props}) => (
 
 WebGlModal.propTypes = {
     intl: intlShape.isRequired,
-    isRtl: PropTypes.bool,
-    onBack: PropTypes.func.isRequired
+    isRtl: PropTypes.bool
+    // onBack: PropTypes.func.isRequired
 };
 
 export default injectIntl(WebGlModal);

@@ -26,6 +26,7 @@ const GreenFlagComponent = function (props) {
             src={greenFlagIcon}
             title={title}
             onClick={onClick}
+            onContextMenu={onClick}
             {...componentProps}
         />
     );

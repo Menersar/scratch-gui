@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-unresolved
-import soundThumbnail from '!base64-loader!./sound-thumbnail.jpg';
+// TODO: !!! change also her for jpeg and png relative to selected mode (dark or light) !!!
+import soundThumbnail from '!base64-loader!./sound-thumbnail.png';
 
 const soundPayload = sound => {
     const assetDataUrl = sound.asset.encodeDataURI();
@@ -33,4 +34,7 @@ const soundPayload = sound => {
     return new Promise(resolve => resolve(payload));
 };
 
-export default soundPayload;
+export {
+    soundPayload as default,
+    soundThumbnail
+};

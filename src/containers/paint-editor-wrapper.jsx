@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import bindAll from 'lodash.bindall';
 import VM from 'scratch-vm';
-import PaintEditor from 'scratch-paint';
+import PaintEditor from '../lib/sidekick-scratch-paint';
 import {inlineSvgFonts} from 'scratch-svg-renderer';
 
 import {connect} from 'react-redux';
@@ -18,7 +18,9 @@ class PaintEditorWrapper extends React.Component {
     shouldComponentUpdate (nextProps) {
         return this.props.imageId !== nextProps.imageId ||
             this.props.rtl !== nextProps.rtl ||
-            this.props.name !== nextProps.name;
+            this.props.name !== nextProps.name ||
+            this.props.isDark !== nextProps.isDark ||
+            this.props.customStageSize !== nextProps.customStageSize;
     }
     handleUpdateName (name) {
         this.props.vm.renameCostume(this.props.selectedCostumeIndex, name);
@@ -54,6 +56,9 @@ class PaintEditorWrapper extends React.Component {
                 onUpdateImage={this.handleUpdateImage}
                 onUpdateName={this.handleUpdateName}
                 fontInlineFn={inlineSvgFonts}
+                theme={this.props.isDark ? 'dark' : 'light'}
+                width={this.props.customStageSize.width}
+                height={this.props.customStageSize.height}
             />
         );
     }
@@ -66,8 +71,13 @@ PaintEditorWrapper.propTypes = {
     rotationCenterX: PropTypes.number,
     rotationCenterY: PropTypes.number,
     rtl: PropTypes.bool,
+    isDark: PropTypes.bool,
     selectedCostumeIndex: PropTypes.number.isRequired,
-    vm: PropTypes.instanceOf(VM)
+    vm: PropTypes.instanceOf(VM),
+    customStageSize: PropTypes.shape({
+        width: PropTypes.width,
+        height: PropTypes.number
+    })
 };
 
 const mapStateToProps = (state, {selectedCostumeIndex}) => {
@@ -86,6 +96,7 @@ const mapStateToProps = (state, {selectedCostumeIndex}) => {
         rtl: state.locales.isRtl,
         selectedCostumeIndex: index,
         vm: state.scratchGui.vm,
+        customStageSize: state.scratchGui.customStageSize,
         zoomLevelId: targetId
     };
 };

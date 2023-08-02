@@ -1,0 +1,14 @@
+@import "../../css/colors.css";
+/* https://stackoverflow.com/questions/17042547/how-to-inject-javascript-into-chrome-devtools-itself */
+/* https://stackoverflow.com/questions/56812723/how-to-edit-a-websites-background-colors/56812958#56812958 */
+
+/* !!! */
+/* "see-inside-button": For the s3 dev tools to re-inject itself */
+/* https://github.com/griffpatch/Scratch3-Dev-Tools/blob/0.2.4/inject3.js#L1804-L1807 */
+.see-inside-button {
+    box-shadow: 0 0 0 1px $ui-black-transparent;
+}
+
+.see-inside-button-icon {
+    height: 1.25rem;
+}

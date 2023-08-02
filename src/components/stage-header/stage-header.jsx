@@ -10,13 +10,15 @@ import Button from '../button/button.jsx';
 import Controls from '../../containers/controls.jsx';
 import {getStageDimensions} from '../../lib/screen-utils';
 import {STAGE_SIZE_MODES} from '../../lib/layout-constants';
+import FullscreenAPI from '../../lib/sidekick-fullscreen-api';
 
 import fullScreenIcon from './icon--fullscreen.svg';
 import largeStageIcon from './icon--large-stage.svg';
+import settingsIcon from './icon--settings.svg';
 import smallStageIcon from './icon--small-stage.svg';
 import unFullScreenIcon from './icon--unfullscreen.svg';
 
-import scratchLogo from '../menu-bar/scratch-logo.svg';
+import scratchLogo from '../menu-bar/sidekick-logo.svg';
 import styles from './stage-header.css';
 
 const messages = defineMessages({
@@ -44,27 +46,38 @@ const messages = defineMessages({
         defaultMessage: 'Full Screen Control',
         description: 'Button to enter/exit full screen mode',
         id: 'gui.stageHeader.fullscreenControl'
+    },
+    openSettingsMessage: {
+        defaultMessage: 'Access advanced settings',
+        description: 'Button to access advanced settings',
+        id: 'gui.openAdvanced'
     }
 });
+
+const enableSettingsButton = new URLSearchParams(location.search).has('settings-button');
 
 const StageHeaderComponent = function (props) {
     const {
         isFullScreen,
         isPlayerOnly,
+        isEmbedded,
         onKeyPress,
         onSetStageLarge,
         onSetStageSmall,
         onSetStageFull,
         onSetStageUnFull,
+        onOpenSettings,
         showBranding,
         stageSizeMode,
+        customStageSize,
         vm
     } = props;
 
     let header = null;
 
-    if (isFullScreen) {
-        const stageDimensions = getStageDimensions(null, true);
+    if (isFullScreen || isEmbedded) {
+        const stageDimensions = getStageDimensions(null, customStageSize, true);
+
         const stageButton = showBranding ? (
             <div className={styles.embedScratchLogo}>
                 <a
@@ -78,7 +91,23 @@ const StageHeaderComponent = function (props) {
                     />
                 </a>
             </div>
-        ) : (
+        ) : null;
+
+        const settingsButton = isEmbedded && enableSettingsButton ? (
+            <Button
+                className={styles.stageButton}
+                onClick={onOpenSettings}
+            >
+                <img
+                    alt={props.intl.formatMessage(messages.openSettingsMessage)}
+                    className={styles.stageButtonIcon}
+                    draggable={false}
+                    src={settingsIcon}
+                    title={props.intl.formatMessage(messages.openSettingsMessage)}
+                />
+            </Button>
+        ) : null;
+        const fullscreenButton = isFullScreen ? (
             <Button
                 className={styles.stageButton}
                 onClick={onSetStageUnFull}
@@ -92,15 +121,36 @@ const StageHeaderComponent = function (props) {
                     title={props.intl.formatMessage(messages.fullscreenControl)}
                 />
             </Button>
-        );
+        ) : FullscreenAPI.available() ? (
+            <Button
+                className={styles.stageButton}
+                onClick={onSetStageFull}
+            >
+                <img
+                    alt={props.intl.formatMessage(messages.fullStageSizeMessage)}
+                    className={styles.stageButtonIcon}
+                    draggable={false}
+                    src={fullScreenIcon}
+                    title={props.intl.formatMessage(messages.fullscreenControl)}
+                />
+            </Button>
+        ) : null;
         header = (
-            <Box className={styles.stageHeaderWrapperOverlay}>
+            <Box
+                className={classNames(styles.stageHeaderWrapperOverlay, {
+                    [styles.embedded]: isEmbedded
+                })}
+            >
                 <Box
                     className={styles.stageMenuWrapper}
                     style={{width: stageDimensions.width}}
                 >
                     <Controls vm={vm} />
                     {stageButton}
+                    <div className={styles.embedButtons}>
+                        {settingsButton}
+                        {fullscreenButton}
+                    </div>
                 </Box>
             </Box>
         );
@@ -149,7 +199,10 @@ const StageHeaderComponent = function (props) {
         header = (
             <Box className={styles.stageHeaderWrapper}>
                 <Box className={styles.stageMenuWrapper}>
-                    <Controls vm={vm} />
+                    <Controls
+                        vm={vm}
+                        isSmall={stageSizeMode === STAGE_SIZE_MODES.small}
+                    />
                     <div className={styles.stageSizeRow}>
                         {stageControls}
                         <div>
@@ -177,20 +230,27 @@ const StageHeaderComponent = function (props) {
 
 const mapStateToProps = state => ({
     // This is the button's mode, as opposed to the actual current state
-    stageSizeMode: state.scratchGui.stageSize.stageSize
+    stageSizeMode: state.scratchGui.stageSize.stageSize,
+    customStageSize: state.scratchGui.customStageSize
 });
 
 StageHeaderComponent.propTypes = {
     intl: intlShape,
     isFullScreen: PropTypes.bool.isRequired,
     isPlayerOnly: PropTypes.bool.isRequired,
+    isEmbedded: PropTypes.bool.isRequired,
     onKeyPress: PropTypes.func.isRequired,
     onSetStageFull: PropTypes.func.isRequired,
     onSetStageLarge: PropTypes.func.isRequired,
     onSetStageSmall: PropTypes.func.isRequired,
     onSetStageUnFull: PropTypes.func.isRequired,
+    onOpenSettings: PropTypes.func.isRequired,
     showBranding: PropTypes.bool.isRequired,
     stageSizeMode: PropTypes.oneOf(Object.keys(STAGE_SIZE_MODES)),
+    customStageSize: PropTypes.shape({
+        width: PropTypes.number,
+        height: PropTypes.number
+    }),
     vm: PropTypes.instanceOf(VM).isRequired
 };
 

@@ -9,7 +9,6 @@ import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import tabStyles from 'react-tabs/style/react-tabs.css';
 import VM from 'scratch-vm';
 import Renderer from 'scratch-render';
-import {isRendererSupported, isBrowserSupported} from '../../lib/sidekick-environment-support-prober';
 
 import Blocks from '../../containers/blocks.jsx';
 import CostumeTab from '../../containers/costume-tab.jsx';
@@ -41,6 +40,15 @@ import codeIcon from './icon--code.svg';
 import costumesIcon from './icon--costumes.svg';
 import soundsIcon from './icon--sounds.svg';
 
+import SidekickSecurityManager from '../../containers/sidekick-security-manager.jsx';
+import SidekickUsernameModal from '../../containers/sidekick-username-modal.jsx';
+import SidekickSettingsModal from '../../containers/sidekick-settings-modal.jsx';
+import SidekickCustomExtensionModal from '../../containers/sidekick-custom-extension-modal.jsx';
+
+import BrowserModal from '../browser-modal/browser-modal.jsx';
+
+import {isRendererSupported, isBrowserSupported} from '../../lib/sidekick-environment-support-prober';
+
 const messages = defineMessages({
     addExtension: {
         id: 'gui.gui.addExtension',
@@ -52,6 +60,19 @@ const messages = defineMessages({
 // Cache this value to only retrieve it once the first time.
 // Assume that it doesn't change for a session.
 // let isRendererSupported = null;
+
+const getFullscreenBackgroundColor = () => {
+    const params = new URLSearchParams(location.search);
+    if (params.has('fullscreen-background')) {
+        return params.get('fullscreen-background');
+    }
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return '#111';
+    }
+    return 'white';
+};
+
+const fullscreenBackgroundColor = getFullscreenBackgroundColor();
 
 const GUIComponent = props => {
     const {
@@ -80,6 +101,8 @@ const GUIComponent = props => {
         children,
         connectionModalVisible,
         costumeLibraryVisible,
+        customStageSize,
+        customExtensionModalVisible,
         costumesTabVisible,
         enableCommunity,
         intl,
@@ -90,6 +113,9 @@ const GUIComponent = props => {
         isShared,
         isTelemetryEnabled,
         isTotallyNormal,
+        isDark,
+        isEmbedded,
+        isWindowFullScreen,
         loading,
         logo,
         renderLogin,
@@ -115,12 +141,17 @@ const GUIComponent = props => {
         onTelemetryModalCancel,
         onTelemetryModalOptIn,
         onTelemetryModalOptOut,
+        onClickAddonSettings,
+        onClickTheme,
+        onClickPackager,
         showComingSoon,
         soundsTabVisible,
         stageSizeMode,
+        settingsModalVisible,
         targetIsStage,
         telemetryModalVisible,
         tipsLibraryVisible,
+        usernameModalVisible,
         vm,
         ...componentProps
     } = omit(props, 'dispatch');
@@ -140,30 +171,51 @@ const GUIComponent = props => {
     // if (isRendererSupported === null) {
     //     isRendererSupported = Renderer.isSupported();
     // }
-
-    return (<MediaQuery minWidth={layout.fullSizeMinWidth}>{isFullSize => {
+    const minWidth = layout.fullSizeMinWidth + Math.max(0, customStageSize.width - layout.referenceWidth);
+    return (<MediaQuery minWidth={minWidth}>{isFullSize => {
         const stageSize = resolveStageSize(stageSizeMode, isFullSize);
 
+        const alwaysEnabledModals = (
+            <React.Fragment>
+                <SidekickSecurityManager/>
+                {usernameModalVisible && <SidekickUsernameModal />}
+                {settingsModalVisible && <SidekickSettingsModal />}
+                {customExtensionModalVisible && <SidekickCustomExtensionModal />}
+            </React.Fragment>
+        );
+
         return isPlayerOnly ? (
-            <StageWrapper
-                isFullScreen={isFullScreen}
-                // isRendererSupported={isRendererSupported}
-                isRendererSupported={isRendererSupported()}
-                isRtl={isRtl}
-                loading={loading}
-                stageSize={STAGE_SIZE_MODES.large}
-                vm={vm}
-            >
-                {alertsVisible ? (
-                    <Alerts className={styles.alertsContainer} />
+            <React.Fragment>
+                {isWindowFullScreen ? (
+                    <div
+                        className={styles.fullscreenBackground}
+                        style={{
+                            backgroundColor: fullscreenBackgroundColor
+                        }}
+                    />
                 ) : null}
-            </StageWrapper>
+                <StageWrapper
+                    isFullScreen={isFullScreen}
+                    isEmbedded={isEmbedded}
+                    isRendererSupported={isRendererSupported()}
+                    isRtl={isRtl}
+                    loading={loading}
+                    stageSize={STAGE_SIZE_MODES.large}
+                    vm={vm}
+                >
+                    {alertsVisible ? (
+                        <Alerts className={styles.alertsContainer} />
+                    ) : null}
+                </StageWrapper>
+                {alwaysEnabledModals}
+            </React.Fragment>
         ) : (
             <Box
                 className={styles.pageWrapper}
                 dir={isRtl ? 'rtl' : 'ltr'}
                 {...componentProps}
             >
+                {alwaysEnabledModals}
                 {telemetryModalVisible ? (
                     <TelemetryModal
                         isRtl={isRtl}
@@ -176,14 +228,19 @@ const GUIComponent = props => {
                     />
                 ) : null}
                 {loading ? (
-                    <Loader />
+                    <Loader isFullScreen />
                 ) : null}
                 {isCreating ? (
-                    <Loader messageId="gui.loader.creating" />
+                    <Loader
+                        isFullScreen
+                        messageId="gui.loader.creating"
+                    />
                 ) : null}
-                {/* {isRendererSupported ? null : ( */}
                 {isRendererSupported() ? null : (
                     <WebGlModal isRtl={isRtl} />
+                )}
+                {isBrowserSupported() ? null : (
+                    <BrowserModal isRtl={isRtl} />
                 )}
                 {tipsLibraryVisible ? (
                     <TipsLibrary />
@@ -234,6 +291,9 @@ const GUIComponent = props => {
                     onClickAbout={onClickAbout}
                     onClickAccountNav={onClickAccountNav}
                     onClickLogo={onClickLogo}
+                    onClickAddonSettings={onClickAddonSettings}
+                    onClickTheme={onClickTheme}
+                    onClickPackager={onClickPackager}
                     onCloseAccountNav={onCloseAccountNav}
                     onLogOut={onLogOut}
                     onOpenRegistration={onOpenRegistration}
@@ -335,7 +395,10 @@ const GUIComponent = props => {
                                     </Box>
                                 </TabPanel>
                                 <TabPanel className={tabClassNames.tabPanel}>
-                                    {costumesTabVisible ? <CostumeTab vm={vm} /> : null}
+                                    {costumesTabVisible ? <CostumeTab
+                                        vm={vm}
+                                        isDark={isDark}
+                                    /> : null}
                                 </TabPanel>
                                 <TabPanel className={tabClassNames.tabPanel}>
                                     {soundsTabVisible ? <SoundTab vm={vm} /> : null}
@@ -349,7 +412,6 @@ const GUIComponent = props => {
                         <Box className={classNames(styles.stageAndTargetWrapper, styles[stageSize])}>
                             <StageWrapper
                                 isFullScreen={isFullScreen}
-                                // isRendererSupported={isRendererSupported}
                                 isRendererSupported={isRendererSupported()}
                                 isRtl={isRtl}
                                 stageSize={stageSize}
@@ -395,6 +457,11 @@ GUIComponent.propTypes = {
     children: PropTypes.node,
     costumeLibraryVisible: PropTypes.bool,
     costumesTabVisible: PropTypes.bool,
+    customStageSize: PropTypes.shape({
+        width: PropTypes.number,
+        height: PropTypes.number
+    }),
+    customExtensionModalVisible: PropTypes.bool,
     enableCommunity: PropTypes.bool,
     intl: intlShape.isRequired,
     isCreating: PropTypes.bool,
@@ -403,6 +470,9 @@ GUIComponent.propTypes = {
     isRtl: PropTypes.bool,
     isShared: PropTypes.bool,
     isTotallyNormal: PropTypes.bool,
+    isDark: PropTypes.bool,
+    isEmbedded: PropTypes.bool,
+    isWindowFullScreen: PropTypes.bool,
     loading: PropTypes.bool,
     logo: PropTypes.string,
     onActivateCostumesTab: PropTypes.func,
@@ -410,6 +480,9 @@ GUIComponent.propTypes = {
     onActivateTab: PropTypes.func,
     onClickAccountNav: PropTypes.func,
     onClickLogo: PropTypes.func,
+    onClickAddonSettings: PropTypes.func,
+    onClickTheme: PropTypes.func,
+    onClickPackager: PropTypes.func,
     onCloseAccountNav: PropTypes.func,
     onExtensionButtonClick: PropTypes.func,
     onLogOut: PropTypes.func,
@@ -430,9 +503,11 @@ GUIComponent.propTypes = {
     showComingSoon: PropTypes.bool,
     soundsTabVisible: PropTypes.bool,
     stageSizeMode: PropTypes.oneOf(Object.keys(STAGE_SIZE_MODES)),
+    settingsModalVisible: PropTypes.bool,
     targetIsStage: PropTypes.bool,
     telemetryModalVisible: PropTypes.bool,
     tipsLibraryVisible: PropTypes.bool,
+    usernameModalVisible: PropTypes.bool,
     vm: PropTypes.instanceOf(VM).isRequired
 };
 GUIComponent.defaultProps = {
@@ -461,7 +536,10 @@ GUIComponent.defaultProps = {
 const mapStateToProps = state => ({
     // This is the button's mode, as opposed to the actual current state
     stageSizeMode: state.scratchGui.stageSize.stageSize,
-    blocksId: state.scratchGui.timeTravel.year.toString()
+    // !!!
+    blocksId: state.scratchGui.timeTravel.year.toString(),
+    customStageSize: state.scratchGui.customStageSize,
+    isWindowFullScreen: state.scratchGui.gui.isWindowFullScreen
 });
 
 export default injectIntl(connect(

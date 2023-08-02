@@ -1,5 +1,7 @@
 import log from '../lib/log';
 
+const RESET_MONITOR_LAYOUT = 'scratch-gui/monitors/RESET_MONITOR_LAYOUT';
+
 const ADD_MONITOR_RECT = 'scratch-gui/monitors/ADD_MONITOR_RECT';
 const MOVE_MONITOR_RECT = 'scratch-gui/monitors/MOVE_MONITOR_RECT';
 const RESIZE_MONITOR_RECT = 'scratch-gui/monitors/RESIZE_MONITOR_RECT';
@@ -57,7 +59,7 @@ const _moveMonitorRect = function (state, action) {
         log.error(`Monitor rectangle not formatted correctly`);
         return state;
     }
-    
+
     const oldMonitor = state.monitors[action.monitorId];
     if (oldMonitor.upperStart.x === action.newX &&
             oldMonitor.upperStart.y === action.newY) {
@@ -137,6 +139,8 @@ const reducer = function (state, action) {
         return _resizeMonitorRect(state, action);
     case REMOVE_MONITOR_RECT:
         return _removeMonitorRect(state, action);
+    case RESET_MONITOR_LAYOUT:
+        return initialState;
     default:
         return state;
     }
@@ -244,6 +248,15 @@ const getInitialPosition = function (state, monitorId, eltWidth, eltHeight) {
 
 // Action creators ------------------------
 /**
+ * @returns {object} action to reset the monitor layout
+ */
+const resetMonitorLayout = function () {
+    return {
+        type: RESET_MONITOR_LAYOUT
+    };
+};
+
+/**
  * @param {!string} monitorId Id to add
  * @param {!object} upperStart upper point defining the rectangle
  * @param {!number} upperStart.x X of top point that defines the monitor location
@@ -308,6 +321,7 @@ const removeMonitorRect = function (monitorId) {
 export {
     reducer as default,
     initialState as monitorLayoutInitialState,
+    resetMonitorLayout,
     addMonitorRect,
     getInitialPosition,
     moveMonitorRect,

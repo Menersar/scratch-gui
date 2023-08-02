@@ -240,6 +240,7 @@ class SoundEditor extends React.Component {
         return () => this.handleEffect(name);
     }
     copyCurrentBuffer () {
+        // ???
         // Cannot reliably use props.samples because it gets detached by Firefox
         return {
             samples: this.audioBufferPlayer.buffer.getChannelData(0),
@@ -277,7 +278,14 @@ class SoundEditor extends React.Component {
         const endIndex = this.state.trimEnd === null ?
             numChunks - 1 : Math.ceil(this.state.trimEnd * numChunks);
         const trimChunks = this.state.chunkLevels.slice(startIndex, endIndex);
-        return Math.max(...trimChunks) > MAX_RMS;
+        let max = 0;
+        for (const i of trimChunks) {
+            if (i > max) {
+                max = i;
+            }
+        }
+        // return Math.max(...trimChunks) > MAX_RMS;
+        return max > MAX_RMS;
     }
     getUndoItem () {
         return {
@@ -437,6 +445,10 @@ class SoundEditor extends React.Component {
                 canUndo={this.undoStack.length > 0}
                 chunkLevels={this.state.chunkLevels}
                 name={this.props.name}
+                duration={this.props.duration}
+                isStereo={this.props.isStereo}
+                sampleRate={this.props.sampleRate}
+                size={this.props.size}
                 playhead={this.state.playhead}
                 setRef={this.setRef}
                 tooLoud={this.tooLoud()}
@@ -470,11 +482,14 @@ class SoundEditor extends React.Component {
 
 SoundEditor.propTypes = {
     isFullScreen: PropTypes.bool,
+    isStereo: PropTypes.bool,
     name: PropTypes.string.isRequired,
     sampleRate: PropTypes.number,
     samples: PropTypes.instanceOf(Float32Array),
     soundId: PropTypes.string,
     soundIndex: PropTypes.number,
+    duration: PropTypes.number,
+    size: PropTypes.number,
     vm: PropTypes.instanceOf(VM).isRequired
 };
 
@@ -486,10 +501,13 @@ const mapStateToProps = (state, {soundIndex}) => {
     const audioBuffer = state.scratchGui.vm.getSoundBuffer(index);
     return {
         soundId: sound.soundId,
+        name: sound.name,
+        duration: sound.sampleCount / sound.rate,
+        size: sound.asset ? sound.asset.data.byteLength : 0,
         sampleRate: audioBuffer.sampleRate,
         samples: audioBuffer.getChannelData(0),
+        isStereo: audioBuffer.numberOfChannels !== 1,
         isFullScreen: state.scratchGui.mode.isFullScreen,
-        name: sound.name,
         vm: state.scratchGui.vm
     };
 };

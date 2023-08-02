@@ -4,19 +4,23 @@ import projectData from './project-data';
 import popWav from '!arraybuffer-loader!./83a9787d4cb6f3b7632b4ddfebf74367.wav';
 import meowWav from '!arraybuffer-loader!./83c36d806dc92327b9e7049a565c6bff.wav';
 import backdrop from '!raw-loader!./cd21514d0531fdffb22204e0ec5ed84a.svg';
-import costume1 from '!raw-loader!./bcf454acf82e4504149f7ffe07081dbc.svg';
-import costume2 from '!raw-loader!./0fb9be3e8397c983338cb71dc84d0b25.svg';
+// import costume1 from '!raw-loader!./bcf454acf82e4504149f7ffe07081dbc.svg';
+// import costume2 from '!raw-loader!./0fb9be3e8397c983338cb71dc84d0b25.svg';
+import costume1 from '!raw-loader!./sidekick1.svg';
+import costume2 from '!raw-loader!./sidekick2.svg';
 /* eslint-enable import/no-unresolved */
+import {TextEncoder} from '../sidekick-text-encoder';
 
 const defaultProject = translator => {
-    let _TextEncoder;
-    if (typeof TextEncoder === 'undefined') {
-        _TextEncoder = require('text-encoding').TextEncoder;
-    } else {
-        /* global TextEncoder */
-        _TextEncoder = TextEncoder;
-    }
-    const encoder = new _TextEncoder();
+    // // ???
+    // let _TextEncoder;
+    // if (typeof TextEncoder === 'undefined') {
+    //     _TextEncoder = require('text-encoding').TextEncoder;
+    // } else {
+    //     /* global TextEncoder */
+    //     _TextEncoder = TextEncoder;
+    // }
+    const encoder = new TextEncoder();
 
     const projectJson = projectData(translator);
     return [{
@@ -24,7 +28,8 @@ const defaultProject = translator => {
         assetType: 'Project',
         dataFormat: 'JSON',
         data: JSON.stringify(projectJson)
-    }, {
+    },
+    {
         id: '83a9787d4cb6f3b7632b4ddfebf74367',
         assetType: 'Sound',
         dataFormat: 'WAV',
@@ -34,7 +39,8 @@ const defaultProject = translator => {
         assetType: 'Sound',
         dataFormat: 'WAV',
         data: new Uint8Array(meowWav)
-    }, {
+    },
+    {
         id: 'cd21514d0531fdffb22204e0ec5ed84a',
         assetType: 'ImageVector',
         dataFormat: 'SVG',
@@ -49,7 +55,8 @@ const defaultProject = translator => {
         assetType: 'ImageVector',
         dataFormat: 'SVG',
         data: encoder.encode(costume2)
-    }];
+    }
+    ];
 };
 
 export default defaultProject;

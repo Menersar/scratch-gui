@@ -34,8 +34,7 @@ import paintIcon from '../components/action-menu/icon--paint.svg';
 import surpriseIcon from '../components/action-menu/icon--surprise.svg';
 import searchIcon from '../components/action-menu/icon--search.svg';
 
-import costumeLibraryContent from '../lib/libraries/costumes.json';
-import backdropLibraryContent from '../lib/libraries/backdrops.json';
+import {getCostumeLibrary, getBackdropLibrary} from '../lib/libraries/sidekick-async-libraries';
 
 let messages = defineMessages({
     addLibraryBackdropMsg: {
@@ -145,7 +144,10 @@ class CostumeTab extends React.Component {
     }
     handleExportCostume (costumeIndex) {
         const item = this.props.vm.editingTarget.sprite.costumes[costumeIndex];
-        const blob = new Blob([item.asset.data], {type: item.asset.assetType.contentType});
+        const blob = new Blob(
+            [this.props.vm.getExportedCostume(item)],
+            {type: item.asset.assetType.contentType}
+        );
         downloadBlob(`${item.name}.${item.asset.dataFormat}`, blob);
     }
     handleNewCostume (costume, fromCostumeLibrary, targetId) {
@@ -167,7 +169,8 @@ class CostumeTab extends React.Component {
             this.props.intl.formatMessage(messages.costume, {index: 1});
         this.handleNewCostume(emptyCostume(name));
     }
-    handleSurpriseCostume () {
+    async handleSurpriseCostume () {
+        const costumeLibraryContent = await getCostumeLibrary();
         const item = costumeLibraryContent[Math.floor(Math.random() * costumeLibraryContent.length)];
         const vmCostume = {
             name: item.name,
@@ -179,7 +182,8 @@ class CostumeTab extends React.Component {
         };
         this.handleNewCostume(vmCostume, true /* fromCostumeLibrary */);
     }
-    handleSurpriseBackdrop () {
+    async handleSurpriseBackdrop () {
+        const backdropLibraryContent = await getBackdropLibrary();
         const item = backdropLibraryContent[Math.floor(Math.random() * backdropLibraryContent.length)];
         const vmCostume = {
             name: item.name,
@@ -192,11 +196,11 @@ class CostumeTab extends React.Component {
         this.handleNewCostume(vmCostume);
     }
     handleCostumeUpload (e) {
-        const storage = this.props.vm.runtime.storage;
+        const vm = this.props.vm;
         const targetId = this.props.vm.editingTarget.id;
         this.props.onShowImporting();
         handleFileUpload(e.target, (buffer, fileType, fileName, fileIndex, fileCount) => {
-            costumeUpload(buffer, fileType, storage, vmCostumes => {
+            costumeUpload(buffer, fileType, vm, vmCostumes => {
                 vmCostumes.forEach((costume, i) => {
                     costume.name = `${fileName}${i ? i + 1 : ''}`;
                 });
@@ -282,7 +286,7 @@ class CostumeTab extends React.Component {
                         title: intl.formatMessage(addFileMessage),
                         img: fileUploadIcon,
                         onClick: this.handleFileUploadClick,
-                        fileAccept: '.svg, .png, .bmp, .jpg, .jpeg, .gif',
+                        fileAccept: '.bmp, .gif, .jfif, .jpg, .jpeg, .png, .svg, .webp',
                         fileChange: this.handleCostumeUpload,
                         fileInput: this.setFileInput,
                         fileMultiple: true
@@ -317,6 +321,7 @@ class CostumeTab extends React.Component {
                 {target.costumes ?
                     <PaintEditorWrapper
                         selectedCostumeIndex={this.state.selectedCostumeIndex}
+                        isDark={this.props.isDark}
                     /> :
                     null
                 }
@@ -330,6 +335,7 @@ CostumeTab.propTypes = {
     editingTarget: PropTypes.string,
     intl: intlShape,
     isRtl: PropTypes.bool,
+    isDark: PropTypes.bool,
     onActivateSoundsTab: PropTypes.func.isRequired,
     onCloseImporting: PropTypes.func.isRequired,
     onNewLibraryBackdropClick: PropTypes.func.isRequired,

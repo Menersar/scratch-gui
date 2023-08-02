@@ -11,7 +11,7 @@ import GreenFlagOverlay from '../../containers/green-flag-overlay.jsx';
 import Question from '../../containers/question.jsx';
 import MicIndicator from '../mic-indicator/mic-indicator.jsx';
 import {STAGE_DISPLAY_SIZES} from '../../lib/layout-constants.js';
-import {getStageDimensions} from '../../lib/screen-utils.js';
+import {getStageDimensions, getMinWidth} from '../../lib/screen-utils.js';
 import styles from './stage.css';
 
 const StageComponent = props => {
@@ -21,10 +21,12 @@ const StageComponent = props => {
         isColorPicking,
         isFullScreen,
         isStarted,
+        isPlayerOnly,
         colorInfo,
         micIndicator,
         question,
         stageSize,
+        customStageSize,
         useEditorDragStyle,
         onDeactivateColorPicker,
         onDoubleClick,
@@ -32,7 +34,11 @@ const StageComponent = props => {
         ...boxProps
     } = props;
 
-    const stageDimensions = getStageDimensions(stageSize, isFullScreen);
+    const stageDimensions = getStageDimensions(stageSize, customStageSize, isFullScreen);
+    const minWidth = getMinWidth(stageSize);
+    const transformStyle = stageDimensions.width < minWidth && !isFullScreen ? {
+        transform: `translateX(${(minWidth - stageDimensions.width) / 2}px)`
+    } : {};
 
     return (
         <React.Fragment>
@@ -41,6 +47,9 @@ const StageComponent = props => {
                     styles.stageWrapper,
                     {[styles.withColorPicker]: !isFullScreen && isColorPicking})}
                 onDoubleClick={onDoubleClick}
+                style={isPlayerOnly ? null : {
+                    minWidth: `${minWidth}px`
+                }}
             >
                 <Box
                     className={classNames(
@@ -49,7 +58,8 @@ const StageComponent = props => {
                     )}
                     style={{
                         height: stageDimensions.height,
-                        width: stageDimensions.width
+                        width: stageDimensions.width,
+                        ...transformStyle
                     }}
                 >
                     <DOMElementRenderer
@@ -84,6 +94,7 @@ const StageComponent = props => {
                         styles.stageOverlays,
                         {[styles.fullScreen]: isFullScreen}
                     )}
+                    style={transformStyle}
                 >
                     <div
                         className={styles.stageBottomWrapper}
@@ -140,12 +151,17 @@ StageComponent.propTypes = {
     isColorPicking: PropTypes.bool,
     isFullScreen: PropTypes.bool.isRequired,
     isStarted: PropTypes.bool,
+    isPlayerOnly: PropTypes.bool,
     micIndicator: PropTypes.bool,
     onDeactivateColorPicker: PropTypes.func,
     onDoubleClick: PropTypes.func,
     onQuestionAnswered: PropTypes.func,
     question: PropTypes.string,
     stageSize: PropTypes.oneOf(Object.keys(STAGE_DISPLAY_SIZES)).isRequired,
+    customStageSize: PropTypes.shape({
+        width: PropTypes.number,
+        height: PropTypes.height
+    }),
     useEditorDragStyle: PropTypes.bool
 };
 StageComponent.defaultProps = {

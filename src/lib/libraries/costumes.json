@@ -1691,7 +1691,8 @@
         "md5ext": "6667936a2793aade66c765c329379ad0.svg",
         "rotationCenterX": 44,
         "rotationCenterY": 46
-    },
+    }
+    ,
     {
         "name": "Cat-a",
         "tags": [
@@ -1703,10 +1704,10 @@
             "orange",
             "scratch cat"
         ],
-        "assetId": "bcf454acf82e4504149f7ffe07081dbc",
+        "assetId": "_bcf454acf82e4504149f7ffe07081dbc",
         "bitmapResolution": 1,
         "dataFormat": "svg",
-        "md5ext": "bcf454acf82e4504149f7ffe07081dbc.svg",
+        "md5ext": "_bcf454acf82e4504149f7ffe07081dbc.svg",
         "rotationCenterX": 48,
         "rotationCenterY": 50
     },
@@ -1721,12 +1722,56 @@
             "orange",
             "scratch cat"
         ],
+        "assetId": "_0fb9be3e8397c983338cb71dc84d0b25",
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "md5ext": "_0fb9be3e8397c983338cb71dc84d0b25.svg",
+        "rotationCenterX": 46,
+        "rotationCenterY": 53
+    },
+    {
+        "name": "Sidekick1",
+        "tags": [
+            "animals",
+            "cat",
+            "kitten",
+            "kitty",
+            "mammal",
+            "grey",
+            "cape",
+            "green",
+            "sidekick",
+            "sidekick cat",
+            "logo"
+        ],
+        "assetId": "bcf454acf82e4504149f7ffe07081dbc",
+        "bitmapResolution": 1,
+        "dataFormat": "svg",
+        "md5ext": "bcf454acf82e4504149f7ffe07081dbc.svg",
+        "rotationCenterX": 50.383295,
+        "rotationCenterY": 50.882895
+    },
+    {
+        "name": "Sidekick2",
+        "tags": [
+            "animals",
+            "cat",
+            "kitten",
+            "kitty",
+            "mammal",
+            "grey",
+            "cape",
+            "green",
+            "sidekick",
+            "sidekick cat",
+            "logo"
+        ],
         "assetId": "0fb9be3e8397c983338cb71dc84d0b25",
         "bitmapResolution": 1,
         "dataFormat": "svg",
         "md5ext": "0fb9be3e8397c983338cb71dc84d0b25.svg",
-        "rotationCenterX": 46,
-        "rotationCenterY": 53
+        "rotationCenterX": 50.383295,
+        "rotationCenterY": 50.882895
     },
     {
         "name": "Catcher-a",
