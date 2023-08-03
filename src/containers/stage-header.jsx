@@ -60,10 +60,10 @@ const mapStateToProps = state => ({
     stageSizeMode: state.scratchGui.stageSize.stageSize,
     showBranding: state.scratchGui.mode.showBranding,
     isFullScreen: state.scratchGui.mode.isFullScreen,
-    isWindowFullScreen: state.scratchGui.gui.isWindowFullScreen,
+    isWindowFullScreen: state.scratchGui.sidekick.isWindowFullScreen,
     isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
     isEmbedded: state.scratchGui.mode.isEmbedded,
-    dimensions: state.scratchGui.gui.dimensions
+    dimensions: state.scratchGui.sidekick.dimensions
 });
 
 const mapDispatchToProps = dispatch => ({

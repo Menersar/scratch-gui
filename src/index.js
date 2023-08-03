@@ -1,13 +1,13 @@
 import GUI from './containers/gui.jsx';
 import GuiReducer, {guiInitialState, guiMiddleware, initEmbedded, initFullScreen, initPlayer} from './reducers/gui';
 import AppStateHOC from './lib/app-state-hoc.jsx';
-import TitledHOC from './lib/titled-hoc.jsx';
+// import TitledHOC from './lib/titled-hoc.jsx';
 import LocalesReducer, {localesInitialState, initLocale} from './reducers/locales';
 import {ScratchPaintReducer} from 'scratch-paint';
 import {setFullScreen, setPlayer} from './reducers/mode';
 import {remixProject} from './reducers/project-state';
 import {setAppElement} from 'react-modal';
-import totallyNormalStrings from './lib/l10n.js';
+// import totallyNormalStrings from './lib/l10n.js';
 
 const guiReducers = {
     locales: LocalesReducer,
@@ -19,7 +19,7 @@ export {
     GUI as default,
     guiReducers,
     AppStateHOC,
-    TitledHOC,
+    // TitledHOC,
     setAppElement,
     guiInitialState,
     guiMiddleware,
@@ -30,6 +30,7 @@ export {
     localesInitialState,
     remixProject,
     setFullScreen,
-    setPlayer,
-    totallyNormalStrings
+    setPlayer
+    // ,
+    // totallyNormalStrings
 };

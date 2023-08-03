@@ -23,7 +23,7 @@ const CrashMessage = props => (
             <p>
                 <FormattedMessage
                     defaultMessage={'We are so sorry, but it looks like Sidekick has crashed.' +
-                        'Please refresh your page to try' +
+                        ' Please refresh your page to try' +
                         ' again.'}
                     description="Message to inform the user that page has crashed."
                     id="gui.crashMessage.description"

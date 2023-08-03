@@ -6,7 +6,6 @@ import {compose} from 'redux';
 import {FormattedMessage, defineMessages, injectIntl, intlShape} from 'react-intl';
 import {getIsLoading} from '../reducers/project-state.js';
 import DOMElementRenderer from '../containers/dom-element-renderer.jsx';
-import GUI from './render-gui.jsx';
 import AppStateHOC from '../lib/app-state-hoc.jsx';
 import ErrorBoundaryHOC from '../lib/error-boundary-hoc.jsx';
 import SidekickProjectMetaFetcherHOC from '../lib/sidekick-project-meta-fetcher-hoc.jsx';
@@ -17,6 +16,7 @@ import SidekickPackagerIntegrationHOC from '../lib/sidekick-packager-integration
 import SidekickRestorePointHOC from '../lib/sidekick-restore-point-hoc.jsx';
 import SettingsStore from '../addons/settings-store-singleton';
 import '../lib/sidekick-fix-history-api';
+import GUI from './render-gui.jsx';
 import MenuBar from '../components/menu-bar/menu-bar.jsx';
 import ProjectInput from '../components/sidekick-project-input/project-input.jsx';
 import FeaturedProjects from '../components/sidekick-featured-projects/featured-projects.jsx';
@@ -33,7 +33,7 @@ import styles from './interface.css';
 
 if (window.parent !== window) {
     // eslint-disable-next-line no-alert
-    alert('This page contains an invalid TurboWarp embed. Please read https://github.com/Mixality/Sidekick#embedding for instructions to create a working embed.');
+    alert('This page contains an invalid Sidekick embed. Please read https://github.com/Mixality/Sidekick#embedding for instructions to create a working embed.');
     throw new Error('Invalid embed');
 }
 
@@ -141,7 +141,9 @@ const Footer = () => (
                     </a>
                 </div>
                 <div className={styles.footerSection}>
-                    <a href="https://scratch.mit.edu/users/GarboMuffin/#comments">
+                    {/* !!! CHANGE !!! */}
+                    {/* <a href="https://github.com/Mixality/Sidekick/issues"> */}
+                    <a href="https://github.com/Menersar/Sidekick/issues">
                         <FormattedMessage
                             defaultMessage="Feedback & Bugs"
                             description="Link to feedback/bugs page"
@@ -321,7 +323,9 @@ class Interface extends React.Component {
                                 </p>
                             </div>
                             <div className={styles.section}>
-                                <FeaturedProjects studio="27205657" />
+                                {/* !!! CHANGE !!! */}
+                                {/* <FeaturedProjects studio="27205657" /> */}
+                                <FeaturedProjects studio="" />
                             </div>
                         </React.Fragment>
                     ) : null}
@@ -352,9 +356,9 @@ Interface.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    hasCloudVariables: state.scratchGui.gui.hasCloudVariables,
+    hasCloudVariables: state.scratchGui.sidekick.hasCloudVariables,
     customStageSize: state.scratchGui.customStageSize,
-    description: state.scratchGui.gui.description,
+    description: state.scratchGui.sidekick.description,
     isFullScreen: state.scratchGui.mode.isFullScreen,
     isLoading: getIsLoading(state.scratchGui.projectState.loadingState),
     isPlayerOnly: state.scratchGui.mode.isPlayerOnly,

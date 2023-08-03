@@ -248,7 +248,7 @@ const vmListenerHOC = function (WrappedComponent) {
     };
     const mapStateToProps = state => ({
         projectChanged: state.scratchGui.projectChanged,
-        hasCloudVariables: state.scratchGui.gui.hasCloudVariables,
+        hasCloudVariables: state.scratchGui.sidekick.hasCloudVariables,
         // Do not emit target or project updates in fullscreen or player only mode
         // or when recording sounds (it leads to garbled recordings on low-power machines)
         shouldUpdateTargets: !state.scratchGui.mode.isFullScreen && !state.scratchGui.mode.isPlayerOnly &&
@@ -257,7 +257,7 @@ const vmListenerHOC = function (WrappedComponent) {
         shouldUpdateProjectChanged: !state.scratchGui.mode.isFullScreen && !state.scratchGui.mode.isPlayerOnly,
         vm: state.scratchGui.vm,
         username: state.session && state.session.session && state.session.session.user ?
-            state.session.session.user.username : state.scratchGui.gui ? state.scratchGui.gui.username : ''
+            state.session.session.user.username : state.scratchGui.gui ? state.scratchGui.sidekick.username : ''
     });
     const mapDispatchToProps = dispatch => ({
         onStageSizeChanged: (width, height) => dispatch(setCustomStageSize(width, height)),

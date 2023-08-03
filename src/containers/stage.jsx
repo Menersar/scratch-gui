@@ -489,9 +489,9 @@ const mapStateToProps = state => ({
     isFullScreen: state.scratchGui.mode.isFullScreen || state.scratchGui.mode.isEmbedded,
     isStarted: state.scratchGui.vmStatus.started,
     isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
-    isWindowFullScreen: state.scratchGui.gui.isWindowFullScreen,
+    isWindowFullScreen: state.scratchGui.sidekick.isWindowFullScreen,
     micIndicator: state.scratchGui.micIndicator,
-    highQualityPen: state.scratchGui.gui.highQualityPen,
+    highQualityPen: state.scratchGui.sidekick.highQualityPen,
     // ???
     // Do not use editor drag style in fullscreen or player mode.
     useEditorDragStyle: !(state.scratchGui.mode.isFullScreen || state.scratchGui.mode.isPlayerOnly),
@@ -501,7 +501,7 @@ const mapStateToProps = state => ({
         state.scratchGui.mode.isPlayerOnly
     ),
     customStageSize: state.scratchGui.customStageSize,
-    dimensions: state.scratchGui.gui.dimensions
+    dimensions: state.scratchGui.sidekick.dimensions
 });
 
 const mapDispatchToProps = dispatch => ({

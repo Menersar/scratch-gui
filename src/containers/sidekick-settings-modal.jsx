@@ -151,15 +151,15 @@ UsernameModal.propTypes = {
 const mapStateToProps = state => ({
     vm: state.scratchGui.vm,
     isEmbedded: state.scratchGui.mode.isEmbedded,
-    framerate: state.scratchGui.gui.framerate,
-    highQualityPen: state.scratchGui.gui.highQualityPen,
-    interpolation: state.scratchGui.gui.interpolation,
-    infiniteClones: state.scratchGui.gui.runtimeOptions.maxClones === Infinity,
-    removeFencing: !state.scratchGui.gui.runtimeOptions.fencing,
-    removeLimits: !state.scratchGui.gui.runtimeOptions.miscLimits,
-    warpTimer: state.scratchGui.gui.compilerOptions.warpTimer,
+    framerate: state.scratchGui.sidekick.framerate,
+    highQualityPen: state.scratchGui.sidekick.highQualityPen,
+    interpolation: state.scratchGui.sidekick.interpolation,
+    infiniteClones: state.scratchGui.sidekick.runtimeOptions.maxClones === Infinity,
+    removeFencing: !state.scratchGui.sidekick.runtimeOptions.fencing,
+    removeLimits: !state.scratchGui.sidekick.runtimeOptions.miscLimits,
+    warpTimer: state.scratchGui.sidekick.compilerOptions.warpTimer,
     customStageSize: state.scratchGui.customStageSize,
-    disableCompiler: !state.scratchGui.gui.compilerOptions.enabled
+    disableCompiler: !state.scratchGui.sidekick.compilerOptions.enabled
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -58,7 +58,7 @@ FramerateChanger.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    framerate: state.scratchGui.gui.framerate,
+    framerate: state.scratchGui.sidekick.framerate,
     vm: state.scratchGui.vm
 });
 

@@ -22,13 +22,13 @@ import restoreDeletionReducer, {restoreDeletionInitialState} from './restore-del
 import stageSizeReducer, {stageSizeInitialState} from './stage-size';
 import targetReducer, {targetsInitialState} from './targets';
 import timeoutReducer, {timeoutInitialState} from './timeout';
-import timeTravelReducer, {timeTravelInitialState} from './time-travel';
+// import timeTravelReducer, {timeTravelInitialState} from './time-travel';
 import toolboxReducer, {toolboxInitialState} from './toolbox';
+import sidekickReducer, {sidekickInitialState} from './sidekick';
+import customStageSizeReducer, {customStageSizeInitialState} from './custom-stage-size';
 import vmReducer, {vmInitialState} from './vm';
 import vmStatusReducer, {vmStatusInitialState} from './vm-status';
 import workspaceMetricsReducer, {workspaceMetricsInitialState} from './workspace-metrics';
-import sidekickReducer, {sidekickInitialState} from './sidekick';
-import customStageSizeReducer, {customStageSizeInitialState} from './custom-stage-size';
 import throttle from 'redux-throttle';
 
 import decks from '../lib/libraries/decks/index.jsx';
@@ -60,7 +60,7 @@ const guiInitialState = {
     restoreDeletion: restoreDeletionInitialState,
     targets: targetsInitialState,
     timeout: timeoutInitialState,
-    timeTravel: timeTravelInitialState,
+    // timeTravel: timeTravelInitialState,
     toolbox: toolboxInitialState,
     vm: vmInitialState,
     vmStatus: vmStatusInitialState,
@@ -165,7 +165,7 @@ const guiReducer = combineReducers({
     restoreDeletion: restoreDeletionReducer,
     targets: targetReducer,
     timeout: timeoutReducer,
-    timeTravel: timeTravelReducer,
+    // timeTravel: timeTravelReducer,
     toolbox: toolboxReducer,
     vm: vmReducer,
     vmStatus: vmStatusReducer,

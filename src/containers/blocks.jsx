@@ -28,7 +28,7 @@ import {closeExtensionLibrary, openSoundRecorder, openConnectionModal, openCusto
 import {activateCustomProcedures, deactivateCustomProcedures} from '../reducers/custom-procedures';
 import {setConnectionModalExtensionId} from '../reducers/connection-modal';
 import {updateMetrics} from '../reducers/workspace-metrics';
-import {isTimeTravel2020} from '../reducers/time-travel';
+// import {isTimeTravel2020} from '../reducers/time-travel';
 
 import {
     activateTab,
@@ -735,8 +735,8 @@ const mapStateToProps = state => ({
     toolboxXML: state.scratchGui.toolbox.toolboxXML,
     customProceduresVisible: state.scratchGui.customProcedures.active,
     customStageSize: state.scratchGui.customStageSize,
-    workspaceMetrics: state.scratchGui.workspaceMetrics,
-    useCatBlocks: isTimeTravel2020(state)
+    workspaceMetrics: state.scratchGui.workspaceMetrics
+    // useCatBlocks: isTimeTravel2020(state)
 });
 
 const mapDispatchToProps = dispatch => ({

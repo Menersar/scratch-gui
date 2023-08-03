@@ -584,13 +584,13 @@ const SidekickStateManager = function (WrappedComponent) {
         isEmbedded: state.scratchGui.mode.isEmbedded,
         projectChanged: state.scratchGui.projectChanged,
         reduxProjectId: state.scratchGui.projectState.projectId,
-        compilerOptions: state.scratchGui.gui.compilerOptions,
-        runtimeOptions: state.scratchGui.gui.runtimeOptions,
-        highQualityPen: state.scratchGui.gui.highQualityPen,
-        framerate: state.scratchGui.gui.framerate,
-        interpolation: state.scratchGui.gui.interpolation,
+        compilerOptions: state.scratchGui.sidekick.compilerOptions,
+        runtimeOptions: state.scratchGui.sidekick.runtimeOptions,
+        highQualityPen: state.scratchGui.sidekick.highQualityPen,
+        framerate: state.scratchGui.sidekick.framerate,
+        interpolation: state.scratchGui.sidekick.interpolation,
         turbo: state.scratchGui.vmStatus.turbo,
-        username: state.scratchGui.gui.username,
+        username: state.scratchGui.sidekick.username,
         vm: state.scratchGui.vm
     });
     const mapDispatchToProps = dispatch => ({

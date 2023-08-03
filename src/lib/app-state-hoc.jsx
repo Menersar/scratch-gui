@@ -1,4 +1,4 @@
-import {guiReducers} from '../index.js';
+// import {guiReducers} from '../index.js';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Provider} from 'react-redux';

@@ -35,14 +35,14 @@ import SidekickRestorePointLoader from '../../containers/sidekick-restore-point-
 
 import {openTipsLibrary, openSettingsModal} from '../../reducers/modals';
 import {setPlayer} from '../../reducers/mode';
-import {
-    isTimeTravel220022BC,
-    isTimeTravel1920,
-    isTimeTravel1990,
-    isTimeTravel2020,
-    isTimeTravelNow,
-    setTimeTravel
-} from '../../reducers/time-travel';
+// import {
+//     isTimeTravel220022BC,
+//     isTimeTravel1920,
+//     isTimeTravel1990,
+//     isTimeTravel2020,
+//     isTimeTravelNow,
+//     setTimeTravel
+// } from '../../reducers/time-travel';
 import {
     autoUpdateProject,
     getIsUpdating,
@@ -1124,9 +1124,9 @@ const mapStateToProps = (state, ownProps) => {
     return {
         aboutMenuOpen: aboutMenuOpen(state),
         accountMenuOpen: accountMenuOpen(state),
-        authorThumbnailUrl: state.scratchGui.gui.author.thumbnail,
-        authorUsername: state.scratchGui.gui.author.username,
-        compileErrors: state.scratchGui.gui.compileErrors,
+        authorThumbnailUrl: state.scratchGui.sidekick.author.thumbnail,
+        authorUsername: state.scratchGui.sidekick.author.username,
+        compileErrors: state.scratchGui.sidekick.compileErrors,
         fileMenuOpen: fileMenuOpen(state),
         editMenuOpen: editMenuOpen(state),
         errorsMenuOpen: errorsMenuOpen(state),
@@ -1144,12 +1144,13 @@ const mapStateToProps = (state, ownProps) => {
         username: user ? user.username : null,
         userOwnsProject: ownProps.authorUsername && user &&
             (ownProps.authorUsername === user.username),
-        vm: state.scratchGui.vm,
-        mode220022BC: isTimeTravel220022BC(state),
-        mode1920: isTimeTravel1920(state),
-        mode1990: isTimeTravel1990(state),
-        mode2020: isTimeTravel2020(state),
-        modeNow: isTimeTravelNow(state)
+        vm: state.scratchGui.vm
+        // ,
+        // mode220022BC: isTimeTravel220022BC(state),
+        // mode1920: isTimeTravel1920(state),
+        // mode1990: isTimeTravel1990(state),
+        // mode2020: isTimeTravel2020(state),
+        // modeNow: isTimeTravelNow(state)
     };
 };
 
@@ -1180,7 +1181,7 @@ const mapDispatchToProps = dispatch => ({
     onClickRemix: () => dispatch(remixProject()),
     onClickSave: () => dispatch(manualUpdateProject()),
     onClickSaveAsCopy: () => dispatch(saveProjectAsCopy()),
-    onSetTimeTravelMode: mode => dispatch(setTimeTravel(mode)),
+    // onSetTimeTravelMode: mode => dispatch(setTimeTravel(mode)),
     onClickSettings: () => {
         dispatch(openSettingsModal());
         dispatch(closeEditMenu());

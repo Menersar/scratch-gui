@@ -1,10 +1,29 @@
 .template {
+    /* sa-block-color-motion */
+    color: rgb(76, 151, 255);
+    color: rgb(66, 128, 215);
+    color: rgb(51, 115, 204);
+    color: rgb(51, 115, 204);
 
+    /* sa-block-color-turbowarp */
+    color: rgb(255, 76, 76);
+    color: rgb(230, 68, 68);
+    color: rgb(230, 68, 68);
+    color: rgb(230, 68, 68);
+
+    /* sa-block-color-sidekick */
+    color: #c6ddaf;
+    color: #b7d59b;
+    color: #63a93d;
+    color: #63a93d;
 
     /* motion-primary: #D9D9D9;
 motion-tertiary: #F9F9F9;
 motion-transparent: #e8edf1; */
 
+    /* motion-tertiary: hsla(145, 60%, 50%, 1); */
+    looks-secondary: #855cd6;
+    looks-transparent: hsla(260, 60%, 60%, 0.35);
 
     /* looks-secondary (border) */
     color: 1px solid rgb(76, 151, 255);
@@ -12,20 +31,20 @@ motion-transparent: #e8edf1; */
     color: 0px 0px 0px 3px hsla(215, 100%, 65%, 0.2);
 
     /* motion-primary */
-    color: hsl(0, 100%, 65%);
-    color: #4d97ff;
-    color: hsl(145, 100%, 65%);
+    color: rgb(255, 77, 77);
+    color: rgb(77, 151, 255);
+    color: rgb(77, 255, 151);
 
     /* motion-tertiary */
-    color: hsl(0, 60%, 50%);
-    color: #3373cc;
-    color: hsl(145, 60%, 50%);
+    color: rgb(204, 51, 51);
+    color: rgb(51, 115, 204);
+    color: rgb(51, 204, 115);
 
+    /* ??? 'color: #ff4d4d59', … is not supported by Edge < 79. Microsoft Edge Tools (compat-api/css)? !!! */
     /* motion-transparent */
-    color: hsla(0, 100%, 65%, 0.35);
-    color: hsla(215, 100%, 65%, 0.35);
-    color: hsla(145, 100%, 65%, 0.35);
-
+    color: #ff4d4d59;
+    color: #4d97ff59;
+    color: #4dff9759;
 
     /* Main greys */
     /* grey 1 */
@@ -49,9 +68,6 @@ motion-transparent: #e8edf1; */
     color: #63a93d;
     color: #345820; /* shadow version */
 
-
-
-
     color: #ff4c4c;
     color: #e64444;
     color: #c73a3a;
@@ -61,9 +77,9 @@ motion-transparent: #e8edf1; */
     color: #3aa8a4;
 
     /* defaultExtensionColors */
-    color: #0FBD8C;
-    color: #0DA57A;
-    color: #0B8E69;
+    color: #0fbd8c;
+    color: #0da57a;
+    color: #0b8e69;
 
     /* ui primary */
     color: rgb(242, 242, 242); /* #E5F0FF */
@@ -147,8 +163,8 @@ motion-transparent: #e8edf1; */
 
     /* alert */
     .alert.warn {
-        background: #FFF0DF;
-        border: 1px solid #FF8C1A;
+        background: #fff0df;
+        border: 1px solid #ff8c1a;
         box-shadow: 0px 0px 0px 2px rgba(255, 140, 26, 0.25);
     }
     .alert.success {
@@ -160,10 +176,10 @@ motion-transparent: #e8edf1; */
     .alert-message {
         color: #555;
         font-weight: bold;
-        font-size: .8125rem;
-        line-height: .875rem;
+        font-size: 0.8125rem;
+        line-height: 0.875rem;
         display: flex;
         align-items: center;
-        padding-right: .5rem;
+        padding-right: 0.5rem;
     }
 }

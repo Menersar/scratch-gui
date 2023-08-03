@@ -537,9 +537,9 @@ const mapStateToProps = state => ({
     // This is the button's mode, as opposed to the actual current state
     stageSizeMode: state.scratchGui.stageSize.stageSize,
     // !!!
-    blocksId: state.scratchGui.timeTravel.year.toString(),
+    // blocksId: state.scratchGui.timeTravel.year.toString(),
     customStageSize: state.scratchGui.customStageSize,
-    isWindowFullScreen: state.scratchGui.gui.isWindowFullScreen
+    isWindowFullScreen: state.scratchGui.sidekick.isWindowFullScreen
 });
 
 export default injectIntl(connect(

@@ -51,7 +51,7 @@ SidekickSaveStatus.propTypes = {
 
 const mapStateToProps = state => ({
     alertsList: state.scratchGui.alerts.alertsList,
-    fileHandle: state.scratchGui.gui.fileHandle,
+    fileHandle: state.scratchGui.sidekick.fileHandle,
     projectChanged: state.scratchGui.projectChanged
 });
 
