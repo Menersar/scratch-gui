@@ -11,7 +11,10 @@ const decorate = text => {
     // Make @mentions clickable
     text = reactStringReplace(text, /@([\w-]+)/, (match, i) => (
         <a
+            // !!! CHANGE !!!
             href={`https://scratch.mit.edu/users/${match}/`}
+            // href={`https://mixality.github.io/Sidekick/users/${match}/`}
+            // href={`https://menersar.github.io/Sidekick/users/${match}/`}
             rel="noreferrer"
             key={match + i}
         >{`@${match}`}</a>
@@ -30,7 +33,10 @@ const decorate = text => {
     // Make hashtags clickable
     text = reactStringReplace(text, /#([\w-]+)/g, (match, i) => (
         <a
+            // !!! CHANGE !!!
             href={`https://scratch.mit.edu/search/projects?q=${match}`}
+            // href={`https://mixality.github.io/Sidekick/search/projects?q=${match}`}
+            // href={`https://menersar.github.io/Sidekick/search/projects?q=${match}`}
             key={match + i}
         >{`#${match}`}</a>
     ));
@@ -46,7 +52,10 @@ const Description = ({
     <div className={styles.description}>
         <div className={styles.projectLink}>
             <a
+                // !!! CHANGE !!!
                 href={`https://scratch.mit.edu/projects/${projectId}/`}
+                // href={`https://mixality.github.io/Sidekick/projects/${projectId}/`}
+                // href={`https://menersar.github.io/Sidekick/projects/${projectId}/`}
                 target="_blank"
                 rel="noreferrer"
             >

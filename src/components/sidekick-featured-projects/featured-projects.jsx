@@ -74,7 +74,12 @@ class FeaturedProjects extends React.Component {
                     <a
                         target="_blank"
                         rel="noopener noreferrer"
+                        // !!! s CHANGE !!!
+                        // href={`https://scratch.mit.edu/studios/${this.props.studio}/`}
+                        // href={`https://mixality.github.io/Sidekick/studios/${this.props.studio}/`}
+                        // href={`https://menersar.github.io/Sidekick/studios/${this.props.studio}/`}
                         href={`https://scratch.mit.edu/studios/${this.props.studio}/`}
+
                     >
                         <FormattedMessage
                             defaultMessage="View studio on Scratch."

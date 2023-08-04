@@ -118,6 +118,7 @@ const CustomExtensionModal = props => (
                     </p>
                     <textarea
                         className={styles.textCodeInput}
+                        // !!! 'nScratch.extensions.register'? ???
                         placeholder={'class Extension {\n  // ...\n}\nScratch.extensions.register(new Extension());'}
                         value={props.text}
                         onChange={props.onChangeText}

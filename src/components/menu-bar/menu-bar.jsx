@@ -195,7 +195,7 @@ const MenuItemLink = props => (
         href={props.href}
         // eslint-disable-next-line react/jsx-no-target-blank
         target="_blank"
-        rel="noopener"
+        rel="noopener noreferrer"
         className={styles.menuItemLink}
     >
         <MenuItem>{props.children}</MenuItem>
@@ -548,14 +548,20 @@ class MenuBar extends React.Component {
                                     onRequestClose={this.props.onRequestCloseErrors}
                                 >
                                     <MenuSection>
-                                        <MenuItemLink href="https://scratch.mit.edu/users/GarboMuffin/#comments">
+                                        {/* !!! CHANGE !!! */}
+                                        {/* <MenuItemLink href="https://scratch.mit.edu/users/GarboMuffin/#comments"> */}
+                                        {/* <MenuItemLink href="https://github.com/Mixality/Sidekick/issues"> */}
+                                        <MenuItemLink href="https://github.com/Menersar/Sidekick/issues">
                                             <FormattedMessage
                                                 defaultMessage="Some scripts could not be compiled."
                                                 description="Link in error menu"
                                                 id="gui.menuBar.reportError1"
                                             />
                                         </MenuItemLink>
-                                        <MenuItemLink href="https://scratch.mit.edu/users/GarboMuffin/#comments">
+                                        {/* !!! CHANGE !!! */}
+                                        {/* <MenuItemLink href="https://scratch.mit.edu/users/GarboMuffin/#comments"> */}
+                                        {/* <MenuItemLink href="https://github.com/Mixality/Sidekick/issues"> */}
+                                        <MenuItemLink href="https://github.com/Menersar/Sidekick/issues">
                                             <FormattedMessage
                                                 defaultMessage="This is a bug. Please report it."
                                                 description="Link in error menu"
@@ -861,7 +867,7 @@ class MenuBar extends React.Component {
                                 </MenuBarMenu>
                             </div>
                         )}
-                    {/* </div>
+                        {/* </div>
                     <Divider className={classNames(styles.divider)} />
                     <div
                         aria-label={this.props.intl.formatMessage(ariaMessages.tutorials)}
@@ -983,7 +989,10 @@ class MenuBar extends React.Component {
                     <div className={styles.menuBarItem}>
                         <a
                             className={styles.feedbackLink}
-                            href="https://scratch.mit.edu/users/GarboMuffin/#comments"
+                            // !!! CHANGE !!!
+                            // href="https://scratch.mit.edu/users/GarboMuffin/#comments"
+                            // href="https://github.com/Menersar/Sidekick/issues"
+                            href="https://github.com/Mixality/Sidekick/issues"
                             rel="noopener noreferrer"
                             target="_blank"
                         >

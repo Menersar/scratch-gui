@@ -57,7 +57,10 @@ const AuthorInfo = ({projectId, ...props}) => (
     projectId ? (
         <a
             className={styles.link}
+            // !!! CHANGE !!!
             href={`https://scratch.mit.edu/projects/${projectId}`}
+            // href={`https://mixality.github.io/Sidekick/projects/${projectId}`}
+            // href={`https://menersar.github.io/Sidekick/projects/${projectId}`}
             target="_blank"
             rel="noreferrer"
         >

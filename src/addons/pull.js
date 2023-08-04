@@ -203,7 +203,11 @@ const normalizeManifest = (id, manifest) => {
             .filter(
                 ({matches}) =>
                     matches.includes('projects') ||
+                    // !!! CHANGE !!!
                     matches.includes('https://scratch.mit.edu/projects/*')
+                    // matches.includes('https://mixality.github.io/Sidekick/projects/*')
+                    // matches.includes('https://menersar.github.io/Sidekick/projects/*')
+
             )
             .map(obj => ({
                 url: obj.url,
@@ -219,7 +223,12 @@ const normalizeManifest = (id, manifest) => {
 
     if (manifest.credits) {
         for (const {link} of manifest.credits) {
+            // !!! CHANGE !!!
             if (link && !link.startsWith('https://scratch.mit.edu/')) {
+            // if (link && !link.startsWith('https://mixality.github.io/Sidekick/')) {
+            // if (link && !link.startsWith('https://menersar.github.io/Sidekick/')) {
+            // if (link && (!link.startsWith('https://scratch.mit.edu/') || !link.startsWith('https://mixality.github.io/Sidekick/'))) {
+            // if (link && (!link.startsWith('https://scratch.mit.edu/') || !link.startsWith('https://menersar.github.io/Sidekick/'))) {
                 console.warn(
                     `Warning: ${id} contains unsafe credit link: ${link}`
                 );

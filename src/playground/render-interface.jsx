@@ -32,8 +32,10 @@ import runAddons from '../addons/entry';
 import styles from './interface.css';
 
 if (window.parent !== window) {
+    // !!! CHANGE !!!
     // eslint-disable-next-line no-alert
-    alert('This page contains an invalid Sidekick embed. Please read https://github.com/Mixality/Sidekick#embedding for instructions to create a working embed.');
+    alert('This page contains an invalid Sidekick embed. Please read https://github.com/Menersar/Sidekick#embedding for instructions to create a working embed.');
+    // alert('This page contains an invalid Sidekick embed. Please read https://github.com/Mixality/Sidekick#embedding for instructions to create a working embed.');
     throw new Error('Invalid embed');
 }
 
@@ -104,35 +106,48 @@ const Footer = () => (
                             id="gui.footer.donate"
                         />
                     </a>
+                    <a href="https://github.com/sponsors/GarboMuffin">
+                        <FormattedMessage
+                            defaultMessage="Donate to support TurboWarp"
+                            description="Donation link for TurboWarp in footer"
+                            id="gui.footer.donate"
+                        />
+                    </a>
                 </div>
                 <div className={styles.footerSection}>
                     {/* !!! CHANGE !!! */}
                     {/* <a href="https://mixality.github.io/Sidekick/sidekick-desktop"> */}
-                    <a href="https://menersar.github.io/Sidekick/sidekick-desktop">
+                    <a href="https://menersar.github.io/Sidekick/desktop/">
                         {/* Do not translate */}
                         {'Sidekick Desktop'}
                     </a>
                     {/* !!! CHANGE !!! */}
                     {/* <a href="https://mixality.github.io/Sidekick/sidekick-packager"> */}
-                    <a href="https://menersar.github.io/Sidekick/sidekick-packager">
+                    <a href="https://menersar.github.io/Sidekick/packager/">
                         {/* Do not translate */}
                         {'Sidekick Packager'}
                     </a>
-                    <a href="https://github.com/Mixality/Sidekick#embedding">
+                    {/* !!! CHANGE !!! */}
+                    {/* <a href="https://github.com/Mixality/Sidekick#embedding"> */}
+                    <a href="https://github.com/Menersar/Sidekick#embedding">
                         <FormattedMessage
                             defaultMessage="Embedding"
                             description="Link in footer to embedding documentation for embedding link"
                             id="gui.footer.embed"
                         />
                     </a>
-                    <a href="https://github.com/Mixality/Sidekick#url-parameters">
+                    {/* !!! CHANGE !!! */}
+                    {/* <a href="https://github.com/Mixality/Sidekick#url-parameters"> */}
+                    <a href="https://github.com/Menersar/Sidekick#url-parameters">
                         <FormattedMessage
                             defaultMessage="URL Parameters"
                             description="Link in footer to URL parameters documentation"
                             id="gui.footer.parameters"
                         />
                     </a>
-                    <a href="https://github.com/Mixality/Sidekick#readme">
+                    {/* !!! CHANGE !!! */}
+                    {/* <a href="https://github.com/Mixality/Sidekick#readme"> */}
+                    <a href="https://github.com/Menersar/Sidekick#readme/">
                         <FormattedMessage
                             defaultMessage="Documentation"
                             description="Link in footer to additional documentation"
@@ -150,7 +165,9 @@ const Footer = () => (
                             id="gui.feedback"
                         />
                     </a>
-                    <a href="https://github.com/Mixality/Sidekick/">
+                    {/* !!! CHANGE !!! */}
+                    {/* <a href="https://github.com/Mixality/Sidekick/"> */}
+                    <a href="https://github.com/Menersar/Sidekick/">
                         <FormattedMessage
                             defaultMessage="Source Code"
                             description="Link to source code"
@@ -270,11 +287,15 @@ class Interface extends React.Component {
                                             values={{
                                                 link: (
                                                     <a
-                                                        href="https://github.com/Mixality/Sidekick#unshared-projects"
+                                                        // !!! CHANGE !!!
+                                                        // href="https://github.com/Mixality/Sidekick#unshared-projects"
+                                                        href="https://github.com/Menersar/Sidekick#unshared-projects"
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                     >
-                                                        {'https://github.com/Mixality/Sidekick#unshared-projects'}
+                                                        {/* !!! CHANGE !!! */}
+                                                        {/* {'https://github.com/Mixality/Sidekick#unshared-projects'} */}
+                                                        {'https://github.com/Menersar/Sidekick#unshared-projects'}
                                                     </a>
                                                 )
                                             }}

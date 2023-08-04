@@ -299,22 +299,35 @@ StudioView.prototype.onpageload = function () { };
 StudioView.prototype.onend = function () { };
 
 // !!! ???
-StudioView.STUDIO_API = 'https://api.scratch.mit.edu/studios/$id/projects?offset=$offset';
+// !!! t CHANGE !!!
+// StudioView.STUDIO_API = 'https://trampoline.turbowarp.org/api/studios/$id/projects?offset=$offset';
+// StudioView.STUDIO_API = 'https://api.scratch.mit.edu/studios/$id/projects?offset=$offset';
+// StudioView.STUDIO_API = 'https://mixality.github.io/Sidekick/api/studios/$id/projects?offset=$offset';
+StudioView.STUDIO_API = 'https://menersar.github.io/Sidekick/trampoline/api/studios/$id/projects?offset=$offset';
 
+// !!! t CHANGE !!!
 // The URL to download thumbnails from.
 // $id is replaced with the project's ID.
-StudioView.THUMBNAIL_SRC = 'https://uploads.scratch.mit.edu/get_image/project/$id_144x108.png';
+// StudioView.THUMBNAIL_SRC = 'https://trampoline.turbowarp.org/thumbnails/$id?width=144&height=108';
+// StudioView.THUMBNAIL_SRC = 'https://uploads.scratch.mit.edu/get_image/project/$id_144x108.png';
+// StudioView.THUMBNAIL_SRC = 'https://mixality.github.io/Sidekick/uploads/get_image/project/$id_144x108.png';
+StudioView.THUMBNAIL_SRC = 'https://menersar.github.io/trampoline/thumbnails/$id?width=144&height=108';
 
 // The URL for project pages.
 // $id is replaced with the project ID.
-// !!! CHANGE !!!
+// !!! t CHANGE !!!
 // StudioView.PROJECT_PAGE = 'https://turbowarp.org/$id';
-// StudioView.PROJECT_PAGE = 'https://mixality.github.io/Sidekick/$id';
+// StudioView.PROJECT_PAGE = 'https://mixality.github.io/Sidekick/projects/$id';
 StudioView.PROJECT_PAGE = 'https://menersar.github.io/Sidekick/$id';
+// StudioView.PROJECT_PAGE = 'https://scratch.mit.edu/projects/$id/';
 
 // The URL for studio pages.
 // $id is replaced with the studio ID.
+// !!! t CHANGE !!!
 StudioView.STUDIO_PAGE = 'https://scratch.mit.edu/studios/$id/';
+// StudioView.PROJECT_PAGE = 'https://mixality.github.io/Sidekick/studios/$id';
+// StudioView.PROJECT_PAGE = 'https://menersar.github.io/Sidekick/studios/$id';
+// StudioView.STUDIO_PAGE = 'https://scratch.mit.edu/studios/$id/';
 
 // The amount of "placeholders" to insert before the next page loads.
 StudioView.PLACEHOLDER_COUNT = 9;

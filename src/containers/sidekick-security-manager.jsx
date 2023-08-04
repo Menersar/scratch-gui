@@ -23,8 +23,8 @@ const manuallyTrustExtension = url => {
 const isTrustedExtension = url => (
     // Always trust our official extension repostiory.
     // !!! CHANGE !!!
-    // url.startsWith('https://mixality.github.io/Sidekick/extensions') ||
-    url.startsWith('https://menersar.github.io/Sidekick/extensions') ||
+    // url.startsWith('https://mixality.github.io/Sidekick/extensions/') ||
+    url.startsWith('https://menersar.github.io/Sidekick/extensions/') ||
 
     // For development.
     url.startsWith('http://localhost:8000/') ||
@@ -54,10 +54,10 @@ const isAlwaysTrustedForFetching = parsed => (
 
     // Any Scratch or Sidekick service.
     // !!! CHANGE !!!
-    parsed.origin === 'https://scratch.mit.edu' ||
+    // parsed.origin === 'https://scratch.mit.edu' ||
     // parsed.origin === 'https://mixality.github.io' ||
     parsed.origin === 'https://menersar.github.io' ||
-    parsed.origin.endsWith('.scratch.mit.edu') ||
+    // parsed.origin.endsWith('.scratch.mit.edu') ||
     // parsed.origin.endsWith('.mixality.github.io') ||
     parsed.origin.endsWith('.menersar.github.io') ||
     // parsed.origin.endsWith('.turbowarp.xyz') ||

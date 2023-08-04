@@ -8,7 +8,10 @@ import {defaultProjectId} from '../../reducers/project-state';
 import styles from './project-input.css';
 import {setProjectId} from '../../lib/sidekick-navigation-utils';
 
+// !!! CHANGE !!!
 const PROJECT_BASE = 'https://scratch.mit.edu/projects/';
+// const PROJECT_BASE = 'https://mixality.github.io/Sidekick/projects/';
+// const PROJECT_BASE = 'https://menersar.github.io/Sidekick/projects/';
 
 const messages = defineMessages({
     tooltip: {

@@ -86,10 +86,13 @@ import GUI from '../containers/gui.jsx';
 // };
 
 const searchParams = new URLSearchParams(location.search);
-// !!! CHANGE !!!
+
+// Cloud Data Server source code:
+// https://github.com/Menersar/sidekick-cloud-server
+// !!! t CHANGE !!!
+// const cloudHost = searchParams.get('cloud_host') || 'wss://clouddata.turbowarp.org';
 // const cloudHost = searchParams.get('cloud_host') || 'wss://mixality.github.io/Sidekick/clouddata';
 const cloudHost = searchParams.get('cloud_host') || 'wss://menersar.github.io/Sidekick/clouddata';
-// const cloudHost = searchParams.get('cloud_host') || 'wss://clouddata.turbowarp.org';
 
 const RenderGUI = props => (
     <GUI

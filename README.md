@@ -1,5 +1,8 @@
 # scratch-gui
 
+<!-- Example: Add a new line in string.  -->
+<!-- Configuration for https://menersar.github.io/Sidekick/\nYou can move, -->
+
 <!-- !!! CHANGE !!! -->
 <!-- image: `https://trampoline.turbowarp.org/avatars/${userId}`,
 image: `https://uploads.scratch.mit.edu/users/avatars/${userId}`, -->
@@ -12,20 +15,23 @@ Example: https://api.scratch.mit.edu/projects/866721495 -->
 <!-- `https://trampoline.turbowarp.org/api/projects/${projectId}` -->
 <!-- `https://api.scratch.mit.edu/projects/${projectId}`, -->
 
-https://menersar.github.io/Sidekick/[website]
-https://github.com/Menersar/Sidekick#[documentation]
-
+<https://menersar.github.io/Sidekick/[website>]
+<https://github.com/Menersar/Sidekick#[documentation>]
 
 #### Scratch GUI is a set of React components that comprise the interface for creating and running Scratch 3.0 projects
 
 ## Installation
+
 This requires you to have Git and Node.js installed.
 
 In your own node environment/application:
+
 ```bash
 npm install https://github.com/LLK/scratch-gui.git
 ```
+
 If you want to edit/play yourself:
+
 ```bash
 git clone https://github.com/LLK/scratch-gui.git
 cd scratch-gui
@@ -35,19 +41,22 @@ npm install
 **You may want to add `--depth=1` to the `git clone` command because there are some [large files in the git repository history](https://github.com/LLK/scratch-gui/issues/5140).**
 
 ## Getting started
+
 Running the project requires Node.js to be installed.
 
 ## Running
+
 Open a Command Prompt or Terminal in the repository and run:
+
 ```bash
 npm start
 ```
+
 Then go to [http://localhost:8601/](http://localhost:8601/) - the playground outputs the default GUI component
 
 ## Developing alongside other Scratch repositories
 
 ### Getting another repo to point to this code
-
 
 If you wish to develop `scratch-gui` alongside other scratch repositories that depend on it, you may wish
 to have the other repositories use your local `scratch-gui` build instead of fetching the current production
@@ -71,15 +80,17 @@ Here's how to link your local `scratch-gui` code to another project's `node_modu
 
 Instead of `BUILD_MODE=dist npm run build`, you can use `BUILD_MODE=dist npm run watch` instead. This will watch for changes to your `scratch-gui` code, and automatically rebuild when there are changes. Sometimes this has been unreliable; if you are having problems, try going back to `BUILD_MODE=dist npm run build` until you resolve them.
 
-#### Oh no! It didn't work!
+#### Oh no! It didn't work
 
 If you can't get linking to work right, try:
+
 * Follow the recipe above step by step and don't change the order. It is especially important to run `npm install` _before_ `npm link` as installing after the linking will reset the linking.
 * Make sure the repositories are siblings on your machine's file tree, like `.../.../MY_SCRATCH_DEV_DIRECTORY/scratch-gui/` and `.../.../MY_SCRATCH_DEV_DIRECTORY/scratch-www/`.
 * Consistent node.js version: If you have multiple Terminal tabs or windows open for the different Scratch repositories, make sure to use the same node version in all of them.
 * If nothing else works, unlink the repositories by running `npm unlink` in both, and start over.
 
 ## Testing
+
 ### Documentation
 
 You may want to review the documentation for [Jest](https://facebook.github.io/jest/docs/en/api.html) and [Enzyme](http://airbnb.io/enzyme/docs/api/) as you write your tests.
@@ -95,6 +106,7 @@ Before running any tests, make sure you have run `npm install` from this (scratc
 #### Main testing command
 
 To run linter, unit tests, build, and integration tests, all at once:
+
 ```bash
 npm test
 ```
@@ -102,11 +114,13 @@ npm test
 #### Running unit tests
 
 To run unit tests in isolation:
+
 ```bash
 npm run test:unit
 ```
 
 To run unit tests in watch mode (watches for code changes and continuously runs tests):
+
 ```bash
 npm run test:unit -- --watch
 ```
@@ -208,12 +222,14 @@ Further reading: [Stack Overflow](https://stackoverflow.com/questions/46602286/n
 ## Troubleshooting
 
 If you run into npm install errors, try these steps:
+
 1. run `npm cache clean --force`
 2. Delete the node_modules directory
 3. Delete package-lock.json
 4. run `npm install` again
 
 ## Publishing to GitHub Pages
+
 You can publish the GUI to github.io so that others on the Internet can view it.
 [Read the wiki for a step-by-step guide.](https://github.com/LLK/scratch-gui/wiki/Publishing-to-GitHub-Pages)
 
@@ -258,7 +274,7 @@ _Note: for clarity, the diagram above excludes states and transitions relating t
 
 Here's an example of how states transition.
 
-Suppose a user clicks on a project, and the page starts to load with URL https://scratch.mit.edu/projects/123456 .
+Suppose a user clicks on a project, and the page starts to load with URL <https://scratch.mit.edu/projects/123456> .
 
 Here's what will happen in the project state machine:
 
@@ -273,4 +289,5 @@ Here's what will happen in the project state machine:
 7. The `SHOWING_WITH_ID` state. Now the project appears normally and is playable and editable.
 
 ## Donate
+
 We provide [Scratch](https://scratch.mit.edu) free of charge, and want to keep it that way! Please consider making a [donation](https://www.scratchfoundation.org/donate) to support our continued engineering, design, community, and resource development efforts. Donations of any size are appreciated. Thank you!
