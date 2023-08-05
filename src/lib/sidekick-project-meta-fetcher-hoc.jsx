@@ -20,8 +20,20 @@ export const fetchProjectMeta = async projectId => {
 
         // `https://mixality.github.io/Sidekick/trampoline/api/projects/${projectId}`,
         // `https://mixality.github.io/Sidekick/trampoline/api/projects/${projectId}`
-        `https://menersar.github.io/Sidekick/trampoline/api/projects/${projectId}`,
-        `https://menersar.github.io/Sidekick/trampoline/api/projects/${projectId}`
+        // `https://menersar.github.io/Sidekick/trampoline/api/projects/${projectId}`,
+        // `https://menersar.github.io/Sidekick/trampoline/api/projects/${projectId}`
+
+
+        // `https://api.scratch.mit.edu/projects/${projectId}?nocache=${Date.now()}`,
+        // `https://api.scratch.mit.edu/projects/${projectId}?nocache=${Date.now()}`
+
+
+        // !!!!
+        // !!! ???
+        // `https://api.scratch.mit.edu/projects/${projectId}?nocache=${Date.now()}`,
+        // `https://api.scratch.mit.edu/projects/${projectId}?nocache=${Date.now()}`
+        `https://api.scratch.mit.edu/projects/${projectId}`,
+        `https://api.scratch.mit.edu/projects/${projectId}`
 
 
     ];

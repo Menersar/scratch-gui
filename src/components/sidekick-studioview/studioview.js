@@ -8,6 +8,8 @@
 import styles from './studioview.css';
 import classNames from 'classnames';
 
+// import resizeImage from '../../resize-image.js';
+
 /**
  * @class
  */
@@ -68,6 +70,7 @@ StudioView.prototype.createLazyImage = function (src) {
         this.intersectionObserver.observe(el);
         el.dataset.src = src;
     } else {
+        // !!! Exact reason and functionality of 'lazy load'? ???
         // then we just won't lazy load it
         el.src = src;
     }
@@ -303,7 +306,10 @@ StudioView.prototype.onend = function () { };
 // StudioView.STUDIO_API = 'https://trampoline.turbowarp.org/api/studios/$id/projects?offset=$offset';
 // StudioView.STUDIO_API = 'https://api.scratch.mit.edu/studios/$id/projects?offset=$offset';
 // StudioView.STUDIO_API = 'https://mixality.github.io/Sidekick/api/studios/$id/projects?offset=$offset';
-StudioView.STUDIO_API = 'https://menersar.github.io/Sidekick/trampoline/api/studios/$id/projects?offset=$offset';
+// StudioView.STUDIO_API = 'https://menersar.github.io/Sidekick/trampoline/api/studios/$id/projects?offset=$offset';
+// StudioView.STUDIO_API = 'https://menersar.github.io/Sidekick/trampoline/api/studios/$id/projects?offset=$offset';
+StudioView.STUDIO_API = 'https://api.scratch.mit.edu/studios/$id/projects?offset=$offset&limit=40';
+
 
 // !!! t CHANGE !!!
 // The URL to download thumbnails from.
@@ -311,7 +317,12 @@ StudioView.STUDIO_API = 'https://menersar.github.io/Sidekick/trampoline/api/stud
 // StudioView.THUMBNAIL_SRC = 'https://trampoline.turbowarp.org/thumbnails/$id?width=144&height=108';
 // StudioView.THUMBNAIL_SRC = 'https://uploads.scratch.mit.edu/get_image/project/$id_144x108.png';
 // StudioView.THUMBNAIL_SRC = 'https://mixality.github.io/Sidekick/uploads/get_image/project/$id_144x108.png';
-StudioView.THUMBNAIL_SRC = 'https://menersar.github.io/trampoline/thumbnails/$id?width=144&height=108';
+// StudioView.THUMBNAIL_SRC = 'https://menersar.github.io/trampoline/thumbnails/$id?width=144&height=108';
+// StudioView.THUMBNAIL_SRC = 'https://uploads.scratch.mit.edu/get_image/project/$id15945630_144x108.png';
+// StudioView.THUMBNAIL_SRC = 'https://uploads.scratch.mit.edu/projects/thumbnails/$id?width=144&height=108';
+StudioView.THUMBNAIL_SRC = 'https://uploads.scratch.mit.edu/get_image/project/$id_144x108.png';
+// https://uploads.scratch.mit.edu/projects/thumbnails/${projectId}.png
+
 
 // The URL for project pages.
 // $id is replaced with the project ID.

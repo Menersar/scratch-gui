@@ -110,7 +110,7 @@ const Footer = () => (
                         <FormattedMessage
                             defaultMessage="Donate to support TurboWarp"
                             description="Donation link for TurboWarp in footer"
-                            id="gui.footer.donate"
+                            id="gui.footer.donate.turbowarp"
                         />
                     </a>
                 </div>

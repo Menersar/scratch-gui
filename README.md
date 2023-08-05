@@ -1,5 +1,18 @@
 # scratch-gui
 
+<https://scratch.mit.edu/discuss/topic/655936/>
+
+To begin, an API is an Application Programming Interface which, in Scratch's case, follows a simple client-server model where the Scratch website  - the client - requests data from any of Scratch's APIs (assets, projects, api) to display to the user.
+
+Scratch's API is actually very simple:
+![Alt text](image.png)
+
+There are actually multiple APIs Scratch has:
+ api.scratch.mit.edu: a modern general-purpose Scratch API
+ assets.scratch.mit.edu: stores costumes for Scratch projects
+ projects.scratch.mit.edu: stores the Scratch project data
+ scratch.mit.edu/site-api: a weird dingy API which returns user and project comments as HTML
+
 <!-- Example: Add a new line in string.  -->
 <!-- Configuration for https://menersar.github.io/Sidekick/\nYou can move, -->
 

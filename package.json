@@ -92,6 +92,7 @@
         "scratch-storage": "git+https://github.com/Menersar/scratch-storage.git#sidekick",
         "scratch-svg-renderer": "git+https://github.com/Menersar/scratch-svg-renderer.git#sidekick",
         "scratch-vm": "git+https://github.com/Menersar/scratch-vm.git#sidekick",
+        "sharp": "^0.32.4",
         "sidekick-l10n": "git+https://github.com/Menersar/scratch-l10n.git#sidekick",
         "startaudiocontext": "1.2.1",
         "style-loader": "^0.23.0",

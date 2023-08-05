@@ -1,4 +1,67 @@
 .template {
+    /* hs emden Dachmarke */
+
+    /* Fachbereich Technik */
+    color: #f2f7ee;
+    color: #e4efdb;
+    color: #d7e6c8;
+    color: #c8deb4;
+    color: #b9d5a0;
+    color: #aacc8b;
+    color: #9ac477;
+    color: #89bc64;
+    color: #76b452;
+    color: #62ad44;
+
+    /* Schriftfarbe im Logo: grau */
+    color: #f1f1f1;
+    color: #e2e2e2;
+    color: #d2d2d2;
+    color: #c3c3c3;
+    color: #b2b2b2;
+    color: #a2a2a1;
+    color: #919190;
+    color: #7e7e7e;
+    color: #6b6b6a;
+    color: #575757;
+
+    /* Hausfarbe Blau */
+    color: #eaeff8;
+    color: #d4def0;
+    color: #bfcee8;
+    color: #a7bedf;
+    color: #8fafd7;
+    color: #749fce;
+    color: #5891c6;
+    color: #3783bd;
+    color: #2177b5;
+    color: #1e6bac;
+
+    /* Hausfarbe Türkis */
+    color: #f6fafb;
+    color: #ecf5f7;
+    color: #e1eff2;
+    color: #d6e9ed;
+    color: #cde5e8;
+    color: #c1dfe3;
+    color: #b5dadf;
+    color: #a8d3d9;
+    color: #9cced4;
+    color: #8fc8cf;
+
+    /* Schriftschnitte */
+    /* Für hochwertige Image-Drucksachen wie z.B. die Zeugnisse, Urkunden und zu besonderen Anlässen der Hochschule wird die Quadraat Sans in ihren Schriftschnitten verwendet. */
+    /* Um die Arbeit intern zu erleichtern, kann als zweite Schrift die Arial verwendet werden. Dies gilt insbesondere für das Web und bei offenen Präsentationen (z. B. Word oder Power Point). */
+    /* Lizenzen für die Quadraat können beim Pressesprecher Herrn Grunau, Tel.: (0 4921) 807-10 05, E-Mail: wilfried.grunau@hs-emden-leer.de abgefragt werden */
+    /* QuadraatSans */
+    /* QuadraatSans regular */
+    /* QuadraatSans bold */
+    /* QuadraatSans italic */
+    /* Arial */
+    /* Arial bold */
+    /* Arial italic */
+    /* Arial bold italic */
+
     /* ar extension */
     color: #00d100;
     color: #00bd00;
@@ -17,10 +80,10 @@
     color: #e64444;
 
     /* sa-block-color-sidekick */
-    color: #c6ddaf;
-    color: #b7d59b;
-    color: #63a93d;
-    color: #63a93d;
+    color: #76b452;
+    color: #62ad44;
+    color: #62ad44;
+    color: #62ad44;
 
     color: #90c8cc;
     color: #1e6cab;
