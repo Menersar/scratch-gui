@@ -10,32 +10,11 @@ export const fetchProjectMeta = async projectId => {
     const urls = [
         // Source: https://api.scratch.mit.edu/projects/866721495
         // !!! t CHANGE !!!
-        // `https://trampoline.turbowarp.org/api/projects/${projectId}`,
-        // `https://trampoline.turbowarp.xyz/api/projects/${projectId}`
-
-        // `https://api.scratch.mit.edu/projects/${projectId}`
-        // `https://mixality.github.io/Sidekick/api/projects/${projectId}`
-        // `https://menersar.github.io/Sidekick/api/projects/${projectId}`
-        // `https://trampoline.turbowarp.xyz/api/projects/${projectId}`
-
-        // `https://mixality.github.io/Sidekick/trampoline/api/projects/${projectId}`,
-        // `https://mixality.github.io/Sidekick/trampoline/api/projects/${projectId}`
-        // `https://menersar.github.io/Sidekick/trampoline/api/projects/${projectId}`,
-        // `https://menersar.github.io/Sidekick/trampoline/api/projects/${projectId}`
-
-
-        // `https://api.scratch.mit.edu/projects/${projectId}?nocache=${Date.now()}`,
-        // `https://api.scratch.mit.edu/projects/${projectId}?nocache=${Date.now()}`
-
-
         // !!!!
         // !!! ???
-        // `https://api.scratch.mit.edu/projects/${projectId}?nocache=${Date.now()}`,
-        // `https://api.scratch.mit.edu/projects/${projectId}?nocache=${Date.now()}`
+
         `https://api.scratch.mit.edu/projects/${projectId}`,
         `https://api.scratch.mit.edu/projects/${projectId}`
-
-
     ];
     let firstError;
     for (const url of urls) {
