@@ -92,7 +92,8 @@ const searchParams = new URLSearchParams(location.search);
 // !!! t CHANGE !!!
 // const cloudHost = searchParams.get('cloud_host') || 'wss://clouddata.turbowarp.org';
 // const cloudHost = searchParams.get('cloud_host') || 'wss://mixality.github.io/Sidekick/clouddata';
-const cloudHost = searchParams.get('cloud_host') || 'wss://menersar.github.io/Sidekick/clouddata';
+// const cloudHost = searchParams.get('cloud_host') || 'wss://menersar.github.io/Sidekick/clouddata';
+const cloudHost = searchParams.get('cloud_host') || 'wss://clouddata.scratch.mit.edu';
 
 const RenderGUI = props => (
     <GUI
