@@ -4,4 +4,10 @@
   "extends": [
     "github>LLK/scratch-renovate-config:conservative"
   ]
+
+  ,
+
+  "ignoreDeps": [
+    "cat-blocks"
+  ]
 }

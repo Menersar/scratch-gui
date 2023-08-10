@@ -5,7 +5,7 @@ var webpack = require('webpack');
 // Plugins
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var SidekickGenerateServiceWorkerPlugin  = require('./src/playground/generate-service-worker-plugin');
+var SidekickGenerateServiceWorkerPlugin = require('./src/playground/generate-service-worker-plugin');
 // var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 // PostCss
@@ -20,12 +20,19 @@ if (root.length > 0 && !root.endsWith('/')) {
     throw new Error('If ROOT is defined, it must have a trailing slash.');
 }
 
+const htmlWebpackPluginCommon = {
+    root: root,
+    meta: JSON.parse(process.env.EXTRA_META || '{}')
+};
+
 const base = {
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
     devtool: process.env.SOURCEMAP ? process.env.SOURCEMAP : process.env.NODE_ENV === 'production' ? false : 'cheap-module-source-map',
     devServer: {
         compress: true,
         contentBase: path.resolve(__dirname, 'build'),
+        host: '0.0.0.0',
+        port: process.env.PORT || 8601,
         historyApiFallback: {
             // Code to make 'ROUTING_STYLE=wildcard' operate as intended.
             rewrites: [
@@ -35,14 +42,17 @@ const base = {
                 {from: /^\/\d+\/embed\/?$/, to: '/embed.html'},
                 {from: /^\/addons\/?$/, to: '/addons.html'}
             ]
-        },
-        host: '0.0.0.0',
-        port: process.env.PORT || 8601,
+        }
+        // ,
+        // host: '0.0.0.0',
+        // port: process.env.PORT || 8601,
     },
     output: {
         library: 'GUI',
-        filename: process.env.NODE_ENV === 'production' ? 'js/[name].[contenthash].js' : 'js/[name].js',
-        chunkFilename: process.env.NODE_ENV === 'production' ? 'js/[name].[contenthash].js' : 'js/[name].js',
+        filename: process.env.NODE_ENV === 'production' ? 'js/[name].js' : 'js/[name].js',
+        chunkFilename: process.env.NODE_ENV === 'production' ? 'js/[name].js' : 'js/[name].js',
+        // filename: process.env.NODE_ENV === 'production' ? 'js/[name].[contenthash].js' : 'js/[name].js',
+        // chunkFilename: process.env.NODE_ENV === 'production' ? 'js/[name].[contenthash].js' : 'js/[name].js',
         publicPath: root
     },
     resolve: {
@@ -113,10 +123,10 @@ const base = {
     plugins: []
 };
 
-const htmlWebpackPluginCommon = {
-    root: root,
-    meta: JSON.parse(process.env.EXTRA_META || '{}')
-};
+// const htmlWebpackPluginCommon = {
+//     root: root,
+//     meta: JSON.parse(process.env.EXTRA_META || '{}')
+// };
 
 if (!process.env.CI) {
     base.plugins.push(new webpack.ProgressPlugin());
@@ -137,6 +147,7 @@ module.exports = [
             'embed': './src/playground/embed.jsx',
             'fullscreen': './src/playground/fullscreen.jsx',
             'player': './src/playground/player.jsx',
+            'credits': './src/playground/credits/credits.jsx'
         },
         output: {
             path: path.resolve(__dirname, 'build')
@@ -278,7 +289,7 @@ module.exports = [
             output: {
                 libraryTarget: 'umd',
                 path: path.resolve('dist'),
-                publicPath: `${STATIC_PATH}/`,
+                // publicPath: `${STATIC_PATH}/`,
                 filename: 'js/[name].js',
                 chunkFilename: 'js/[name].js',
             },
