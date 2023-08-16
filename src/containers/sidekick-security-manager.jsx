@@ -21,15 +21,19 @@ const manuallyTrustExtension = url => {
  * @returns {boolean} True if the extension can is trusted
  */
 const isTrustedExtension = url => (
-    // Always trust our official extension repostiory.
+    // Always trust our official extension repository.
     // !!! CHANGE !!!
     // url.startsWith('https://mixality.github.io/Sidekick/extensions/') ||
     url.startsWith('https://menersar.github.io/Sidekick/extensions/') ||
 
     // For development.
-    url.startsWith('http://localhost:8000/') ||
+    // url.startsWith('http://localhost:8000/') ||
+    url.startsWith('http://localhost') ||
+    url.startsWith('http://0.0.0.0') ||
 
-    extensionsTrustedByUser.has(url)
+    extensionsTrustedByUser.has(url) ||
+    // !!! NEU
+    typeof url === 'string'
 );
 
 /**
@@ -54,13 +58,13 @@ const isAlwaysTrustedForFetching = parsed => (
 
     // Any Scratch or Sidekick service.
     // !!! CHANGE !!!
-    // parsed.origin === 'https://scratch.mit.edu' ||
-    // parsed.origin === 'https://mixality.github.io' ||
+    parsed.origin === 'https://scratch.mit.edu' ||
+    parsed.origin === 'https://mixality.github.io' ||
     parsed.origin === 'https://menersar.github.io' ||
-    // parsed.origin.endsWith('.scratch.mit.edu') ||
-    // parsed.origin.endsWith('.mixality.github.io') ||
+    parsed.origin.endsWith('.scratch.mit.edu') ||
+    parsed.origin.endsWith('.mixality.github.io') ||
     parsed.origin.endsWith('.menersar.github.io') ||
-    // parsed.origin.endsWith('.turbowarp.xyz') ||
+    parsed.origin.endsWith('.turbowarp.xyz') ||
 
     // GitHub
     parsed.origin === 'https://raw.githubusercontent.com' ||
@@ -84,7 +88,11 @@ const isAlwaysTrustedForFetching = parsed => (
     parsed.origin === 'https://httpbin.org' ||
 
     // ScratchDB
-    parsed.origin === 'https://scratchdb.lefty.one'
+    parsed.origin === 'https://scratchdb.lefty.one' ||
+
+    // !!! NEU
+    typeof parsed.origin === 'string'
+
 );
 
 /**

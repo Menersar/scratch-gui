@@ -91,6 +91,16 @@ const SpriteSelectorItem = props => (
                         />
                     </DangerousMenuItem>
                 ) : null }
+                {/* !!!!!HERE!!!!!
+                {props.onInspectButtonClick ? (
+                    <MenuItem onClick={props.onInspectButtonClick}>
+                        <FormattedMessage
+                            defaultMessage="inspect"
+                            description="Menu item to inspect in the right click menu"
+                            id="gui.spriteSelectorItem.contextMenuInspect"
+                        />
+                    </MenuItem>
+                ) : null } */}
             </ContextMenu>
         ) : null}
     </ContextMenuTrigger>
@@ -109,6 +119,7 @@ SpriteSelectorItem.propTypes = {
     onDuplicateButtonClick: PropTypes.func,
     onExportButtonClick: PropTypes.func,
     onRenameButtonClick: PropTypes.func,
+    // onInspectButtonClick: PropTypes.func,
     onMouseDown: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,

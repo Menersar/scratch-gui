@@ -93,7 +93,9 @@ const searchParams = new URLSearchParams(location.search);
 // const cloudHost = searchParams.get('cloud_host') || 'wss://clouddata.turbowarp.org';
 // const cloudHost = searchParams.get('cloud_host') || 'wss://mixality.github.io/Sidekick/clouddata';
 // const cloudHost = searchParams.get('cloud_host') || 'wss://menersar.github.io/Sidekick/clouddata';
-const cloudHost = searchParams.get('cloud_host') || 'wss://clouddata.scratch.mit.edu';
+// const cloudHost = searchParams.get('cloud_host') || 'wss://clouddata.scratch.mit.edu';
+// !!! NEU
+const cloudHost = searchParams.get('cloud_host') || 'https://scratch.mit.edu/?cloud_host=ws://0.0.0.0:9080';
 
 const RenderGUI = props => (
     <GUI

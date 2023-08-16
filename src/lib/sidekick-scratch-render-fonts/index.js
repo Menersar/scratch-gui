@@ -86,6 +86,7 @@ const loadFonts = () => fetchFonts()
 
 const getFonts = () => fontData;
 
+// !!! INFORMATION
 // We have to use legacy module.exports as some parts of Scratch expect require('scratch-render-font') to be a function
 module.exports = getFonts;
 module.exports.loadFonts = loadFonts;

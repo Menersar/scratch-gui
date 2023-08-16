@@ -42,6 +42,7 @@ class TargetPane extends React.Component {
             'handleDrop',
             'handleDuplicateSprite',
             'handleExportSprite',
+            // 'handleInspectSprite',
             'handleNewSprite',
             'handleSelectSprite',
             'handleSurpriseSpriteClick',
@@ -100,6 +101,15 @@ class TargetPane extends React.Component {
             downloadBlob(`${spriteName}.sprite3`, content);
         });
     }
+    // handleInspectSprite (id) {
+    //     const spriteName = this.props.vm.runtime.getTargetById(id).getName();
+    //     const saveLink = document.createElement('a');
+    //     document.body.appendChild(saveLink);
+
+    //     this.props.vm.exportSprite(id).then(content => {
+    //         downloadBlob(`${spriteName}.sprite3`, content);
+    //     });
+    // }
     handleSelectSprite (id) {
         this.props.vm.setEditingTarget(id);
         if (this.props.stage && id !== this.props.stage.id) {
@@ -268,6 +278,7 @@ class TargetPane extends React.Component {
                 onDrop={this.handleDrop}
                 onDuplicateSprite={this.handleDuplicateSprite}
                 onExportSprite={this.handleExportSprite}
+                // onInspectSprite={this.handleInspectSprite}
                 onFileUploadClick={this.handleFileUploadClick}
                 onPaintSpriteClick={this.handlePaintSpriteClick}
                 onSelectSprite={this.handleSelectSprite}
