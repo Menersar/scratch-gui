@@ -103,8 +103,8 @@ const searchParams = new URLSearchParams(location.search);
 // !!! TEST BUG FIX
 // const cloudHost = searchParams.get('cloud_host') || 'wss://clouddata.turbowarp.org';
 // const cloudHost = searchParams.get('cloud_host') || 'wss://clouddata.turbowarp.org';
-// const cloudHost = searchParams.get('cloud_host') || 'ws:localhost:8080';
-const cloudHost = searchParams.get('cloud_host') || 'ws:localhost:9080';
+const cloudHost = searchParams.get('cloud_host') || 'ws:localhost:8080';
+// const cloudHost = searchParams.get('cloud_host') || 'ws:localhost:9080';
 
 // !!! INFORMATION
 // By default the server is listening on ws://localhost:9080/. To change the port or enable wss://, read below.
