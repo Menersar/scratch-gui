@@ -21,19 +21,31 @@ const manuallyTrustExtension = url => {
  * @returns {boolean} True if the extension can is trusted
  */
 const isTrustedExtension = url => (
+
+
+    // !!! TEST BUG FIX
+    url.startsWith('https://extensions.turbowarp.org/') ||
+    url.startsWith('http://localhost:8000/') ||
+    url.startsWith('https://github.com/Menersar/') ||
+    url.startsWith('https://menersar.github.io/') ||
+    // !!! TEST BUG FIX
+
+
     // Always trust our official extension repository.
     // !!! CHANGE !!!
     // url.startsWith('https://mixality.github.io/Sidekick/extensions/') ||
     url.startsWith('https://menersar.github.io/Sidekick/extensions/') ||
 
+
     // For development.
     // url.startsWith('http://localhost:8000/') ||
-    url.startsWith('http://localhost') ||
-    url.startsWith('http://0.0.0.0') ||
+    // url.startsWith('http://localhost') ||
+    // url.startsWith('http://0.0.0.0') ||
 
-    extensionsTrustedByUser.has(url) ||
+    extensionsTrustedByUser.has(url)
+    // ||
     // !!! NEU
-    typeof url === 'string'
+    // typeof url === 'string'
 );
 
 /**
@@ -56,15 +68,37 @@ const isAlwaysTrustedForFetching = parsed => (
     // If we would trust loading an extension from here, we can trust loading resources too.
     isTrustedExtension(parsed.href) ||
 
+
+    // !!! TEST BUG FIX
+    // Any TurboWarp service such as trampoline
+    parsed.origin === 'https://turbowarp.org' ||
+    parsed.origin.endsWith('.turbowarp.org') ||
+    parsed.origin.endsWith('.turbowarp.xyz') ||
+
+    parsed.origin === 'https://scratch.mit.edu' ||
+    parsed.origin.endsWith('.scratch.mit.edu') ||
+    parsed.origin.includes('scratch.mit.edu') ||
+
+    parsed.origin === 'https://github.com/Menersar/Sidekick' ||
+    // parsed.origin.startsWith('https://github.com/Menersar/Sidekick') ||
+    parsed.origin.includes('github.com/Menersar') ||
+    parsed.origin.includes('menersar.github.io') ||
+
     // Any Scratch or Sidekick service.
     // !!! CHANGE !!!
-    parsed.origin === 'https://scratch.mit.edu' ||
-    parsed.origin === 'https://mixality.github.io' ||
-    parsed.origin === 'https://menersar.github.io' ||
-    parsed.origin.endsWith('.scratch.mit.edu') ||
-    parsed.origin.endsWith('.mixality.github.io') ||
-    parsed.origin.endsWith('.menersar.github.io') ||
-    parsed.origin.endsWith('.turbowarp.xyz') ||
+    // parsed.origin === 'https://scratch.mit.edu' ||
+    // parsed.origin === 'https://mixality.github.io' ||
+    // parsed.origin === 'https://menersar.github.io' ||
+    // parsed.origin.endsWith('.scratch.mit.edu') ||
+    // parsed.origin.endsWith('.mixality.github.io') ||
+    // parsed.origin.endsWith('.menersar.github.io') ||
+    // parsed.origin.endsWith('.turbowarp.xyz') ||
+
+    // ||
+    // !!! NEU
+    // typeof parsed.origin === 'string'
+    // !!! TEST BUG FIX
+
 
     // GitHub
     parsed.origin === 'https://raw.githubusercontent.com' ||
@@ -87,11 +121,12 @@ const isAlwaysTrustedForFetching = parsed => (
     // httpbin
     parsed.origin === 'https://httpbin.org' ||
 
+    // !!! INFORMATION
+    // !!! IDEA
+    // !!! Why not use that for every scratch api thing? ???
     // ScratchDB
-    parsed.origin === 'https://scratchdb.lefty.one' ||
+    parsed.origin === 'https://scratchdb.lefty.one'
 
-    // !!! NEU
-    typeof parsed.origin === 'string'
 
 );
 

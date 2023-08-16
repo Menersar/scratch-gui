@@ -94,8 +94,31 @@ const searchParams = new URLSearchParams(location.search);
 // const cloudHost = searchParams.get('cloud_host') || 'wss://mixality.github.io/Sidekick/clouddata';
 // const cloudHost = searchParams.get('cloud_host') || 'wss://menersar.github.io/Sidekick/clouddata';
 // const cloudHost = searchParams.get('cloud_host') || 'wss://clouddata.scratch.mit.edu';
+
+
+// !!! TEST BUG FIX
 // !!! NEU
-const cloudHost = searchParams.get('cloud_host') || 'https://scratch.mit.edu/?cloud_host=ws://0.0.0.0:9080';
+// const cloudHost = searchParams.get('cloud_host') || 'https://scratch.mit.edu/?cloud_host=ws://0.0.0.0:9080';
+
+// !!! TEST BUG FIX
+// const cloudHost = searchParams.get('cloud_host') || 'wss://clouddata.turbowarp.org';
+// const cloudHost = searchParams.get('cloud_host') || 'wss://clouddata.turbowarp.org';
+// const cloudHost = searchParams.get('cloud_host') || 'ws:localhost:8080';
+const cloudHost = searchParams.get('cloud_host') || 'ws:localhost:9080';
+
+// !!! INFORMATION
+// By default the server is listening on ws://localhost:9080/. To change the port or enable wss://, read below.
+// To use a local cloud variable server in TurboWarp, you can use the cloud_host URL parameter, e.g.:
+//  https://turbowarp.org/?cloud_host=ws://localhost:9080/
+
+// !!! INFORMATION
+// https://mixality.github.io/Sidekick/?cloud_host=ws://localhost:9080/
+// https://menersar.github.io/Sidekick/?cloud_host=ws://localhost:9080/
+
+// !!! INFORMATION
+// Connect to Scratch's cloud variable server not possible as it requires additional account credentials.
+// !!! TEST BUG FIX
+
 
 const RenderGUI = props => (
     <GUI
