@@ -379,8 +379,8 @@ export default [
             />
         ),
         // !!! CHANGE !!!
-        // href: 'https://mixality.github.io/Sidekick/extensions/',
-        href: 'https://menersar.github.io/Sidekick/extensions/',
+        // href: 'https://mixality.github.io/Sidekick/sidekick-extensions/',
+        href: 'https://menersar.github.io/Sidekick/sidekick-extensions/',
         extensionId: '',
         iconURL: galleryIcon,
         description: (
@@ -423,8 +423,8 @@ export default [
         // eslint-disable-next-line max-len
         description: 'An easy way to display and animate text. Compatible with Scratch Lab\'s Animated Text experiment.',
         extensionId: 'text',
-        // extensionURL: 'https://mixality.github.io/Sidekick/extensions/lab/text.js',
-        extensionURL: 'https://menersar.github.io/Sidekick/extensions/lab/text.js',
+        // extensionURL: 'https://mixality.github.io/Sidekick/sidekick-extensions/lab/text.js',
+        extensionURL: 'https://menersar.github.io/Sidekick/sidekick-extensions/lab/text.js',
         iconURL: animatedTextIcon
     }),
     // !!!
@@ -432,24 +432,24 @@ export default [
         name: 'Stretch',
         description: 'Stretch sprites horizontally or vertically.',
         extensionId: 'stretch',
-        // extensionURL: 'https://mixality.github.io/Sidekick/extensions/stretch.js',
-        extensionURL: 'https://menersar.github.io/Sidekick/extensions/stretch.js',
+        // extensionURL: 'https://mixality.github.io/Sidekick/sidekick-extensions/stretch.js',
+        extensionURL: 'https://menersar.github.io/Sidekick/sidekick-extensions/stretch.js',
         iconURL: stretchIcon
     }),
     galleryItem({
         name: 'Gamepad',
         description: 'Directly access gamepads instead of just mapping buttons to keys.',
         extensionId: 'Gamepad',
-        // extensionURL: 'https://mixality.github.io/Sidekick/extensions/gamepad.js',
-        extensionURL: 'https://menersar.github.io/Sidekick/extensions/gamepad.js',
+        // extensionURL: 'https://mixality.github.io/Sidekick/sidekick-extensions/gamepad.js',
+        extensionURL: 'https://menersar.github.io/Sidekick/sidekick-extensions/gamepad.js',
         iconURL: gamepadIcon
     }),
     galleryItem({
         name: 'Files',
         description: 'Read and download files.',
         extensionId: 'files',
-        // extensionURL: 'https://mixality.github.io/Sidekick/extensions/files.js',
-        extensionURL: 'https://menersar.github.io/Sidekick/extensions/files.js',
+        // extensionURL: 'https://mixality.github.io/Sidekick/sidekick-extensions/files.js',
+        extensionURL: 'https://menersar.github.io/Sidekick/sidekick-extensions/files.js',
         iconURL: filesIcon
     }),
     galleryItem({
@@ -457,40 +457,40 @@ export default [
         // eslint-disable-next-line max-len
         description: 'Adds blocks for mouse locking. Mouse x & y blocks will report the change since the previous frame while the pointer is locked.',
         extensionId: 'pointerlock',
-        // extensionURL: 'https://mixality.github.io/Sidekick/extensions/pointerlock.js',
-        extensionURL: 'https://menersar.github.io/Sidekick/extensions/pointerlock.js',
+        // extensionURL: 'https://mixality.github.io/Sidekick/sidekick-extensions/pointerlock.js',
+        extensionURL: 'https://menersar.github.io/Sidekick/sidekick-extensions/pointerlock.js',
         iconURL: pointerlockIcon
     }),
     galleryItem({
         name: 'Mouse Cursor',
         description: 'Use custom cursors or hide the cursor. Also allows replacing the cursor with any costume image.',
         extensionId: 'MouseCursor',
-        // extensionURL: 'https://mixality.github.io/Sidekick/extensions/cursor.js',
-        extensionURL: 'https://menersar.github.io/Sidekick/extensions/cursor.js',
+        // extensionURL: 'https://mixality.github.io/Sidekick/sidekick-extensions/cursor.js',
+        extensionURL: 'https://menersar.github.io/Sidekick/sidekick-extensions/cursor.js',
         iconURL: cursorIcon
     }),
     galleryItem({
         name: 'Runtime Options',
         description: 'Get and modify turbo mode, framerate, interpolation, clone limit, stage size, and more.',
         extensionId: 'runtimeoptions',
-        // extensionURL: 'https://mixality.github.io/Sidekick/extensions/runtime-options.js',
-        extensionURL: 'https://menersar.github.io/Sidekick/extensions/runtime-options.js',
+        // extensionURL: 'https://mixality.github.io/Sidekick/sidekick-extensions/runtime-options.js',
+        extensionURL: 'https://menersar.github.io/Sidekick/sidekick-extensions/runtime-options.js',
         iconURL: runtimeOptionsIcon
     }),
     galleryItem({
         name: 'Sensing Plus',
         description: 'An extension to the sensing category. Created by ObviousAlexC.',
         extensionId: 'obviousalexsensing',
-        // extensionURL: 'https://mixality.github.io/Sidekick/extensions/obviousAlexC/SensingPlus.js',
-        extensionURL: 'https://menersar.github.io/Sidekick/extensions/obviousAlexC/SensingPlus.js',
+        // extensionURL: 'https://mixality.github.io/Sidekick/sidekick-extensions/obviousAlexC/SensingPlus.js',
+        extensionURL: 'https://menersar.github.io/Sidekick/sidekick-extensions/obviousAlexC/SensingPlus.js',
         iconURL: sensingPlusIcon
     }),
     galleryItem({
         name: 'Clones Plus',
         description: 'Expansion of Scratch\'s clone features. Created by LilyMakesThings.',
         extensionId: 'lmsclonesplus',
-        // extensionURL: 'https://mixality.github.io/Sidekick/extensions/Lily/ClonesPlus.js',
-        extensionURL: 'https://menersar.github.io/Sidekick/extensions/Lily/ClonesPlus.js',
+        // extensionURL: 'https://mixality.github.io/Sidekick/sidekick-extensions/Lily/ClonesPlus.js',
+        extensionURL: 'https://menersar.github.io/Sidekick/sidekick-extensions/Lily/ClonesPlus.js',
         iconURL: clonesPlusIcon
     }),
     galleryItem({
@@ -498,88 +498,88 @@ export default [
         // eslint-disable-next-line max-len
         description: 'Expands upon the looks category, allowing you to show/hide, get costume data and edit SVG skins on sprites. Created by LilyMakesThings.',
         extensionId: 'lmsLooksPlus',
-        // extensionURL: 'https://mixality.github.io/Sidekick/extensions/Lily/LooksPlus.js',
-        extensionURL: 'https://menersar.github.io/Sidekick/extensions/Lily/LooksPlus.js',
+        // extensionURL: 'https://mixality.github.io/Sidekick/sidekick-extensions/Lily/LooksPlus.js',
+        extensionURL: 'https://menersar.github.io/Sidekick/sidekick-extensions/Lily/LooksPlus.js',
         iconURL: looksPlusIcon
     }),
     galleryItem({
         name: 'Clipping & Blending',
         description: 'Clipping outside of a specified rectangular area and additive color blending. Created by Vadik1.',
         extensionId: 'xeltallivclipblend',
-        // extensionURL: 'https://mixality.github.io/Sidekick/extensions/Xeltalliv/clippingblending.js',
-        extensionURL: 'https://menersar.github.io/Sidekick/extensions/Xeltalliv/clippingblending.js',
+        // extensionURL: 'https://mixality.github.io/Sidekick/sidekick-extensions/Xeltalliv/clippingblending.js',
+        extensionURL: 'https://menersar.github.io/Sidekick/sidekick-extensions/Xeltalliv/clippingblending.js',
         iconURL: clippingBlendingIcon
     }),
     galleryItem({
         name: 'Text',
         description: 'Manipulate characters and text. Originally created by CST1229.',
         extensionId: 'strings',
-        // extensionURL: 'https://mixality.github.io/Sidekick/extensions/text.js',
-        extensionURL: 'https://menersar.github.io/Sidekick/extensions/text.js',
+        // extensionURL: 'https://mixality.github.io/Sidekick/sidekick-extensions/text.js',
+        extensionURL: 'https://menersar.github.io/Sidekick/sidekick-extensions/text.js',
         iconURL: textIcon
     }),
     galleryItem({
         name: 'Bitwise',
         description: 'Blocks that operate on the binary representation of numbers in computers.',
         extensionId: 'Bitwise',
-        // extensionURL: 'https://mixality.github.io/Sidekick/extensions/bitwise.js',
-        extensionURL: 'https://menersar.github.io/Sidekick/extensions/bitwise.js',
+        // extensionURL: 'https://mixality.github.io/Sidekick/sidekick-extensions/bitwise.js',
+        extensionURL: 'https://menersar.github.io/Sidekick/sidekick-extensions/bitwise.js',
         iconURL: bitwiseIcon
     }),
     galleryItem({
         name: 'BigInt',
         description: 'Math blocks that work on infinitely large integers (no decimals). Created by Skyhigh173.',
         extensionId: 'skyhigh173BigInt',
-        // extensionURL: 'https://mixality.github.io/Sidekick/extensions/Skyhigh173/bigint.js',
-        extensionURL: 'https://menersar.github.io/Sidekick/extensions/Skyhigh173/bigint.js',
+        // extensionURL: 'https://mixality.github.io/Sidekick/sidekick-extensions/Skyhigh173/bigint.js',
+        extensionURL: 'https://menersar.github.io/Sidekick/sidekick-extensions/Skyhigh173/bigint.js',
         iconURL: bigIntIcon
     }),
     galleryItem({
         name: 'JSON',
         description: 'Work with JSON objects and arrays.',
         extensionId: 'skyhigh173JSON',
-        // extensionURL: 'https://mixality.github.io/Sidekick/extensions/Skyhigh173/json.js',
-        extensionURL: 'https://menersar.github.io/Sidekick/extensions/Skyhigh173/json.js',
+        // extensionURL: 'https://mixality.github.io/Sidekick/sidekick-extensions/Skyhigh173/json.js',
+        extensionURL: 'https://menersar.github.io/Sidekick/sidekick-extensions/Skyhigh173/json.js',
         iconURL: jsonIcon
     }),
     galleryItem({
         name: 'RegExp',
         description: 'Full interface for working with Regular Expressions. Created by TrueFantom.',
         extensionId: 'truefantomregexp',
-        // extensionURL: 'https://mixality.github.io/Sidekick/extensions/true-fantom/regexp.js',
-        extensionURL: 'https://menersar.github.io/Sidekick/extensions/true-fantom/regexp.js',
+        // extensionURL: 'https://mixality.github.io/Sidekick/sidekick-extensions/true-fantom/regexp.js',
+        extensionURL: 'https://menersar.github.io/Sidekick/sidekick-extensions/true-fantom/regexp.js',
         iconURL: regexIcon
     }),
     galleryItem({
         name: 'Box2D Physics',
         description: 'Two dimensional physics. Originally created by griffpatch.',
         extensionId: 'griffpatch',
-        // extensionURL: 'https://mixality.github.io/Sidekick/extensions/box2d.js',
-        extensionURL: 'https://menersar.github.io/Sidekick/extensions/box2d.js',
+        // extensionURL: 'https://mixality.github.io/Sidekick/sidekick-extensions/box2d.js',
+        extensionURL: 'https://menersar.github.io/Sidekick/sidekick-extensions/box2d.js',
         iconURL: box2dIcon
     }),
     galleryItem({
         name: 'Fetch',
         description: 'Make requests to the broader internet.',
         extensionId: 'fetch',
-        // extensionURL: 'https://mixality.github.io/Sidekick/extensions/fetch.js',
-        extensionURL: 'https://menersar.github.io/Sidekick/extensions/fetch.js',
+        // extensionURL: 'https://mixality.github.io/Sidekick/sidekick-extensions/fetch.js',
+        extensionURL: 'https://menersar.github.io/Sidekick/sidekick-extensions/fetch.js',
         iconURL: fetchIcon
     }),
     galleryItem({
         name: 'Local Storage',
         description: 'Store data persistently. Like cookies, but better.',
         extensionId: 'localstorage',
-        // extensionURL: 'https://mixality.github.io/Sidekick/extensions/local-storage.js',
-        extensionURL: 'https://menersar.github.io/Sidekick/extensions/local-storage.js',
+        // extensionURL: 'https://mixality.github.io/Sidekick/sidekick-extensions/local-storage.js',
+        extensionURL: 'https://menersar.github.io/Sidekick/sidekick-extensions/local-storage.js',
         iconURL: localStorageIcon
     }),
     galleryItem({
         name: 'Utilities',
         description: 'A bunch of interesting blocks. Originally created by Sheep_maker.',
         extensionId: 'utilities',
-        // extensionURL: 'https://mixality.github.io/Sidekick/extensions/utilities.js',
-        extensionURL: 'https://menersar.github.io/Sidekick/extensions/utilities.js',
+        // extensionURL: 'https://mixality.github.io/Sidekick/sidekick-extensions/utilities.js',
+        extensionURL: 'https://menersar.github.io/Sidekick/sidekick-extensions/utilities.js',
         iconURL: utilitiesIcon
     }),
     {

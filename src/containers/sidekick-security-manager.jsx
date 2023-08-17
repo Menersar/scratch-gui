@@ -34,7 +34,7 @@ const isTrustedExtension = url => (
     // Always trust our official extension repository.
     // !!! CHANGE !!!
     // url.startsWith('https://mixality.github.io/Sidekick/extensions/') ||
-    url.startsWith('https://menersar.github.io/Sidekick/extensions/') ||
+    url.startsWith('https://menersar.github.io/Sidekick/sidekick-extensions/') ||
 
 
     // For development.
