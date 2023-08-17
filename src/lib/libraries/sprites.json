@@ -2026,7 +2026,8 @@
             }
         ],
         "blocks": {}
-    },
+    }
+    ,
     {
         "name": "Cat",
         "tags": [
@@ -2042,10 +2043,10 @@
         "variables": {},
         "costumes": [
             {
-                "assetId": "bcf454acf82e4504149f7ffe07081dbc2",
+                "assetId": "bcf454acf82e4504149f7ffe07081dbc",
                 "name": "cat-a",
                 "bitmapResolution": 1,
-                "md5ext": "bcf454acf82e4504149f7ffe07081dbc2.svg",
+                "md5ext": "bcf454acf82e4504149f7ffe07081dbc.svg",
                 "dataFormat": "svg",
                 "rotationCenterX": 48,
                 "rotationCenterY": 50
