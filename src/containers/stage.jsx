@@ -505,9 +505,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    onHighQualityPenChanged: enabled => dispatch(setHighQualityPenState(enabled)),
     onActivateColorPicker: () => dispatch(activateColorPicker()),
-    onDeactivateColorPicker: color => dispatch(deactivateColorPicker(color)),
-    onHighQualityPenChanged: enabled => dispatch(setHighQualityPenState(enabled))
+    onDeactivateColorPicker: color => dispatch(deactivateColorPicker(color))
 });
 
 export default connect(
