@@ -156,6 +156,7 @@ const CustomFPS = props => (
         }
         help={
             <FormattedMessage
+                // !!! ???
                 // eslint-disable-next-line max-len
                 defaultMessage="Runs scripts 60 times per second instead of 30. Most projects will not work properly with this enabled. You should try Interpolation with 60 FPS mode disabled if that is the case. {customFramerate}."
                 description="FPS setting help"

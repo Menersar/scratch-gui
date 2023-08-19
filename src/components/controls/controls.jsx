@@ -7,10 +7,10 @@ import GreenFlag from '../green-flag/green-flag.jsx';
 import StopAll from '../stop-all/stop-all.jsx';
 import TurboMode from '../turbo-mode/turbo-mode.jsx';
 
-import styles from './controls.css';
-
 import FramerateIndicator from '../sidekick-framerate-indicator/framerate-indicator.jsx';
 import {STAGE_SIZE_MODES} from '../../lib/layout-constants.js';
+
+import styles from './controls.css';
 
 const messages = defineMessages({
     goTitle: {
@@ -72,10 +72,10 @@ Controls.propTypes = {
     intl: intlShape.isRequired,
     onGreenFlagClick: PropTypes.func.isRequired,
     onStopAllClick: PropTypes.func.isRequired,
-    turbo: PropTypes.bool,
     framerate: PropTypes.number,
     interpolation: PropTypes.bool,
-    isSmall: PropTypes.bool
+    isSmall: PropTypes.bool,
+    turbo: PropTypes.bool
 };
 
 Controls.defaultProps = {

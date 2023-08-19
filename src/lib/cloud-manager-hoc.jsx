@@ -181,13 +181,13 @@ const cloudManagerHOC = function (WrappedComponent) {
         return {
             isShowingWithId: getIsShowingWithId(loadingState),
             projectId: state.scratchGui.projectState.projectId,
-            username: state.scratchGui.gui ? state.scratchGui.sidekick.username : '',
+            username: state.scratchGui.sidekick ? state.scratchGui.sidekick.username : '',
             // ???
             // if you're editing someone else's project, you can't modify cloud data
             canModifyCloudData: (!state.scratchGui.mode.hasEverEnteredEditor || ownProps.canSave) &&
                 // possible security concern if the program attempts to encode webcam data over cloud variables
                 !ownProps.vm.extensionManager.isExtensionLoaded('videoSensing'),
-            hasCloudPermission: state.scratchGui.gui ? state.scratchGui.sidekick.cloud : false
+            hasCloudPermission: state.scratchGui.sidekick ? state.scratchGui.sidekick.cloud : false
         };
     };
 

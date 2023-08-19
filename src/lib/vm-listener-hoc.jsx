@@ -257,7 +257,7 @@ const vmListenerHOC = function (WrappedComponent) {
         shouldUpdateProjectChanged: !state.scratchGui.mode.isFullScreen && !state.scratchGui.mode.isPlayerOnly,
         vm: state.scratchGui.vm,
         username: state.session && state.session.session && state.session.session.user ?
-            state.session.session.user.username : state.scratchGui.gui ? state.scratchGui.sidekick.username : ''
+            state.session.session.user.username : state.scratchGui.sidekick ? state.scratchGui.sidekick.username : ''
     });
     const mapDispatchToProps = dispatch => ({
         onStageSizeChanged: (width, height) => dispatch(setCustomStageSize(width, height)),
