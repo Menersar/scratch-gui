@@ -5,20 +5,38 @@
     color: #4af;
     color: hsl(0, 100%, 65%);
     color: hsl(103, 44%, 47%);
-    color: #76b452;
-    color: #89bc64;
+    color: hsl(98, 40%, 51%);
+    color: hsl(95, 40%, 56%);
 
     color: hsl(215, 100%, 65%, 1);
     color: hsla(215, 60%, 50%, 1);
+    color: hsl(215, 0%, 20%);
+    color: hsl(215, 100%, 95%);
+    color: hsl(215, 75%, 95%);
+    color: hsl(215, 50%, 90%);
+
+    color: hsl(225, 15%, 40%);
+
+    color: hsl(163, 85%, 40%);
+    color: hsl(163, 85%, 30%);
+    color: hsl(163, 57%, 85%);
+
+    color: hsl(215, 100%, 77%,);
+
+    color: hsl(215, 100%, 95%);
+    color: hsl(215, 75%, 95%);
+    color: hsl(215, 50%, 90%);
+
+    color: hsl(215, 100%, 65%,);
 
 
 
     /* hs emden Dachmarke */
 
     /* Fachbereich Technik */
-    color: #f2f7ee;
-    color: #e4efdb;
-    color: #d7e6c8;
+    color: hsl(93, 36%, 95%);
+    color: hsl(93, 38%, 90%);
+    color: hsl(90, 38%, 84%);
     color: #c8deb4;
     color: #b9d5a0;
     color: #aacc8b;
@@ -28,7 +46,7 @@
     color: #62ad44;
 
     /* Schriftfarbe im Logo: grau */
-    color: #f1f1f1;
+    color: hsl(0, 0%, 95%);
     color: #e2e2e2;
     color: #d2d2d2;
     color: #c3c3c3;
@@ -37,7 +55,7 @@
     color: #919190;
     color: #7e7e7e;
     color: #6b6b6a;
-    color: #575757;
+    color: hsl(0, 0%, 34%);
 
     /* Hausfarbe Blau */
     color: #eaeff8;
@@ -61,7 +79,7 @@
     color: #b5dadf;
     color: #a8d3d9;
     color: #9cced4;
-    color: #8fc8cf;
+    color: hsl(187, 40%, 69%);
 
     /* Schriftschnitte */
     /* Für hochwertige Image-Drucksachen wie z.B. die Zeugnisse, Urkunden und zu besonderen Anlässen der Hochschule wird die Quadraat Sans in ihren Schriftschnitten verwendet. */
