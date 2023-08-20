@@ -101,7 +101,8 @@ $motion-light-transparent: hsla(95, 40%, 56%, 0.15); /* 15% transparent version 
 /* -$motion-primary-dark: #333; */
 /* opt-in theme overrides */
 /* $motion-primary-dark: hsla(215°, 0%, 20%, 1); */
-$motion-primary-dark: hsla(0°, 0%, 34%, 1);
+/* $motion-primary-dark: hsla(0°, 0%, 34%, 1); */
+$motion-primary-dark: hsla(0, 0%, 34%, 1);
 
 /* $ui-primary-light: hsla(215, 100%, 95%, 1); */
 $ui-primary-light: hsla(93, 36%, 95%, 1);
