@@ -1,7 +1,4 @@
 .template {
-
-
-
     color: #4af;
     color: hsl(0, 100%, 65%);
     color: hsl(103, 44%, 47%);
@@ -21,35 +18,20 @@
     color: hsl(163, 85%, 30%);
     color: hsl(163, 57%, 85%);
 
-    color: hsl(215, 100%, 77%,);
+    color: hsl(215, 100%, 77%);
 
     color: hsl(215, 100%, 95%);
     color: hsl(215, 75%, 95%);
     color: hsl(215, 50%, 90%);
 
-    color: hsl(215, 100%, 65%,);
+    color: hsl(215, 100%, 65%);
     color: hsla(215, 0%, 20%, 1);
     color: hsla(0, 0%, 34%, 1);
 
-
-
-
-    /* hs emden Dachmarke */
-
-    /* Fachbereich Technik */
-    color: hsl(93, 36%, 95%);
-    color: hsl(93, 38%, 90%);
-    color: hsl(90, 38%, 84%);
-    color: #c8deb4;
-    color: #b9d5a0;
-    color: #aacc8b;
-    color: #9ac477;
-    color: #89bc64;
-    color: #76b452;
-    color: #62ad44;
+    /* Dachmarke */
 
     /* Schriftfarbe im Logo: grau */
-    color: hsl(0, 0%, 95%);
+    color: #f2f2f2;
     color: #e2e2e2;
     color: #d2d2d2;
     color: #c3c3c3;
@@ -58,7 +40,7 @@
     color: #919190;
     color: #7e7e7e;
     color: #6b6b6a;
-    color: hsl(0, 0%, 34%);
+    color: #575757;
 
     /* Hausfarbe Blau */
     color: #eaeff8;
@@ -83,6 +65,65 @@
     color: #a8d3d9;
     color: #9cced4;
     color: hsl(187, 40%, 69%);
+
+    /* Fachbereich Technik */
+    color: hsl(93, 36%, 95%);
+    color: hsl(93, 38%, 90%);
+    color: hsl(90, 38%, 84%);
+    color: #c8deb4;
+    color: #b9d5a0;
+    color: #aacc8b;
+    color: #9ac477;
+    color: #89bc64;
+    color: #76b452;
+    color: #62ad44;
+    color: #5ea82d;
+    /* Farbverlauf für Flyer */
+    color: #50f207;
+    color: #11aa07;
+
+    /* Fachbereich Wirtschaft */
+    color: #fbc23a;
+    /* Farbverlauf für Flyer */
+    color: #ffba2b;
+    color: #f29900;
+
+    /* Fachbereich Soziale Arbeit und Gesundheit */
+    color: #932335;
+    /* Farbverlauf für Flyer */
+    color: #87033d;
+    color: #cf0055;
+
+    /* Fachbereich Wirtschaft */
+    color: #5ea82d;
+    /* Farbverlauf für Flyer */
+    color: #50f207;
+    color: #11aa07;
+
+    /* Institut für Seefahrt */
+    color: #003b5f;
+    /* Farbverlauf für Flyer */
+    color: #0a336e;
+    color: #0057c3;
+
+    /* Dachmarke */
+
+    /* Hausfarbe Blau */
+    color: #005da4;
+    /* Farbverlauf für Flyer */
+    color: #0080f2;
+    color: #0057c3;
+
+    /* Hausfarbe Türkis */
+    color: #8ac6cb;
+    /* Farbverlauf für Flyer */
+    color: #80f2cc;
+    color: #57e6b0;
+
+    /* Schriftfarbe im Logo: grau */
+    color: #575757;
+    /* Für Flyer */
+    color: #333333;
 
     /* Schriftschnitte */
     /* Für hochwertige Image-Drucksachen wie z.B. die Zeugnisse, Urkunden und zu besonderen Anlässen der Hochschule wird die Quadraat Sans in ihren Schriftschnitten verwendet. */
