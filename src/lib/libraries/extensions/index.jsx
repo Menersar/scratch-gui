@@ -450,50 +450,50 @@ export default [
         ),
         featured: true
     },
-    {
-        name: (
-            <FormattedMessage
-                defaultMessage="Raspberry Pi Sense HAT"
-                description="Name for the 'Pi Sense HAT' extension"
-                id="gui.extension.pisensehat.name"
-            />
-        ),
-        tags: ['scratch'],
-        extensionId: 'pisensehat',
-        collaborator: 'Raspberry Pi',
-        iconURL: pisensehatIconURL,
-        insetIconURL: pisensehatInsetIconURL,
-        description: (
-            <FormattedMessage
-                defaultMessage="Control Raspberry Pi Sense HAT"
-                description="Description for the 'Pi Sense HAT' extension"
-                id="gui.extension.pisensehat.description"
-            />
-        ),
-        featured: true
-    },
-    {
-        name: (
-            <FormattedMessage
-                defaultMessage="Raspberry Pi Simple Electronics"
-                description="Name for the 'Pi Simple Electronics' extension"
-                id="gui.extension.pivsgpio.name"
-            />
-        ),
-        tags: ['scratch'],
-        extensionId: 'pivsgpio',
-        collaborator: 'Raspberry Pi',
-        iconURL: pivsgpioIconURL,
-        insetIconURL: pivsgpioInsetIconURL,
-        description: (
-            <FormattedMessage
-                defaultMessage="Simple electronics with Raspberry Pi"
-                description="Description for the 'Pi Simple Electronics' extension"
-                id="gui.extension.pivsgpio.description"
-            />
-        ),
-        featured: true
-    },
+    // {
+    //     name: (
+    //         <FormattedMessage
+    //             defaultMessage="Raspberry Pi Sense HAT"
+    //             description="Name for the 'Pi Sense HAT' extension"
+    //             id="gui.extension.pisensehat.name"
+    //         />
+    //     ),
+    //     tags: ['scratch'],
+    //     extensionId: 'pisensehat',
+    //     collaborator: 'Raspberry Pi',
+    //     iconURL: pisensehatIconURL,
+    //     insetIconURL: pisensehatInsetIconURL,
+    //     description: (
+    //         <FormattedMessage
+    //             defaultMessage="Control Raspberry Pi Sense HAT"
+    //             description="Description for the 'Pi Sense HAT' extension"
+    //             id="gui.extension.pisensehat.description"
+    //         />
+    //     ),
+    //     featured: true
+    // },
+    // {
+    //     name: (
+    //         <FormattedMessage
+    //             defaultMessage="Raspberry Pi Simple Electronics"
+    //             description="Name for the 'Pi Simple Electronics' extension"
+    //             id="gui.extension.pivsgpio.name"
+    //         />
+    //     ),
+    //     tags: ['scratch'],
+    //     extensionId: 'pivsgpio',
+    //     collaborator: 'Raspberry Pi',
+    //     iconURL: pivsgpioIconURL,
+    //     insetIconURL: pivsgpioInsetIconURL,
+    //     description: (
+    //         <FormattedMessage
+    //             defaultMessage="Simple electronics with Raspberry Pi"
+    //             description="Description for the 'Pi Simple Electronics' extension"
+    //             id="gui.extension.pivsgpio.description"
+    //         />
+    //     ),
+    //     featured: true
+    // },
 
 
     // Extensions loaded from URLs do not support localization, so unfortunately we will just leave English names here.
