@@ -77,6 +77,15 @@ import localStorageIcon from './gallery/local-storage.svg';
 import bigIntIcon from './gallery/bigint.svg';
 import jsonIcon from './gallery/json.svg';
 
+import pigpioIconURL from './pigpio/pigpio.png';
+import pigpioInsetIconURL from './pigpio/pigpio-small.svg';
+
+import pisensehatIconURL from './pisensehat/pisensehat.png';
+import pisensehatInsetIconURL from './pisensehat/pisensehat-small.svg';
+
+import pivsgpioIconURL from './pivsgpio/pivsgpio.png';
+import pivsgpioInsetIconURL from './pivsgpio/pivsgpio-small.svg';
+
 const galleryItem = object => ({
     ...object,
     tags: ['sidekick'],
@@ -417,6 +426,55 @@ export default [
         tags: ['sidekick'],
         featured: true
     },
+
+    
+    {
+        name: 'Raspberry Pi GPIO',
+        extensionId: 'pigpio',
+        collaborator: 'Raspberry Pi',
+        iconURL: pigpioIconURL,
+        insetIconURL: pigpioInsetIconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="Control Raspberry Pi GPIO lines"
+                description="Description for the 'Pi GPIO' extension"
+                id="gui.extension.pigpio.description"
+            />
+        ),
+        featured: true
+    },
+    {
+        name: 'Raspberry Pi Sense HAT',
+        extensionId: 'pisensehat',
+        collaborator: 'Raspberry Pi',
+        iconURL: pisensehatIconURL,
+        insetIconURL: pisensehatInsetIconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="Control Raspberry Pi Sense HAT"
+                description="Description for the 'Pi Sense HAT' extension"
+                id="gui.extension.pisensehat.description"
+            />
+        ),
+        featured: true
+    },
+    {
+        name: 'Raspberry Pi Simple Electronics',
+        extensionId: 'pivsgpio',
+        collaborator: 'Raspberry Pi',
+        iconURL: pivsgpioIconURL,
+        insetIconURL: pivsgpioInsetIconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="Simple electronics with Raspberry Pi"
+                description="Description for the 'Pi Simple Electronics' extension"
+                id="gui.extension.pivsgpio.description"
+            />
+        ),
+        featured: true
+    },
+
+    
     // Extensions loaded from URLs do not support localization, so unfortunately we will just leave English names here.
     galleryItem({
         name: 'Animated Text',
