@@ -426,10 +426,17 @@ export default [
         tags: ['sidekick'],
         featured: true
     },
-
     
+
     {
-        name: 'Raspberry Pi GPIO',
+        name: (
+            <FormattedMessage
+                defaultMessage="Raspberry Pi GPIO"
+                description="Name for the 'Pi GPIO' extension"
+                id="gui.extension.pigpio.name"
+            />
+        ),
+        tags: ['scratch'],
         extensionId: 'pigpio',
         collaborator: 'Raspberry Pi',
         iconURL: pigpioIconURL,
@@ -444,7 +451,14 @@ export default [
         featured: true
     },
     {
-        name: 'Raspberry Pi Sense HAT',
+        name: (
+            <FormattedMessage
+                defaultMessage="Raspberry Pi Sense HAT"
+                description="Name for the 'Pi Sense HAT' extension"
+                id="gui.extension.pisensehat.name"
+            />
+        ),
+        tags: ['scratch'],
         extensionId: 'pisensehat',
         collaborator: 'Raspberry Pi',
         iconURL: pisensehatIconURL,
@@ -459,7 +473,14 @@ export default [
         featured: true
     },
     {
-        name: 'Raspberry Pi Simple Electronics',
+        name: (
+            <FormattedMessage
+                defaultMessage="Raspberry Pi Simple Electronics"
+                description="Name for the 'Pi Simple Electronics' extension"
+                id="gui.extension.pivsgpio.name"
+            />
+        ),
+        tags: ['scratch'],
         extensionId: 'pivsgpio',
         collaborator: 'Raspberry Pi',
         iconURL: pivsgpioIconURL,
@@ -474,7 +495,7 @@ export default [
         featured: true
     },
 
-    
+
     // Extensions loaded from URLs do not support localization, so unfortunately we will just leave English names here.
     galleryItem({
         name: 'Animated Text',
