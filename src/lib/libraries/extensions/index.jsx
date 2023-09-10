@@ -80,11 +80,11 @@ import jsonIcon from './gallery/json.svg';
 import pigpioIconURL from './pigpio/pigpio.png';
 import pigpioInsetIconURL from './pigpio/pigpio-small.svg';
 
-import pisensehatIconURL from './pisensehat/pisensehat.png';
-import pisensehatInsetIconURL from './pisensehat/pisensehat-small.svg';
+// import pisensehatIconURL from './pisensehat/pisensehat.png';
+// import pisensehatInsetIconURL from './pisensehat/pisensehat-small.svg';
 
-import pivsgpioIconURL from './pivsgpio/pivsgpio.png';
-import pivsgpioInsetIconURL from './pivsgpio/pivsgpio-small.svg';
+// import pivsgpioIconURL from './pivsgpio/pivsgpio.png';
+// import pivsgpioInsetIconURL from './pivsgpio/pivsgpio-small.svg';
 
 const galleryItem = object => ({
     ...object,
@@ -429,13 +429,14 @@ export default [
     
 
     {
-        name: (
-            <FormattedMessage
-                defaultMessage="Raspberry Pi GPIO"
-                description="Name for the 'Pi GPIO' extension"
-                id="gui.extension.pigpio.name"
-            />
-        ),
+        // name: (
+        //     <FormattedMessage
+        //         defaultMessage="Raspberry Pi GPIO"
+        //         description="Name for the 'Pi GPIO' extension"
+        //         id="gui.extension.pigpio.name"
+        //     />
+        // ),
+        name: 'Raspberry Pi GPIO',
         tags: ['scratch'],
         extensionId: 'pigpio',
         collaborator: 'Raspberry Pi',
