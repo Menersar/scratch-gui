@@ -13,6 +13,9 @@ import videoSensingInsetIconURL from './videoSensing/video-sensing-small.svg';
 import text2speechIconURL from './text2speech/text2speech.png';
 import text2speechInsetIconURL from './text2speech/text2speech-small.svg';
 
+import test1IconURL from './test1/test1.png';
+import test1InsetIconURL from './test1/test1-small.svg';
+
 import translateIconURL from './translate/translate.png';
 import translateInsetIconURL from './translate/translate-small.png';
 
@@ -181,6 +184,33 @@ export default [
         featured: true,
         internetConnectionRequired: true
     },
+
+
+    {
+        name: (
+            <FormattedMessage
+                defaultMessage="test1"
+                description="Name for the test1 extension"
+                id="gui.extension.test1.name"
+            />
+        ),
+        tags: ['scratch'],
+        extensionId: 'test1',
+        collaborator: 'Amazon Web Services',
+        iconURL: test1IconURL,
+        insetIconURL: test1InsetIconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="Make your projects talk."
+                description="Description for the test1 extension"
+                id="gui.extension.test1.description"
+            />
+        ),
+        featured: true,
+        internetConnectionRequired: true
+    },
+
+
     {
         name: (
             <FormattedMessage
