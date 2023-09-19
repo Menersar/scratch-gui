@@ -1,9 +1,9 @@
 .template {
     color: #4af;
-    color: hsl(0, 100%, 65%);
-    color: hsl(103, 44%, 47%);
-    color: hsl(98, 40%, 51%);
-    color: hsl(95, 40%, 56%);
+    color: #ff4d4d;
+    color: #61ad43;
+    color: #75b450;
+    color: #87bc62;
 
     color: hsl(215, 100%, 65%, 1);
     color: hsla(215, 60%, 50%, 1);
@@ -94,7 +94,7 @@
     color: #87033d;
     color: #cf0055;
 
-    /* Fachbereich Wirtschaft */
+    /* Fachbereich Technik */
     color: #5ea82d;
     /* Farbverlauf für Flyer */
     color: #50f207;
