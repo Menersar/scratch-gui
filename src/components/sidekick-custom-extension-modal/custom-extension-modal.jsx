@@ -88,7 +88,7 @@ const CustomExtensionModal = props => (
                         onKeyDown={props.onKeyDown}
                         // !!! CHANGE !!!
                         // placeholder="https://mixality.github.io/Sidekick/extensions/…"
-                        placeholder="https://menersar.github.io/Sidekick/sidekick-extensions/…"
+                        placeholder="https://menersar.github.io/sidekick-extensions/…"
                         autoFocus
                     />
                 </React.Fragment>

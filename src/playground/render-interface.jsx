@@ -116,13 +116,13 @@ const Footer = () => (
                 </div>
                 <div className={styles.footerSection}>
                     {/* !!! CHANGE !!! */}
-                    {/* <a href="https://mixality.github.io/Sidekick/sidekick-desktop"> */}
+                    {/* <a href="https://mixality.github.io/sidekick-desktop/"> */}
                     <a href="https://menersar.github.io/Sidekick/desktop/">
                         {/* Do not translate */}
                         {'Sidekick Desktop'}
                     </a>
                     {/* !!! CHANGE !!! */}
-                    {/* <a href="https://mixality.github.io/Sidekick/sidekick-packager"> */}
+                    {/* <a href="https://mixality.github.io/sidekick-packager"> */}
                     <a href="https://menersar.github.io/Sidekick/packager/">
                         {/* Do not translate */}
                         {'Sidekick Packager'}
