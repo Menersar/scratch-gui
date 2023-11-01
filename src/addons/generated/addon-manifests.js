@@ -69,7 +69,6 @@ import _sidekick_remove_backpack from "../addons/sidekick-remove-backpack/_manif
 import _sidekick_remove_feedback from "../addons/sidekick-remove-feedback/_manifest_entry.js";
 import _sidekick_disable_cloud_variables from "../addons/sidekick-disable-cloud-variables/_manifest_entry.js";
 import _sidekick_disable_compiler from "../addons/sidekick-disable-compiler/_manifest_entry.js";
-import _sidekick_disable_restore_points from "../addons/sidekick-disable-restore-points/_manifest_entry.js";
 import _editor_stepping from "../addons/editor-stepping/_manifest_entry.js";
 export default {
   "cat-blocks": _cat_blocks,
@@ -142,6 +141,5 @@ export default {
   "sidekick-remove-feedback": _sidekick_remove_feedback,
   "sidekick-disable-cloud-variables": _sidekick_disable_cloud_variables,
   "sidekick-disable-compiler": _sidekick_disable_compiler,
-  "sidekick-disable-restore-points": _sidekick_disable_restore_points,
   "editor-stepping": _editor_stepping,
 };

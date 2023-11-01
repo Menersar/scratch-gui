@@ -23,7 +23,7 @@ import BackdropLibrary from '../../containers/backdrop-library.jsx';
 import Watermark from '../../containers/watermark.jsx';
 
 import Backpack from '../../containers/backpack.jsx';
-import WebGlModal from '../../containers/webgl-modal.jsx';
+// import WebGlModal from '../../containers/webgl-modal.jsx';
 import TipsLibrary from '../../containers/tips-library.jsx';
 import Cards from '../../containers/cards.jsx';
 import Alerts from '../../containers/alerts.jsx';
@@ -44,6 +44,8 @@ import SidekickSecurityManager from '../../containers/sidekick-security-manager.
 import SidekickUsernameModal from '../../containers/sidekick-username-modal.jsx';
 import SidekickSettingsModal from '../../containers/sidekick-settings-modal.jsx';
 import SidekickCustomExtensionModal from '../../containers/sidekick-custom-extension-modal.jsx';
+import SidekickRestorePointManager from '../../containers/sidekick-restore-point-manager.jsx';
+import SidekickFontsModal from '../../containers/sidekick-fonts-modal.jsx';
 
 import BrowserModal from '../browser-modal/browser-modal.jsx';
 
@@ -103,6 +105,7 @@ const GUIComponent = props => {
         costumeLibraryVisible,
         customStageSize,
         customExtensionModalVisible,
+        fontsModalVisible,
         costumesTabVisible,
         enableCommunity,
         intl,
@@ -142,6 +145,7 @@ const GUIComponent = props => {
         onTelemetryModalOptIn,
         onTelemetryModalOptOut,
         onClickAddonSettings,
+        onClickNewWindow,
         onClickTheme,
         onClickPackager,
         showComingSoon,
@@ -177,10 +181,12 @@ const GUIComponent = props => {
 
         const alwaysEnabledModals = (
             <React.Fragment>
-                <SidekickSecurityManager/>
+                <SidekickSecurityManager />
+                <SidekickRestorePointManager />
                 {usernameModalVisible && <SidekickUsernameModal />}
                 {settingsModalVisible && <SidekickSettingsModal />}
                 {customExtensionModalVisible && <SidekickCustomExtensionModal />}
+                {fontsModalVisible && <SidekickFontsModal />}
             </React.Fragment>
         );
 
@@ -236,9 +242,6 @@ const GUIComponent = props => {
                         messageId="gui.loader.creating"
                     />
                 ) : null}
-                {isRendererSupported() ? null : (
-                    <WebGlModal isRtl={isRtl} />
-                )}
                 {isBrowserSupported() ? null : (
                     <BrowserModal isRtl={isRtl} />
                 )}
@@ -292,6 +295,7 @@ const GUIComponent = props => {
                     onClickAccountNav={onClickAccountNav}
                     onClickLogo={onClickLogo}
                     onClickAddonSettings={onClickAddonSettings}
+                    onClickNewWindow={onClickNewWindow}
                     onClickTheme={onClickTheme}
                     onClickPackager={onClickPackager}
                     onCloseAccountNav={onCloseAccountNav}
@@ -481,6 +485,7 @@ GUIComponent.propTypes = {
     onClickAccountNav: PropTypes.func,
     onClickLogo: PropTypes.func,
     onClickAddonSettings: PropTypes.func,
+    onClickNewWindow: PropTypes.func,
     onClickTheme: PropTypes.func,
     onClickPackager: PropTypes.func,
     onCloseAccountNav: PropTypes.func,
@@ -508,6 +513,7 @@ GUIComponent.propTypes = {
     telemetryModalVisible: PropTypes.bool,
     tipsLibraryVisible: PropTypes.bool,
     usernameModalVisible: PropTypes.bool,
+    fontsModalVisible: PropTypes.bool,
     vm: PropTypes.instanceOf(VM).isRequired
 };
 GUIComponent.defaultProps = {

@@ -7,7 +7,7 @@ import AlertComponent from '../components/alerts/alert.jsx';
 import {openConnectionModal} from '../reducers/modals';
 import {setConnectionModalExtensionId} from '../reducers/connection-modal';
 import {manualUpdateProject} from '../reducers/project-state';
-import SidekickRestorePointLoader from './sidekick-restore-point-loader.jsx';
+// import SidekickRestorePointLoader from './sidekick-restore-point-loader.jsx';
 
 class Alert extends React.Component {
     constructor (props) {

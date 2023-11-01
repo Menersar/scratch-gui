@@ -7,7 +7,7 @@
     margin: 8px 0;
 }
 
-.code {
+/* .code {
     display: block;
     width: 100%;
     max-width: 100%;
@@ -24,7 +24,7 @@
 [theme="dark"] .code {
     background: $ui-secondary;
     color: white;
-}
+} */
 
 .unsandboxed-container {
     display: flex;

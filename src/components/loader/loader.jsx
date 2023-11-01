@@ -11,6 +11,7 @@ import bottomBlock from './bottom-block.svg';
 import bindAll from 'lodash.bindall';
 
 import * as progressMonitor from './sidekick-progress-monitor';
+import isScratchDesktop from '../../lib/isScratchDesktop';
 
 const messages = defineMessages({
     generic: {
@@ -69,7 +70,10 @@ class LoaderComponent extends React.Component {
 
     componentDidMount () {
         // // Start an interval to choose a new message every 5 seconds
-        progressMonitor.setProgressHandler(this.handleProgressChange);
+        // progressMonitor.setProgressHandler(this.handleProgressChange);
+        if (!isScratchDesktop()) {
+            progressMonitor.setProgressHandler(this.handleProgressChange);
+        }
         this.updateMessage();
     }
 
@@ -93,7 +97,10 @@ class LoaderComponent extends React.Component {
     }
 
     update () {
-        this.barInner.style.width = `${this.progress * 100}%`;
+        // this.barInner.style.width = `${this.progress * 100}%`;
+        if (this.barInner) {
+            this.barInner.style.width = `${this.progress * 100}%`;
+        }
         if (this._state === 2) {
             this.updateMessage();
         }
@@ -151,14 +158,22 @@ class LoaderComponent extends React.Component {
                         <div
                             className={styles.messageContainerInner}
                             ref={this.messageRef}
-                            />
+                        />
                     </div>
-                    <div className={styles.sidekickProgressOuter}>
+                    {/* <div className={styles.sidekickProgressOuter}>
                         <div
                             className={styles.sidekickProgressInner}
                             ref={this.barInnerRef}
                         />
-                    </div>
+                    </div> */}
+                    {!isScratchDesktop() && (
+                        <div className={styles.sidekickProgressOuter}>
+                            <div
+                                className={styles.sidekickProgressInner}
+                                ref={this.barInnerRef}
+                            />
+                        </div>
+                    )}
                 </div>
             </div>
         );
@@ -168,7 +183,7 @@ class LoaderComponent extends React.Component {
 LoaderComponent.propTypes = {
     isFullScreen: PropTypes.bool,
     messageId: PropTypes.string,
-    intl: intlShape.isRequired,
+    intl: intlShape.isRequired
 };
 LoaderComponent.defaultProps = {
     isFullScreen: false,

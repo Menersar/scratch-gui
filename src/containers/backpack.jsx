@@ -1,6 +1,6 @@
-import bindAll from 'lodash.bindall';
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import bindAll from 'lodash.bindall';
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
 import BackpackComponent from '../components/backpack/backpack.jsx';
 import {
@@ -23,6 +23,7 @@ import VM from 'scratch-vm';
 
 const dragTypes = [DragConstants.COSTUME, DragConstants.SOUND, DragConstants.SPRITE];
 const DroppableBackpack = DropAreaHOC(dragTypes)(BackpackComponent);
+
 const messages = defineMessages({
     rename: {
         defaultMessage: 'New name:',
@@ -93,6 +94,14 @@ class Backpack extends React.Component {
         if (newState) {
             this.getContents();
         }
+    }
+    handleError (error) {
+        this.setState({
+            error: `${error}`,
+            loading: false
+        });
+        // Log error to console and make the Promise reject.
+        throw error;
     }
     handleDrop (dragInfo) {
         let payloader = null;
@@ -167,13 +176,33 @@ class Backpack extends React.Component {
                 });
         });
     }
-    // To additionally output the error that will be thrown in the console and reject the promise.
-    handleError (error) {
-        this.setState({
-            error: `${error}`,
-            loading: false
+    findItemById (id) {
+        return this.state.contents.find(i => i.id === id);
+    }
+    async handleRename (id) {
+        const item = this.findItemById(id);
+        // 'prompt()' returns promise in desktop app.
+        // eslint-disable-next-line no-alert
+        const newName = await prompt(this.props.intl.formatMessage(messages.rename), item.name);
+        if (!newName) {
+            return;
+        }
+        this.setState({loading: true}, () => {
+            updateBackpackObject({
+                host: this.props.host,
+                ...item,
+                name: newName
+            })
+                .then(newItem => {
+                    this.setState({
+                        loading: false,
+                        contents: this.state.contents.map(i => (i === item ? newItem : i))
+                    });
+                })
+                .catch(error => {
+                    this.handleError(error);
+                });
         });
-        throw error;
     }
     getContents () {
         if ((this.props.token && this.props.username) || this.props.host === LOCAL_API) {
@@ -198,9 +227,9 @@ class Backpack extends React.Component {
             });
         }
     }
-    findItemById (id) {
-        return this.state.contents.find(i => i.id === id);
-    }
+    // findItemById (id) {
+    //     return this.state.contents.find(i => i.id === id);
+    // }
     handleBlockDragUpdate (isOutsideWorkspace) {
         this.setState({
             blockDragOutsideWorkspace: isOutsideWorkspace
@@ -223,7 +252,8 @@ class Backpack extends React.Component {
             this.handleDrop({
                 dragType: DragConstants.CODE,
                 payload: {
-                    blockObjects: blocks,
+                    // blockObjects: blocks,
+                    blockObjects: this.props.vm.exportStandaloneBlocks(blocks),
                     topBlockId: topBlockId
                 }
             });
@@ -236,30 +266,33 @@ class Backpack extends React.Component {
     handleMore () {
         this.getContents();
     }
-    handleRename (id) {
-        const item = this.findItemById(id);
-        // eslint-disable-next-line no-alert
-        const newName = prompt(this.props.intl.formatMessage(messages.rename), item.name);
-        if (!newName) {
-            return;
-        }
-        this.setState({loading: true}, () => {
-            updateBackpackObject({
-                host: this.props.host,
-                ...item,
-                name: newName
-            })
-                .then(newItem => {
-                    this.setState({
-                        loading: false,
-                        contents: this.state.contents.map(i => (i === item ? newItem : i))
-                    });
-                })
-                .catch(error => {
-                    this.handleError(error);
-                });
-        });
-    }
+    // // handleRename (id) {
+    // async handleRename (id) {
+    //     const item = this.findItemById(id);
+    //     // 'prompt()' returns promise in desktop app.
+    //     // eslint-disable-next-line no-alert
+    //     // const newName = prompt(this.props.intl.formatMessage(messages.rename), item.name);
+    //     const newName = await prompt(this.props.intl.formatMessage(messages.rename), item.name);
+    //     if (!newName) {
+    //         return;
+    //     }
+    //     this.setState({loading: true}, () => {
+    //         updateBackpackObject({
+    //             host: this.props.host,
+    //             ...item,
+    //             name: newName
+    //         })
+    //             .then(newItem => {
+    //                 this.setState({
+    //                     loading: false,
+    //                     contents: this.state.contents.map(i => (i === item ? newItem : i))
+    //                 });
+    //             })
+    //             .catch(error => {
+    //                 this.handleError(error);
+    //             });
+    //     });
+    // }
     render () {
         return (
             <DroppableBackpack
@@ -270,23 +303,23 @@ class Backpack extends React.Component {
                 loading={this.state.loading}
                 showMore={this.state.moreToLoad}
                 onDelete={this.handleDelete}
+                onRename={this.handleRename}
                 onDrop={this.handleDrop}
                 onMore={this.handleMore}
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
                 onToggle={this.props.host ? this.handleToggle : null}
-                onRename={this.handleRename}
             />
         );
     }
 }
 
 Backpack.propTypes = {
+    intl: intlShape,
     host: PropTypes.string,
     token: PropTypes.string,
     username: PropTypes.string,
-    vm: PropTypes.instanceOf(VM),
-    intl: intlShape
+    vm: PropTypes.instanceOf(VM)
 };
 
 const getTokenAndUsername = state => {

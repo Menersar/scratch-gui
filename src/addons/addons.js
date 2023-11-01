@@ -71,7 +71,6 @@ const addons = [
     'sidekick-remove-feedback',
     'sidekick-disable-cloud-variables',
     'sidekick-disable-compiler',
-    'sidekick-disable-restore-points',
     'editor-stepping'
 ];
 

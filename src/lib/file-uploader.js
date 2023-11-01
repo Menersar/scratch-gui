@@ -3,6 +3,7 @@ import randomizeSpritePosition from './randomize-sprite-position.js';
 import bmpConverter from './bmp-converter';
 import gifDecoder from './gif-decoder';
 import fixSVG from './sidekick-svg-fixer';
+import convertAudioToWav from './sidekick-convert-audio-wav.js';
 
 /**
  * Extract the file name given a string of the form fileName + ext
@@ -210,7 +211,12 @@ const soundUpload = function (fileData, fileType, storage, handleSound, handleEr
         break;
     }
     default:
-        handleError(`Encountered unexpected file type: ${fileType}`);
+        // handleError(`Encountered unexpected file type: ${fileType}`);
+        convertAudioToWav(fileData)
+            .then(fixed => {
+                soundUpload(fixed, 'audio/wav', storage, handleSound, handleError);
+            })
+            .catch(handleError);
         return;
     }
 

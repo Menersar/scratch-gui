@@ -5,16 +5,17 @@ import log from './log';
 import {getIsShowingProject} from '../reducers/project-state';
 
 // !!! CHANGE !!!
+// !!! KA !!!
 // const PACKAGER_URL = 'https://mixality.github.io/Sidekick/packager';
 const PACKAGER_URL = 'https://menersar.github.io/Sidekick/packager';
 const PACKAGER_ORIGIN = PACKAGER_URL;
 
-const readBlobAsArrayBuffer = blob => new Promise((resolve, reject) => {
-    const fr = new FileReader();
-    fr.onload = () => resolve(fr.result);
-    fr.onerror = () => reject(new Error('Cannot read blob as array buffer'));
-    fr.readAsArrayBuffer(blob);
-});
+// const readBlobAsArrayBuffer = blob => new Promise((resolve, reject) => {
+//     const fr = new FileReader();
+//     fr.onload = () => resolve(fr.result);
+//     fr.onerror = () => reject(new Error('Cannot read blob as array buffer'));
+//     fr.readAsArrayBuffer(blob);
+// });
 
 const PackagerIntegrationHOC = function (WrappedComponent) {
     class PackagerIntegrationComponent extends React.Component {
@@ -55,8 +56,9 @@ const PackagerIntegrationHOC = function (WrappedComponent) {
                 }
             }, e.origin);
 
-            this.props.vm.saveProjectSb3()
-                .then(readBlobAsArrayBuffer)
+            // this.props.vm.saveProjectSb3()
+            //     .then(readBlobAsArrayBuffer)
+            this.props.vm.saveProjectSb3('arraybuffer')
                 .then(buffer => {
                     const name = `${this.props.reduxProjectTitle}.sb3`;
                     e.source.postMessage({

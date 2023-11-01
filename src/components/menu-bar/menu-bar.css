@@ -226,6 +226,7 @@
   background-size: 50%;
 }
 
+/* !!! 'mystuff', remove the ruleset, etc.(?)? ??? */
 .mystuff > a {
   /* background-image: url("/images/mystuff.png"); */
 }

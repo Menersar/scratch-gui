@@ -17,16 +17,16 @@ import styles from './stage.css';
 const StageComponent = props => {
     const {
         canvas,
+        customStageSize,
         dragRef,
         isColorPicking,
         isFullScreen,
-        isStarted,
         isPlayerOnly,
+        isStarted,
         colorInfo,
         micIndicator,
         question,
         stageSize,
-        customStageSize,
         useEditorDragStyle,
         onDeactivateColorPicker,
         onDoubleClick,
@@ -70,6 +70,9 @@ const StageComponent = props => {
                         }}
                         {...boxProps}
                     />
+                    <Box className={styles.customOverlays}>
+                        <DOMElementRenderer domElement={props.overlay} />
+                    </Box>
                     <Box className={styles.monitorWrapper}>
                         <MonitorList
                             draggable={useEditorDragStyle}
@@ -146,22 +149,23 @@ const StageComponent = props => {
 };
 StageComponent.propTypes = {
     canvas: PropTypes.instanceOf(Element).isRequired,
+    customStageSize: PropTypes.shape({
+        width: PropTypes.number,
+        height: PropTypes.height
+    }),
+    overlay: PropTypes.instanceOf(Element).isRequired,
     colorInfo: Loupe.propTypes.colorInfo,
     dragRef: PropTypes.func,
     isColorPicking: PropTypes.bool,
     isFullScreen: PropTypes.bool.isRequired,
-    isStarted: PropTypes.bool,
     isPlayerOnly: PropTypes.bool,
+    isStarted: PropTypes.bool,
     micIndicator: PropTypes.bool,
     onDeactivateColorPicker: PropTypes.func,
     onDoubleClick: PropTypes.func,
     onQuestionAnswered: PropTypes.func,
     question: PropTypes.string,
     stageSize: PropTypes.oneOf(Object.keys(STAGE_DISPLAY_SIZES)).isRequired,
-    customStageSize: PropTypes.shape({
-        width: PropTypes.number,
-        height: PropTypes.height
-    }),
     useEditorDragStyle: PropTypes.bool
 };
 StageComponent.defaultProps = {

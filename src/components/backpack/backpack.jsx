@@ -167,7 +167,8 @@ Backpack.propTypes = {
         name: PropTypes.string
     })),
     dragOver: PropTypes.bool,
-    error: PropTypes.oneOf([PropTypes.bool, PropTypes.string]),
+    // error: PropTypes.oneOf([PropTypes.bool, PropTypes.string]),
+    error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     expanded: PropTypes.bool,
     intl: intlShape,
     loading: PropTypes.bool,

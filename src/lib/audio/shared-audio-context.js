@@ -1,5 +1,6 @@
 import StartAudioContext from 'startaudiocontext';
 import bowser from 'bowser';
+import log from '../log';
 
 let AUDIO_CONTEXT;
 
@@ -13,9 +14,16 @@ if (!bowser.msie) {
             'touchstart';
     const initAudioContext = () => {
         document.removeEventListener(event, initAudioContext);
-        AUDIO_CONTEXT = new (window.AudioContext ||
-            window.webkitAudioContext)();
-        StartAudioContext(AUDIO_CONTEXT);
+        // AUDIO_CONTEXT = new (window.AudioContext ||
+        //     window.webkitAudioContext)();
+        // StartAudioContext(AUDIO_CONTEXT);
+
+        try {
+            AUDIO_CONTEXT = new (window.AudioContext || window.webkitAudioContext)();
+            StartAudioContext(AUDIO_CONTEXT);
+        } catch (e) {
+            log.error('Could not create shared audio context. Sound-related features will not be available.', e);
+        }
     };
     document.addEventListener(event, initAudioContext);
 }

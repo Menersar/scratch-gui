@@ -457,30 +457,51 @@ export default [
         featured: true
     },
 
-
     {
-        // name: (
-        //     <FormattedMessage
-        //         defaultMessage="Raspberry Pi GPIO"
-        //         description="Name for the 'Pi GPIO' extension"
-        //         id="gui.extension.pigpio.name"
-        //     />
-        // ),
-        name: 'Raspberry Pi GPIO',
+        name: (
+            <FormattedMessage
+                defaultMessage="Raspberry Pi GPIO"
+                description="Name for the 'Pi GPIO' extension"
+                id="gui.extension.pigpio.name"
+            />
+        ),
         tags: ['scratch'],
         extensionId: 'pigpio',
-        collaborator: 'Raspberry Pi',
         iconURL: pigpioIconURL,
         insetIconURL: pigpioInsetIconURL,
         description: (
             <FormattedMessage
-                defaultMessage="Control Raspberry Pi GPIO lines"
+                defaultMessage="Control Raspberry Pi GPIO lines."
                 description="Description for the 'Pi GPIO' extension"
                 id="gui.extension.pigpio.description"
             />
         ),
         featured: true
     },
+
+    // {
+    //     name: 'Raspberry Pi GPIO',
+    //     tags: ['scratch'],
+    //     extensionId: 'pigpio',
+    //     collaborator: 'Raspberry Pi',
+    //     iconURL: pigpioIconURL,
+    //     insetIconURL: pigpioInsetIconURL,
+    //     description: (
+    //         <FormattedMessage
+    //             defaultMessage="Control Raspberry Pi GPIO lines"
+    //             description="Description for the 'Pi GPIO' extension"
+    //             id="gui.extension.pigpio.description"
+    //         />
+    //     ),
+    //     featured: true
+    //     // name: (
+    //     //     <FormattedMessage
+    //     //         defaultMessage="Raspberry Pi GPIO"
+    //     //         description="Name for the 'Pi GPIO' extension"
+    //     //         id="gui.extension.pigpio.name"
+    //     //     />
+    //     // ),
+    // },
     // {
     //     name: (
     //         <FormattedMessage
