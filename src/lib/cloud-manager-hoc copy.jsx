@@ -14,7 +14,7 @@ import {
     showAlertWithTimeout
 } from '../reducers/alerts';
 import {openUsernameModal} from '../reducers/modals';
-import {setUsernameInvalid, setCloudHost} from '../reducers/sidekick';
+import {setUsernameInvalid, setCloudHost} from '../reducers/tw';
 
 /*
  * Higher Order Component to manage the connection to the cloud server.
@@ -28,12 +28,10 @@ const cloudManagerHOC = function (WrappedComponent) {
             this.cloudProvider = null;
             bindAll(this, [
                 'handleCloudDataUpdate',
-                // 'handleExtensionAdded',
                 'onInvalidUsername'
             ]);
 
             this.props.vm.on('HAS_CLOUD_DATA_UPDATE', this.handleCloudDataUpdate);
-            // this.props.vm.on('EXTENSION_ADDED', this.handleExtensionAdded);
             this.props.onSetReduxCloudHost(this.props.cloudHost);
         }
         componentDidMount () {
@@ -47,13 +45,10 @@ const cloudManagerHOC = function (WrappedComponent) {
             }
         }
         componentDidUpdate (prevProps) {
-            // !!! 'TODO'? ???
             // TODO need to add cloud provider disconnection logic and cloud data clearing logic
             // when loading a new project e.g. via file upload
             // (and eventually move it out of the vm.clear function)
 
-            // !!! ???
-            // Close and reconnect in the same update (when required).
             if (this.shouldReconnect(this.props, prevProps)) {
                 this.disconnectFromCloud();
                 if (this.shouldConnect(this.props)) {
@@ -76,7 +71,6 @@ const cloudManagerHOC = function (WrappedComponent) {
         }
         canUseCloud (props) {
             return !!(
-                // props.cloudHost &&
                 props.reduxCloudHost &&
                 props.username &&
                 props.vm &&
@@ -95,13 +89,12 @@ const cloudManagerHOC = function (WrappedComponent) {
                     !this.canUseCloud(props) ||
                     !props.vm.runtime.hasCloudData() ||
                     (props.projectId !== prevProps.projectId) ||
-                    // Username changes are handled in 'reconnect'.
+                    // tw: username changes are handled in "reconnect"
                     // (props.username !== prevProps.username) ||
                     // Editing someone else's project
                     !props.canModifyCloudData
                 );
         }
-        // Close and reconnect in the same update (when required).
         shouldReconnect (props, prevProps) {
             return this.isConnected() && (
                 props.username !== prevProps.username ||
@@ -113,7 +106,6 @@ const cloudManagerHOC = function (WrappedComponent) {
         }
         connectToCloud () {
             this.cloudProvider = new CloudProvider(
-                // this.props.cloudHost,
                 this.props.reduxCloudHost,
                 this.props.vm,
                 this.props.username,
@@ -136,13 +128,6 @@ const cloudManagerHOC = function (WrappedComponent) {
                 this.connectToCloud();
             }
         }
-        // handleExtensionAdded (categoryInfo) {
-        //     // Note that props.vm.extensionManager.isExtensionLoaded('videoSensing') is still false
-        //     // at the point of this callback, so it is difficult to reuse the canModifyCloudData logic.
-        //     if (categoryInfo.id === 'videoSensing' && this.isConnected()) {
-        //         this.disconnectFromCloud();
-        //     }
-        // }
         onInvalidUsername () {
             this.props.onInvalidUsername();
         }
@@ -189,7 +174,6 @@ const cloudManagerHOC = function (WrappedComponent) {
 
     CloudManager.defaultProps = {
         cloudHost: null,
-        // hasCloudPermission: false,
         onShowCloudInfo: () => {},
         username: null
     };
@@ -197,19 +181,12 @@ const cloudManagerHOC = function (WrappedComponent) {
     const mapStateToProps = (state, ownProps) => {
         const loadingState = state.scratchGui.projectState.loadingState;
         return {
-            reduxCloudHost: state.scratchGui.sidekick.cloudHost,
+            reduxCloudHost: state.scratchGui.tw.cloudHost,
             isShowingWithId: getIsShowingWithId(loadingState),
             projectId: state.scratchGui.projectState.projectId,
-            hasCloudPermission: state.scratchGui.sidekick.cloud,
-            // hasCloudPermission: state.scratchGui.sidekick ? state.scratchGui.sidekick.cloud : false,
-            username: state.scratchGui.sidekick.username,
-            // username: state.scratchGui.sidekick ? state.scratchGui.sidekick.username : '',
-            // ???
-            // if you're editing someone else's project, you can't modify cloud data
+            hasCloudPermission: state.scratchGui.tw.cloud,
+            username: state.scratchGui.tw.username,
             canModifyCloudData: (!state.scratchGui.mode.hasEverEnteredEditor || ownProps.canSave)
-            // &&
-            // // possible security concern if the program attempts to encode webcam data over cloud variables
-            // !ownProps.vm.extensionManager.isExtensionLoaded('videoSensing'),
         };
     };
 

@@ -143,7 +143,9 @@ const alerts = [
     {
         alertId: 'saveSuccess',
         alertType: AlertTypes.INLINE,
-        clearList: ['saveSuccess', 'saving', 'savingError', 'sidekickSaveToDiskSuccess'],
+        // clearList: ['saveSuccess', 'saving', 'savingError', 'sidekickSaveToDiskSuccess'],
+        clearList: ['saveSuccess', 'saving', 'savingError', 'sidekickSaveToDiskSuccess',
+            'sidekickCreatingRestorePoint', 'sidekickRestorePointSuccess', 'sidekickRestorePointError'],
         content: (
             <FormattedMessage
                 defaultMessage="Project saved."
@@ -158,7 +160,9 @@ const alerts = [
     {
         alertId: 'saving',
         alertType: AlertTypes.INLINE,
-        clearList: ['saveSuccess', 'saving', 'savingError', 'sidekickSaveToDiskSuccess'],
+        // clearList: ['saveSuccess', 'saving', 'savingError', 'sidekickSaveToDiskSuccess'],
+        clearList: ['saveSuccess', 'saving', 'savingError', 'sidekickSaveToDiskSuccess',
+            'sidekickCreatingRestorePoint', 'sidekickRestorePointSuccess', 'sidekickRestorePointError'],
         content: (
             <FormattedMessage
                 defaultMessage="Saving project …"
@@ -172,7 +176,9 @@ const alerts = [
     {
         alertId: 'sidekickSaveToDiskSuccess',
         alertType: AlertTypes.INLINE,
-        clearList: ['saveSuccess', 'saving', 'savingError', 'sidekickSaveToDiskSuccess'],
+        // clearList: ['saveSuccess', 'saving', 'savingError', 'sidekickSaveToDiskSuccess'],
+        clearList: ['saveSuccess', 'saving', 'savingError', 'sidekickCreatingRestorePoint',
+            'sidekickRestorePointSuccess', 'sidekickRestorePointError'],
         content: (
             <FormattedMessage
                 defaultMessage="Saved to your computer."
@@ -185,17 +191,53 @@ const alerts = [
         maxDisplaySecs: 3
     },
     {
-        alertId: 'sidekickAutosaving',
+        // alertId: 'sidekickAutosaving',
+        alertId: 'sidekickCreatingRestorePoint',
         alertType: AlertTypes.INLINE,
+        clearList: ['sidekickRestorePointSuccess', 'sidekickRestorePointError'],
         content: (
             <FormattedMessage
                 defaultMessage="Creating restore point …"
-                description="Message indicating that a restore point is in process of being created"
-                id="gui.alerts.autosaving"
+                // description="Message indicating that a restore point is in process of being created"
+                // id="gui.alerts.autosaving"
+                description="Menu bar message indicating that a restore point is being automatically created"
+                id="gui.alerts.creatingRestorePoint"
             />
         ),
         iconSpinner: true,
         level: AlertLevels.INFO
+    },
+    {
+        alertId: 'sidekickRestorePointSuccess',
+        alertType: AlertTypes.INLINE,
+        clearList: ['sidekickCreatingRestorePoint', 'sidekickRestorePointError'],
+        content: (
+            <FormattedMessage
+                defaultMessage="Access restore points in &quot;File&quot;"
+                // eslint-disable-next-line max-len
+                description="Menu bar message indicating that a restore point was successfully created. File refers to the file dropdown menu."
+                id="gui.alerts.restorePointSuccess"
+            />
+        ),
+        iconURL: successImage,
+        level: AlertLevels.SUCCESS,
+        maxDisplaySecs: 3
+    },
+    {
+        alertId: 'sidekickRestorePointError',
+        alertType: AlertTypes.INLINE,
+        clearList: ['sidekickCreatingRestorePoint', 'sidekickRestorePointSuccess'],
+        content: (
+            <FormattedMessage
+                defaultMessage="Could not create restore point"
+                // eslint-disable-next-line max-len
+                description="Menu bar message indicating that a restore point could not be created."
+                id="gui.alerts.restorePointError"
+            />
+        ),
+        iconURL: successImage,
+        level: AlertLevels.WARN,
+        maxDisplaySecs: 5
     },
     {
         alertId: 'cloudInfo',

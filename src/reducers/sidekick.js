@@ -15,6 +15,7 @@ const CLEAR_COMPILE_ERRORS = 'sidekick/CLEAR_COMPILE_ERRORS';
 const SET_FILE_HANDLE = 'sidekick/SET_FILE_HANDLE';
 const SET_USERNAME_INVALID = 'sidekick/SET_USERNAME_INVALID';
 const SET_HAS_CLOUD_VARIABLES = 'sidekick/SET_HAS_CLOUD_VARIABLES';
+const SET_CLOUD_HOST = 'sidekick/SET_CLOUD_HOST';
 
 export const initialState = {
     framerate: 30,
@@ -44,7 +45,9 @@ export const initialState = {
     compileErrors: [],
     fileHandle: null,
     usernameInvalid: false,
-    hasCloudVariables: false
+    // hasCloudVariables: false
+    hasCloudVariables: false,
+    cloudHost: ''
 };
 
 const reducer = function (state, action) {
@@ -116,6 +119,10 @@ const reducer = function (state, action) {
     case SET_HAS_CLOUD_VARIABLES:
         return Object.assign({}, state, {
             hasCloudVariables: action.hasCloudVariables
+        });
+    case SET_CLOUD_HOST:
+        return Object.assign({}, state, {
+            cloudHost: action.cloudHost
         });
     default:
         return state;
@@ -233,6 +240,13 @@ const setHasCloudVariables = function (hasCloudVariables) {
     };
 };
 
+const setCloudHost = function (cloudHost) {
+    return {
+        type: SET_CLOUD_HOST,
+        cloudHost
+    };
+};
+
 export {
     reducer as default,
     initialState as sidekickInitialState,
@@ -251,5 +265,7 @@ export {
     clearCompileErrors,
     setFileHandle,
     setUsernameInvalid,
-    setHasCloudVariables
+    // setHasCloudVariables
+    setHasCloudVariables,
+    setCloudHost
 };

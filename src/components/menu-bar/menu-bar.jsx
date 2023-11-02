@@ -13,11 +13,13 @@ import Box from '../box/box.jsx';
 import Button from '../button/button.jsx';
 import CommunityButton from './community-button.jsx';
 import ShareButton from './share-button.jsx';
-import SeeInsideButton from './sidekick-see-inside.jsx';
+// !!! KA !!!
+// !!! ???
+// import SeeInsideButton from './sidekick-see-inside.jsx';
 import {ComingSoonTooltip} from '../coming-soon/coming-soon.jsx';
 import Divider from '../divider/divider.jsx';
 import LanguageSelector from '../../containers/language-selector.jsx';
-import SidekickSaveStatus from './sidekick-save-status.jsx';
+// import SidekickSaveStatus from './sidekick-save-status.jsx';
 import ProjectWatcher from '../../containers/project-watcher.jsx';
 import MenuBarMenu from './menu-bar-menu.jsx';
 import {MenuItem, MenuSection} from '../menu/menu.jsx';
@@ -31,9 +33,10 @@ import MenuBarHOC from '../../containers/menu-bar-hoc.jsx';
 import FramerateChanger from '../../containers/sidekick-framerate-changer.jsx';
 import ChangeUsername from '../../containers/sidekick-change-username.jsx';
 import CloudVariablesToggler from '../../containers/sidekick-cloud-toggler.jsx';
-import SidekickRestorePointLoader from '../../containers/sidekick-restore-point-loader.jsx';
+// import SidekickRestorePointLoader from '../../containers/sidekick-restore-point-loader.jsx';
+import SidekickSaveStatus from './sidekick-save-status.jsx';
 
-import {openTipsLibrary, openSettingsModal} from '../../reducers/modals';
+import {openTipsLibrary, openSettingsModal, openRestorePointModal} from '../../reducers/modals';
 import {setPlayer} from '../../reducers/mode';
 // import {
 //     isTimeTravel220022BC,
@@ -65,18 +68,22 @@ import {
     openEditMenu,
     closeEditMenu,
     editMenuOpen,
+    openErrorsMenu,
+    closeErrorsMenu,
+    errorsMenuOpen,
     openLanguageMenu,
     closeLanguageMenu,
     languageMenuOpen,
     openLoginMenu,
     closeLoginMenu,
-    loginMenuOpen,
-    openModeMenu,
-    closeModeMenu,
-    modeMenuOpen,
-    openErrorsMenu,
-    closeErrorsMenu,
-    errorsMenuOpen
+    loginMenuOpen
+    // ,
+    // openModeMenu,
+    // closeModeMenu,
+    // modeMenuOpen,
+    // openErrorsMenu,
+    // closeErrorsMenu,
+    // errorsMenuOpen
 } from '../../reducers/menus';
 import {setFileHandle} from '../../reducers/sidekick.js';
 
@@ -84,6 +91,7 @@ import collectMetadata from '../../lib/collect-metadata';
 
 import styles from './menu-bar.css';
 
+// !!! 'value is never read'? ???
 import helpIcon from '../../lib/assets/icon--tutorials.svg';
 import mystuffIcon from './icon--mystuff.png';
 import profileIcon from './icon--profile.png';
@@ -94,13 +102,17 @@ import aboutIcon from './icon--about.svg';
 import errorIcon from './sidekick-error.svg';
 import themeIcon from './sidekick-moon.svg';
 
-import scratchLogo from './sidekick-logo.svg';
-import ninetiesLogo from './nineties_logo.svg';
-import catLogo from './cat_logo.svg';
-import prehistoricLogo from './prehistoric-logo.svg';
-import oldtimeyLogo from './oldtimey-logo.svg';
+// import scratchLogo from './sidekick-logo.svg';
+import scratchLogo from './scratch-logo.svg';
+// import ninetiesLogo from './nineties_logo.svg';
+// import catLogo from './cat_logo.svg';
+// import prehistoricLogo from './prehistoric-logo.svg';
+// import oldtimeyLogo from './oldtimey-logo.svg';
 
 import sharedMessages from '../../lib/shared-messages';
+
+import SeeInsideButton from './sidekick-see-inside.jsx';
+import { notScratchDesktop } from '../../lib/isScratchDesktop.js';
 
 const ariaMessages = defineMessages({
     language: {
@@ -190,17 +202,22 @@ AboutButton.propTypes = {
     onClick: PropTypes.func.isRequired
 };
 
+// !!! ???
+// Unlike '<MenuItem href="">':
+// This uses an actual '<a>'.
 const MenuItemLink = props => (
     <a
         href={props.href}
+        // _blank is safe because of noopener
         // eslint-disable-next-line react/jsx-no-target-blank
         target="_blank"
-        rel="noopener noreferrer"
+        rel="noopener"
         className={styles.menuItemLink}
     >
         <MenuItem>{props.children}</MenuItem>
     </a>
 );
+// rel="noopener noreferrer"
 
 MenuItemLink.propTypes = {
     children: PropTypes.node.isRequired,
@@ -211,15 +228,19 @@ class MenuBar extends React.Component {
     constructor (props) {
         super(props);
         bindAll(this, [
+            'handleClickSeeInside',
             'handleClickNew',
+            'handleClickNewWindow',
             'handleClickRemix',
             'handleClickSave',
             'handleClickSaveAsCopy',
+            'handleClickPackager',
+            'handleClickRestorePoints',
             'handleClickSeeCommunity',
             'handleClickShare',
-            'handleClickPackager',
-            'handleClickSeeInside',
-            'handleSetMode',
+            // 'handleClickPackager',
+            // 'handleClickSeeInside',
+            // 'handleSetMode',
             'handleKeyPress',
             'handleLanguageMouseUp',
             'handleRestoreOption',
@@ -248,6 +269,10 @@ class MenuBar extends React.Component {
         }
         this.props.onRequestCloseFile();
     }
+    handleClickNewWindow () {
+        this.props.onClickNewWindow();
+        this.props.onRequestCloseFile();
+    }
     handleClickRemix () {
         this.props.onClickRemix();
         this.props.onRequestCloseFile();
@@ -258,6 +283,14 @@ class MenuBar extends React.Component {
     }
     handleClickSaveAsCopy () {
         this.props.onClickSaveAsCopy();
+        this.props.onRequestCloseFile();
+    }
+    handleClickPackager () {
+        this.props.onClickPackager();
+        this.props.onRequestCloseFile();
+    }
+    handleClickRestorePoints () {
+        this.props.onClickRestorePoints();
         this.props.onRequestCloseFile();
     }
     handleClickSeeCommunity (waitForUpdate) {
@@ -281,43 +314,43 @@ class MenuBar extends React.Component {
             }
         }
     }
-    handleClickPackager () {
-        this.props.onClickPackager();
-        this.props.onRequestCloseFile();
-    }
-    handleClickSeeInside () {
-        this.props.onClickSeeInside();
-    }
-    handleSetMode (mode) {
-        return () => {
-            // Turn on/off filters for modes.
-            if (mode === '1920') {
-                document.documentElement.style.filter = 'brightness(.9)contrast(.8)sepia(1.0)';
-                document.documentElement.style.height = '100%';
-            } else if (mode === '1990') {
-                document.documentElement.style.filter = 'hue-rotate(40deg)';
-                document.documentElement.style.height = '100%';
-            } else {
-                document.documentElement.style.filter = '';
-                document.documentElement.style.height = '';
-            }
+    // handleClickPackager () {
+    //     this.props.onClickPackager();
+    //     this.props.onRequestCloseFile();
+    // }
+    // handleClickSeeInside () {
+    //     this.props.onClickSeeInside();
+    // }
+    // handleSetMode (mode) {
+    //     return () => {
+    //         // Turn on/off filters for modes.
+    //         if (mode === '1920') {
+    //             document.documentElement.style.filter = 'brightness(.9)contrast(.8)sepia(1.0)';
+    //             document.documentElement.style.height = '100%';
+    //         } else if (mode === '1990') {
+    //             document.documentElement.style.filter = 'hue-rotate(40deg)';
+    //             document.documentElement.style.height = '100%';
+    //         } else {
+    //             document.documentElement.style.filter = '';
+    //             document.documentElement.style.height = '';
+    //         }
 
-            // Change logo for modes
-            if (mode === '1990') {
-                document.getElementById('logo_img').src = ninetiesLogo;
-            } else if (mode === '2020') {
-                document.getElementById('logo_img').src = catLogo;
-            } else if (mode === '1920') {
-                document.getElementById('logo_img').src = oldtimeyLogo;
-            } else if (mode === '220022BC') {
-                document.getElementById('logo_img').src = prehistoricLogo;
-            } else {
-                document.getElementById('logo_img').src = this.props.logo;
-            }
+    //         // Change logo for modes
+    //         if (mode === '1990') {
+    //             document.getElementById('logo_img').src = ninetiesLogo;
+    //         } else if (mode === '2020') {
+    //             document.getElementById('logo_img').src = catLogo;
+    //         } else if (mode === '1920') {
+    //             document.getElementById('logo_img').src = oldtimeyLogo;
+    //         } else if (mode === '220022BC') {
+    //             document.getElementById('logo_img').src = prehistoricLogo;
+    //         } else {
+    //             document.getElementById('logo_img').src = this.props.logo;
+    //         }
 
-            this.props.onSetTimeTravelMode(mode);
-        };
-    }
+    //         this.props.onSetTimeTravelMode(mode);
+    //     };
+    // }
     handleRestoreOption (restoreFun) {
         return () => {
             restoreFun();
@@ -374,6 +407,9 @@ class MenuBar extends React.Component {
             />);
         }
         }
+    }
+    handleClickSeeInside () {
+        this.props.onClickSeeInside();
     }
     buildAboutMenu (onClickAbout) {
         if (!onClickAbout) {
@@ -511,6 +547,7 @@ class MenuBar extends React.Component {
                             </div>
                             <LanguageSelector label={this.props.intl.formatMessage(ariaMessages.language)} />
                         </div>)}
+                        {/* Theme toggler. */}
                         {this.props.onClickTheme && (
                             <div
                                 className={classNames(styles.menuBarItem, styles.hoverable)}
@@ -524,6 +561,7 @@ class MenuBar extends React.Component {
                                 />
                             </div>
                         )}
+                        {/* Display compile errors. */}
                         {this.props.compileErrors.length > 0 && <div>
                             <div
                                 className={classNames(styles.menuBarItem, styles.hoverable, {
@@ -608,6 +646,19 @@ class MenuBar extends React.Component {
                                             {newProjectMessage}
                                         </MenuItem>
                                     </MenuSection>
+                                    {this.props.onClickNewWindow && (
+                                        <MenuItem
+                                            isRtl={this.props.isRtl}
+                                            onClick={this.handleClickNewWindow}
+                                        >
+                                            <FormattedMessage
+                                                defaultMessage="New window"
+                                                // eslint-disable-next-line max-len
+                                                description="Part of desktop app. Menu bar item that creates a new window."
+                                                id="gui.menuBar.newWindow"
+                                            />
+                                        </MenuItem>
+                                    )}
                                     {(this.props.canSave || this.props.canCreateCopy || this.props.canRemix) && (
                                         <MenuSection>
                                             {this.props.canSave && (
@@ -638,9 +689,11 @@ class MenuBar extends React.Component {
                                                 {extended.available && (
                                                     <React.Fragment>
                                                         {extended.name !== null && (
+                                                            // eslint-disable-next-line max-len
                                                             <MenuItem onClick={this.getSaveToComputerHandler(extended.saveToLastFile)}>
                                                                 <FormattedMessage
                                                                     defaultMessage="Save to {file}"
+                                                                    // eslint-disable-next-line max-len
                                                                     description="Menu bar item to save project to an existing file on the user's computer"
                                                                     id="gui.saveTo"
                                                                     values={{
@@ -649,30 +702,35 @@ class MenuBar extends React.Component {
                                                                 />
                                                             </MenuItem>
                                                         )}
+                                                        {/* eslint-disable-next-line max-len */}
                                                         <MenuItem onClick={this.getSaveToComputerHandler(extended.saveAsNew)}>
                                                             <FormattedMessage
                                                                 defaultMessage="Save as..."
-                                                                description="Menu bar item to select a new file to save the project as" // eslint-disable-line max-len
+                                                                // eslint-disable-next-line max-len
+                                                                description="Menu bar item to select a new file to save the project as"
                                                                 id="gui.saveAs"
                                                             />
                                                         </MenuItem>
                                                     </React.Fragment>
                                                 )}
-                                                <MenuItem onClick={this.getSaveToComputerHandler(downloadProject)}>
-                                                    {extended.available ? (
-                                                        <FormattedMessage
-                                                            defaultMessage="Save to separate file..."
-                                                            description="Download the project once, without being able to easily save to the same spot"
-                                                            id="gui.oldDownload"
-                                                        />
-                                                    ) : (
-                                                        <FormattedMessage
-                                                            defaultMessage="Save to your computer"
-                                                            description="Menu bar item for downloading a project to your computer" // eslint-disable-line max-len
-                                                            id="gui.menuBar.downloadToComputer"
-                                                        />
-                                                    )}
-                                                </MenuItem>
+                                                {notScratchDesktop() && (
+                                                    <MenuItem onClick={this.getSaveToComputerHandler(downloadProject)}>
+                                                        {extended.available ? (
+                                                            <FormattedMessage
+                                                                defaultMessage="Save to separate file..."
+                                                                // eslint-disable-next-line max-len
+                                                                description="Download the project once, without being able to easily save to the same spot"
+                                                                id="gui.oldDownload"
+                                                            />
+                                                        ) : (
+                                                            <FormattedMessage
+                                                                defaultMessage="Save to your computer"
+                                                                description="Menu bar item for downloading a project to your computer" // eslint-disable-line max-len
+                                                                id="gui.menuBar.downloadToComputer"
+                                                            />
+                                                        )}
+                                                    </MenuItem>
+                                                )}
                                             </React.Fragment>
                                         )}</SB3Downloader>
                                     </MenuSection>
@@ -691,18 +749,13 @@ class MenuBar extends React.Component {
                                         </MenuSection>
                                     )}
                                     <MenuSection>
-                                        <SidekickRestorePointLoader>{(className, loadRestorePoint) => (
-                                            <MenuItem
-                                                className={className}
-                                                onClick={loadRestorePoint}
-                                            >
-                                                <FormattedMessage
-                                                    defaultMessage="Load restore point"
-                                                    description="Menu bar item for loading a restore point"
-                                                    id="gui.menuBar.loadRestorePoint"
-                                                />
-                                            </MenuItem>
-                                        )}</SidekickRestorePointLoader>
+                                        <MenuItem onClick={this.handleClickRestorePoints}>
+                                            <FormattedMessage
+                                                defaultMessage="Restore points."
+                                                description="Menu bar item to manage restore points"
+                                                id="gui.menuBar.restorePoints"
+                                            />
+                                        </MenuItem>
                                     </MenuSection>
                                 </MenuBarMenu>
                             </div>
@@ -820,7 +873,7 @@ class MenuBar extends React.Component {
                                 </MenuSection>
                             </MenuBarMenu>
                         </div>
-                        {this.props.isTotallyNormal && (
+                        {/* {this.props.isTotallyNormal && (
                             <div
                                 className={classNames(styles.menuBarItem, styles.hoverable, {
                                     [styles.active]: this.props.modeMenuOpen
@@ -866,7 +919,7 @@ class MenuBar extends React.Component {
                                     </MenuSection>
                                 </MenuBarMenu>
                             </div>
-                        )}
+                        )} */}
                         {/* </div>
                     <Divider className={classNames(styles.divider)} />
                     <div
@@ -886,7 +939,7 @@ class MenuBar extends React.Component {
                             >
                                 <div>
                                     <FormattedMessage
-                                        // String used by scratch-vm for the addons blocks category
+                                        // String used by scratch-vm for the addons blocks category.
                                         defaultMessage="Addons"
                                         description="Menu bar item for addon settings"
                                         id="gui.menuBar.addons"
@@ -986,6 +1039,8 @@ class MenuBar extends React.Component {
                             />
                         ) : []))}
                     </div>
+                    {/* !!! ??? */}
+                    {/* Add a feedback button. */}
                     <div className={styles.menuBarItem}>
                         <a
                             className={styles.feedbackLink}
@@ -1000,7 +1055,7 @@ class MenuBar extends React.Component {
                             {/* todo: icon */}
                             <Button className={styles.feedbackButton}>
                                 <FormattedMessage
-                                    defaultMessage="Scratch Feedback"
+                                    defaultMessage="Sidekick Feedback"
                                     description="Button to give feedback in the menu bar"
                                     id="gui.feedbackButton"
                                 />
@@ -1022,7 +1077,10 @@ class MenuBar extends React.Component {
 }
 
 MenuBar.propTypes = {
+    enableSeeInside: PropTypes.bool,
+    onClickSeeInside: PropTypes.func,
     aboutMenuOpen: PropTypes.bool,
+    // !!! ''accountMenuOpen' PropType is defined but prop is never used'? ???
     accountMenuOpen: PropTypes.bool,
     authorId: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     authorThumbnailUrl: PropTypes.string,
@@ -1045,28 +1103,29 @@ MenuBar.propTypes = {
     confirmReadyToReplaceProject: PropTypes.func,
     editMenuOpen: PropTypes.bool,
     enableCommunity: PropTypes.bool,
-    enableSeeInside: PropTypes.bool,
-    errorsMenuOpen: PropTypes.bool,
-    onClickSeeInside: PropTypes.func,
+    // enableSeeInside: PropTypes.bool,
+    // errorsMenuOpen: PropTypes.bool,
+    // onClickSeeInside: PropTypes.func,
     fileMenuOpen: PropTypes.bool,
     handleSaveProject: PropTypes.func,
     intl: intlShape,
+    isPlayerOnly: PropTypes.bool,
     isRtl: PropTypes.bool,
     isShared: PropTypes.bool,
     isShowingProject: PropTypes.bool,
-    isTotallyNormal: PropTypes.bool,
+    // isTotallyNormal: PropTypes.bool,
     isUpdating: PropTypes.bool,
-    isPlayerOnly: PropTypes.bool,
+    // isPlayerOnly: PropTypes.bool,
     languageMenuOpen: PropTypes.bool,
     locale: PropTypes.string.isRequired,
     loginMenuOpen: PropTypes.bool,
     logo: PropTypes.string,
-    modeMenuOpen: PropTypes.bool,
-    modeNow: PropTypes.bool,
-    mode220022BC: PropTypes.bool,
-    mode1920: PropTypes.bool,
-    mode1990: PropTypes.bool,
-    mode2020: PropTypes.bool,
+    // modeMenuOpen: PropTypes.bool,
+    // modeNow: PropTypes.bool,
+    // mode220022BC: PropTypes.bool,
+    // mode1920: PropTypes.bool,
+    // mode1990: PropTypes.bool,
+    // mode2020: PropTypes.bool,
 
     onClickAbout: PropTypes.oneOfType([
         PropTypes.func, // button mode: call this callback when the About button is clicked
@@ -1078,22 +1137,28 @@ MenuBar.propTypes = {
         )
     ]),
     onClickAccount: PropTypes.func,
-    onSetTimeTravelMode: PropTypes.func,
+    // onSetTimeTravelMode: PropTypes.func,
+    onClickAddonSettings: PropTypes.func,
+    onClickTheme: PropTypes.func,
+    onClickPackager: PropTypes.func,
+    onClickRestorePoints: PropTypes.func,
     onClickEdit: PropTypes.func,
     onClickFile: PropTypes.func,
     onClickLanguage: PropTypes.func,
     onClickLogin: PropTypes.func,
     onClickLogo: PropTypes.func,
-    onClickMode: PropTypes.func,
+    // onClickMode: PropTypes.func,
     onClickNew: PropTypes.func,
+    onClickNewWindow: PropTypes.func,
     onClickRemix: PropTypes.func,
     onClickSave: PropTypes.func,
     onClickSaveAsCopy: PropTypes.func,
-    onClickAddonSettings: PropTypes.func,
-    onClickTheme: PropTypes.func,
-    onClickPackager: PropTypes.func,
+    // onClickAddonSettings: PropTypes.func,
+    // onClickTheme: PropTypes.func,
+    // onClickPackager: PropTypes.func,
     onClickSettings: PropTypes.func,
     onClickErrors: PropTypes.func,
+    onRequestCloseErrors: PropTypes.func,
     onLogOut: PropTypes.func,
     onOpenRegistration: PropTypes.func,
     onOpenTipLibrary: PropTypes.func,
@@ -1105,8 +1170,8 @@ MenuBar.propTypes = {
     onRequestCloseFile: PropTypes.func,
     onRequestCloseLanguage: PropTypes.func,
     onRequestCloseLogin: PropTypes.func,
-    onRequestCloseMode: PropTypes.func,
-    onRequestCloseErrors: PropTypes.func,
+    // onRequestCloseMode: PropTypes.func,
+    // onRequestCloseErrors: PropTypes.func,
     onSeeCommunity: PropTypes.func,
     onShare: PropTypes.func,
     onStartSelectingFileUpload: PropTypes.func,
@@ -1115,6 +1180,7 @@ MenuBar.propTypes = {
     projectTitle: PropTypes.string,
     renderLogin: PropTypes.func,
     sessionExists: PropTypes.bool,
+    errorsMenuOpen: PropTypes.bool,
     shouldSaveBeforeTransition: PropTypes.func,
     showComingSoon: PropTypes.bool,
     userOwnsProject: PropTypes.bool,
@@ -1138,18 +1204,18 @@ const mapStateToProps = (state, ownProps) => {
         compileErrors: state.scratchGui.sidekick.compileErrors,
         fileMenuOpen: fileMenuOpen(state),
         editMenuOpen: editMenuOpen(state),
-        errorsMenuOpen: errorsMenuOpen(state),
+        isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
         isRtl: state.locales.isRtl,
         isUpdating: getIsUpdating(loadingState),
         isShowingProject: getIsShowingProject(loadingState),
-        isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
         languageMenuOpen: languageMenuOpen(state),
         locale: state.locales.locale,
         loginMenuOpen: loginMenuOpen(state),
-        modeMenuOpen: modeMenuOpen(state),
+        // modeMenuOpen: modeMenuOpen(state),
         projectId: state.scratchGui.projectState.projectId,
         projectTitle: state.scratchGui.projectTitle,
         sessionExists: state.session && typeof state.session.session !== 'undefined',
+        errorsMenuOpen: errorsMenuOpen(state),
         username: user ? user.username : null,
         userOwnsProject: ownProps.authorUsername && user &&
             (ownProps.authorUsername === user.username),
@@ -1179,8 +1245,8 @@ const mapDispatchToProps = dispatch => ({
     onRequestCloseLogin: () => dispatch(closeLoginMenu()),
     onClickErrors: () => dispatch(openErrorsMenu()),
     onRequestCloseErrors: () => dispatch(closeErrorsMenu()),
-    onClickMode: () => dispatch(openModeMenu()),
-    onRequestCloseMode: () => dispatch(closeModeMenu()),
+    // onClickMode: () => dispatch(openModeMenu()),
+    // onRequestCloseMode: () => dispatch(closeModeMenu()),
     onRequestOpenAbout: () => dispatch(openAboutMenu()),
     onRequestCloseAbout: () => dispatch(closeAboutMenu()),
     onClickNew: needSave => {
@@ -1191,6 +1257,7 @@ const mapDispatchToProps = dispatch => ({
     onClickSave: () => dispatch(manualUpdateProject()),
     onClickSaveAsCopy: () => dispatch(saveProjectAsCopy()),
     // onSetTimeTravelMode: mode => dispatch(setTimeTravel(mode)),
+    onClickRestorePoints: () => dispatch(openRestorePointModal()),
     onClickSettings: () => {
         dispatch(openSettingsModal());
         dispatch(closeEditMenu());

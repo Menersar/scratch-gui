@@ -6,27 +6,24 @@ import {projectTitleInitialState, setProjectTitle} from '../reducers/project-tit
 import downloadBlob from '../lib/download-blob';
 import {setProjectUnchanged} from '../reducers/project-changed';
 import {showStandardAlert, showAlertWithTimeout} from '../reducers/alerts';
-import {setFileHandle} from '../reducers/sidekick';
-import FileSystemAPI from '../lib/sidekick-filesystem-api';
+import {setFileHandle} from '../reducers/tw';
+import FileSystemAPI from '../lib/tw-filesystem-api';
 import {getIsShowingProject} from '../reducers/project-state';
 import log from '../lib/log';
 
-// Source: See file 'sb-file-uploader-hoc.jsx'.
+// from sb-file-uploader-hoc.jsx
 const getProjectTitleFromFilename = fileInputFilename => {
     if (!fileInputFilename) return '';
-    // !!! KA !!!
-    // !!! HERE: SK !!!
-    // only parse title with valid scratch project extensions.
-    // (.sb, .sb2, and .sb3).
+    // only parse title with valid scratch project extensions
+    // (.sb, .sb2, and .sb3)
     const matches = fileInputFilename.match(/^(.*)\.sb[23]?$/);
     if (!matches) return '';
-    // Truncate project title to a maximum of 100 characters.
-    return matches[1].substring(0, 100);
+    return matches[1].substring(0, 100); // truncate project title to max 100 chars
 };
 
 /**
- * @param {Uint8Array[]} arrays List of byte arrays.
- * @returns {number} Total length of the arrays.
+ * @param {Uint8Array[]} arrays List of byte arrays
+ * @returns {number} Total length of the arrays
  */
 const getLengthOfByteArrays = arrays => {
     let length = 0;
@@ -37,7 +34,7 @@ const getLengthOfByteArrays = arrays => {
 };
 
 /**
- * @param {Uint8Array[]} arrays List of byte arrays.
+ * @param {Uint8Array[]} arrays List of byte arrays
  * @returns {Uint8Array} One big array containing all of the little arrays in order.
  */
 const concatenateByteArrays = arrays => {
@@ -91,9 +88,6 @@ class SB3Downloader extends React.Component {
         }
         this.startedSaving();
         this.props.saveProjectSb3().then(content => {
-            // if (this.props.onSaveFinished) {
-            //     this.props.onSaveFinished();
-            // }
             this.finishedSaving();
             downloadBlob(this.props.projectFilename, content);
         });
@@ -136,9 +130,8 @@ class SB3Downloader extends React.Component {
         this.startedSaving();
 
         await new Promise((resolve, reject) => {
-            // Projects can be very large, so:
-            // Utilize JSZip's stream API to:
-            // Avoid having the entire sb3 in memory at the same time.
+            // Projects can be very large, so we'll utilize JSZip's stream API to avoid having the
+            // entire sb3 in memory at the same time.
             const jszipStream = this.props.saveProjectSb3Stream();
 
             const abortController = new AbortController();
@@ -146,12 +139,10 @@ class SB3Downloader extends React.Component {
                 abortController.abort(error);
             });
 
-            // JSZip's stream 'pause()' and 'resume()' methods are not necessarily completely no-ops if:
-            // They are already paused or resumed.
-            // These also make it easier to add debug logging of:
-            // When actually pausing or resuming.
-            // Note:
-            // JSZip will keep sending some data after asking it to pause.
+            // JSZip's stream pause() and resume() methods are not necessarily completely no-ops
+            // if they are already paused or resumed. These also make it easier to add debug
+            // logging of when we actually pause or resume.
+            // Note that JSZip will keep sending some data after you ask it to pause.
             let jszipStreamRunning = false;
             const pauseJSZipStream = () => {
                 if (jszipStreamRunning) {
@@ -166,13 +157,12 @@ class SB3Downloader extends React.Component {
                 }
             };
 
-            // Allow the JSZip stream to run quite a bit ahead of file writing:
-            // Helps reduce zip stream pauses on systems with high latency storage.
+            // Allow the JSZip stream to run quite a bit ahead of file writing. This helps
+            // reduce zip stream pauses on systems with high latency storage.
             const HIGH_WATER_MARK_BYTES = 1024 * 1024 * 5;
 
-            // Minimum size of buffer to pass into 'write()'.
-            // Small buffers will be queued and:
-            // Written in batches as they reach or exceed this size.
+            // Minimum size of buffer to pass into write(). Small buffers will be queued and
+            // written in batches as they reach or exceed this size.
             const WRITE_BUFFER_TARGET_SIZE_BYTES = 1024 * 1024;
 
             const zipStream = new ReadableStream({
@@ -208,8 +198,7 @@ class SB3Downloader extends React.Component {
                         queuedChunks.length = 0;
                         return writable.write(newBuffer);
                     }
-                    // Otherwise:
-                    // Wait for more data.
+                    // Otherwise wait for more data
                 },
                 close: async () => {
                     // Write the last batch of data.
@@ -217,8 +206,7 @@ class SB3Downloader extends React.Component {
                     if (lastBuffer.byteLength) {
                         await writable.write(lastBuffer);
                     }
-                    // File handle must be closed at the end to:
-                    // Actually save the file.
+                    // File handle must be closed at the end to actually save the file.
                     await writable.close();
                 },
                 abort: async () => {
@@ -239,8 +227,7 @@ class SB3Downloader extends React.Component {
         });
     }
     handleSaveError (e) {
-        // 'AbortError' can happen when someone:
-        // Cancels the file selector dialog.
+        // AbortError can happen when someone cancels the file selector dialog
         if (e && e.name === 'AbortError') {
             return;
         }
@@ -300,7 +287,7 @@ SB3Downloader.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-    fileHandle: state.scratchGui.sidekick.fileHandle,
+    fileHandle: state.scratchGui.tw.fileHandle,
     saveProjectSb3: state.scratchGui.vm.saveProjectSb3.bind(state.scratchGui.vm),
     saveProjectSb3Stream: state.scratchGui.vm.saveProjectSb3Stream.bind(state.scratchGui.vm),
     canSaveProject: getIsShowingProject(state.scratchGui.projectState.loadingState),
@@ -311,15 +298,12 @@ const mapDispatchToProps = dispatch => ({
     onSetFileHandle: fileHandle => dispatch(setFileHandle(fileHandle)),
     onSetProjectTitle: title => dispatch(setProjectTitle(title)),
     onShowSavingAlert: () => showAlertWithTimeout(dispatch, 'saving'),
-    onShowSaveSuccessAlert: () => showAlertWithTimeout(dispatch, 'sidekickSaveToDiskSuccess'),
+    onShowSaveSuccessAlert: () => showAlertWithTimeout(dispatch, 'twSaveToDiskSuccess'),
     onShowSaveErrorAlert: () => dispatch(showStandardAlert('savingError')),
     onProjectUnchanged: () => dispatch(setProjectUnchanged())
 });
 
 export default connect(
     mapStateToProps,
-    // !!! KA !!!
-    // // ???
-    // () => ({}) // omit dispatch prop
     mapDispatchToProps
 )(SB3Downloader);

@@ -4,6 +4,7 @@ import defaultsDeep from 'lodash.defaultsdeep';
 import makeToolboxXML from '../lib/make-toolbox-xml';
 import PropTypes from 'prop-types';
 import React from 'react';
+import {intlShape, injectIntl, defineMessages} from 'react-intl';
 import VMScratchBlocks from '../lib/blocks';
 import AddonHooks from '../addons/hooks';
 import VM from 'scratch-vm';
@@ -24,7 +25,12 @@ import defineDynamicBlock from '../lib/define-dynamic-block';
 import {connect} from 'react-redux';
 import {updateToolbox} from '../reducers/toolbox';
 import {activateColorPicker} from '../reducers/color-picker';
-import {closeExtensionLibrary, openSoundRecorder, openConnectionModal, openCustomExtensionModal} from '../reducers/modals';
+import {
+    closeExtensionLibrary,
+    openSoundRecorder,
+    openConnectionModal,
+    openCustomExtensionModal
+} from '../reducers/modals';
 import {activateCustomProcedures, deactivateCustomProcedures} from '../reducers/custom-procedures';
 import {setConnectionModalExtensionId} from '../reducers/connection-modal';
 import {updateMetrics} from '../reducers/workspace-metrics';
@@ -34,6 +40,35 @@ import {
     activateTab,
     SOUNDS_TAB_INDEX
 } from '../reducers/editor-tab';
+
+// !!! SK !!!
+// Strings added to scratch-blocks are localized here.
+const messages = defineMessages({
+    PROCEDURES_RETURN: {
+        defaultMessage: 'return {v}',
+        // eslint-disable-next-line max-len
+        description: 'The name of the "return" block from the Custom Reporters extension. {v} is replaced with a slot to insert a value.',
+        id: 'gui.blocks.PROCEDURES_RETURN'
+    },
+    PROCEDURES_TO_REPORTER: {
+        defaultMessage: 'Change To Reporter',
+        // eslint-disable-next-line max-len
+        description: 'Context menu item to change a command-shaped custom block into a reporter. Part of the Custom Reporters extension.',
+        id: 'gui.blocks.PROCEDURES_TO_REPORTER'
+    },
+    PROCEDURES_TO_STATEMENT: {
+        defaultMessage: 'Change To Statement',
+        // eslint-disable-next-line max-len
+        description: 'Context menu item to change a reporter-shaped custom block into a statement/command. Part of the Custom Reporters extension.',
+        id: 'gui.blocks.PROCEDURES_TO_STATEMENT'
+    },
+    PROCEDURES_DOCS: {
+        defaultMessage: 'How to use return',
+        // eslint-disable-next-line max-len
+        description: 'Button in extension list to learn how to use the "return" block from the Custom Reporters extension.',
+        id: 'gui.blocks.PROCEDURES_DOCS'
+    }
+});
 
 const addFunctionListener = (object, property, callback) => {
     const oldFn = object[property];
@@ -81,7 +116,9 @@ class Blocks extends React.Component {
             'onWorkspaceUpdate',
             'onWorkspaceMetricsChange',
             'setBlocks',
-            'setLocale'
+            // 'setLocale'
+            'setLocale',
+            'handleEnableProcedureReturns'
         ]);
         this.ScratchBlocks.prompt = this.handlePromptStart;
         this.ScratchBlocks.statusButtonCallback = this.handleConnectionModalStart;
@@ -108,6 +145,15 @@ class Blocks extends React.Component {
         this.ScratchBlocks.Procedures.externalProcedureDefCallback = this.props.onActivateCustomProcedures;
         this.ScratchBlocks.ScratchMsgs.setLocale(this.props.locale);
 
+        const Msg = this.ScratchBlocks.Msg;
+        Msg.PROCEDURES_RETURN = this.props.intl.formatMessage(messages.PROCEDURES_RETURN, {
+            v: '%1'
+        });
+        Msg.PROCEDURES_TO_REPORTER = this.props.intl.formatMessage(messages.PROCEDURES_TO_REPORTER);
+        Msg.PROCEDURES_TO_STATEMENT = this.props.intl.formatMessage(messages.PROCEDURES_TO_STATEMENT);
+        Msg.PROCEDURES_DOCS = this.props.intl.formatMessage(messages.PROCEDURES_DOCS);
+
+        // !!! 'defaultsDeep'? ???
         const workspaceConfig = defaultsDeep({},
             Blocks.defaultOptions,
             this.props.options,
@@ -138,6 +184,12 @@ class Blocks extends React.Component {
             if (url.protocol === 'http:' || url.protocol === 'https:') {
                 window.open(docsURI, '_blank');
             }
+        });
+        toolboxWorkspace.registerButtonCallback('OPEN_RETURN_DOCS', () => {
+            // !!! KA !!!
+            // !!! CHANGE !!!
+            // window.open('https://docs.turbowarp.org/return', '_blank');
+            window.open('https://github.com/Menersar/Sidekick#return', '_blank');
         });
 
         // Store the xml of the toolbox that is actually rendered.
@@ -197,7 +249,8 @@ class Blocks extends React.Component {
         }
 
         if (this.props.isVisible === prevProps.isVisible) {
-            if (this.props.stageSize !== prevProps.stageSize || this.props.customStageSize !== prevProps.customStageSize) {
+            if (this.props.stageSize !== prevProps.stageSize ||
+                this.props.customStageSize !== prevProps.customStageSize) {
                 // force workspace to redraw for the new stage size
                 window.dispatchEvent(new Event('resize'));
             }
@@ -344,6 +397,7 @@ class Blocks extends React.Component {
         if (target && target.id) {
             // Dispatch updateMetrics later, since onWorkspaceMetricsChange may be (very indirectly)
             // called from a reducer, i.e. when you create a custom procedure.
+            // !!! 'TODO'? ???
             // TODO: Is this a vehement hack?
             setTimeout(() => {
                 this.props.updateMetrics({
@@ -440,6 +494,7 @@ class Blocks extends React.Component {
     }
     handleMonitorsUpdate (monitors) {
         // Update the checkboxes of the relevant monitors.
+        // !!! 'TODO'? ???
         // TODO: What about monitors that have fields? See todo in scratch-vm blocks.js changeBlock:
         // https://github.com/LLK/scratch-vm/blob/2373f9483edaf705f11d62662f7bb2a57fbb5e28/src/engine/blocks.js#L569-L576
         const flyout = this.workspace.getFlyout();
@@ -567,6 +622,10 @@ class Blocks extends React.Component {
                 this.updateToolbox(); // To show new variables/custom blocks
             });
     }
+    handleEnableProcedureReturns () {
+        this.workspace.enableProcedureReturns();
+        this.requestToolboxUpdate();
+    }
     render () {
         /* eslint-disable no-unused-vars */
         const {
@@ -620,6 +679,7 @@ class Blocks extends React.Component {
                     <ExtensionLibrary
                         vm={vm}
                         onCategorySelected={this.handleCategorySelected}
+                        onEnableProcedureReturns={this.handleEnableProcedureReturns}
                         onRequestClose={onRequestCloseExtensionLibrary}
                         onOpenCustomExtensionModal={this.props.onOpenCustomExtensionModal}
                     />
@@ -638,6 +698,7 @@ class Blocks extends React.Component {
 }
 
 Blocks.propTypes = {
+    intl: intlShape,
     anyModalVisible: PropTypes.bool,
     canUseCloud: PropTypes.bool,
     customProceduresVisible: PropTypes.bool,
@@ -767,9 +828,11 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
-export default errorBoundaryHOC('Blocks')(
+// export default errorBoundaryHOC('Blocks')(
+export default injectIntl(errorBoundaryHOC('Blocks')(
     connect(
         mapStateToProps,
         mapDispatchToProps
     )(LoadScratchBlocksHOC(Blocks))
-);
+// );
+));

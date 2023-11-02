@@ -13,7 +13,7 @@ import SidekickStateManagerHOC from '../lib/sidekick-state-manager-hoc.jsx';
 import SidekickThemeHOC from '../lib/sidekick-theme-hoc.jsx';
 import SBFileUploaderHOC from '../lib/sb-file-uploader-hoc.jsx';
 import SidekickPackagerIntegrationHOC from '../lib/sidekick-packager-integration-hoc.jsx';
-import SidekickRestorePointHOC from '../lib/sidekick-restore-point-hoc.jsx';
+// import SidekickRestorePointHOC from '../lib/sidekick-restore-point-hoc.jsx';
 import SettingsStore from '../addons/settings-store-singleton';
 import '../lib/sidekick-fix-history-api';
 import GUI from './render-gui.jsx';
@@ -21,10 +21,12 @@ import MenuBar from '../components/menu-bar/menu-bar.jsx';
 import ProjectInput from '../components/sidekick-project-input/project-input.jsx';
 import FeaturedProjects from '../components/sidekick-featured-projects/featured-projects.jsx';
 import Description from '../components/sidekick-description/description.jsx';
-import WebGlModal from '../containers/webgl-modal.jsx';
+// import WebGlModal from '../containers/webgl-modal.jsx';
 import BrowserModal from '../components/browser-modal/browser-modal.jsx';
-import CloudVariableBadge from '../components/sidekick-cloud-variable-badge/cloud-variable-badge.jsx';
-import {isRendererSupported, isBrowserSupported} from '../lib/sidekick-environment-support-prober';
+// import CloudVariableBadge from '../components/sidekick-cloud-variable-badge/cloud-variable-badge.jsx';
+// import {isRendererSupported, isBrowserSupported} from '../lib/sidekick-environment-support-prober';
+import CloudVariableBadge from '../containers/sidekick-cloud-variable-badge.jsx';
+import {isBrowserSupported} from '../lib/sidekick-environment-support-prober';
 import AddonChannels from '../addons/channels';
 import {loadServiceWorker} from './load-service-worker';
 import runAddons from '../addons/entry';
@@ -35,6 +37,7 @@ if (window.parent !== window) {
     // !!! CHANGE !!!
     // eslint-disable-next-line no-alert
     alert('This page contains an invalid Sidekick embed. Please read https://github.com/Menersar/Sidekick#embedding for instructions to create a working embed.');
+    // alert('This page contains an invalid Sidekick embed. Please read https://github.com/Menersar/Sidekick#embedding for instructions to create a working embed.');
     // alert('This page contains an invalid Sidekick embed. Please read https://github.com/Mixality/Sidekick#embedding for instructions to create a working embed.');
     throw new Error('Invalid embed');
 }
@@ -242,6 +245,7 @@ class Interface extends React.Component {
                 <div
                     className={styles.center}
                     style={isPlayerOnly ? ({
+                        // !!! KA !!!
                         // !!! TODO ???
                         // Set Pixels as a border (HACKY).
                         width: `${Math.max(480, props.customStageSize.width) + 2}px`
@@ -258,9 +262,6 @@ class Interface extends React.Component {
                     />
                     {isHomepage ? (
                         <React.Fragment>
-                            {isRendererSupported() ? null : (
-                                <WebGlModal isRtl={isRtl} />
-                            )}
                             {isBrowserSupported() ? null : (
                                 <BrowserModal isRtl={isRtl} />
                             )}
@@ -271,7 +272,7 @@ class Interface extends React.Component {
                                 // eslint-disable-next-line max-len
                                 description.instructions === 'unshared' || description.credits === 'unshared'
                             ) && (
-                                <div className={styles.unsharedUpdate}>
+                                <div className={classNames(styles.infobox, styles.unsharedUpdate)}>
                                     <p>
                                         <FormattedMessage
                                             defaultMessage="Unshared projects are no longer visible."
@@ -400,7 +401,7 @@ const WrappedInterface = compose(
     SidekickProjectMetaFetcherHOC,
     SidekickStateManagerHOC,
     SidekickThemeHOC,
-    SidekickRestorePointHOC,
+    // SidekickRestorePointHOC,
     SidekickPackagerIntegrationHOC
 )(ConnectedInterface);
 

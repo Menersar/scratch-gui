@@ -14,13 +14,18 @@ const MODAL_EXTENSION_LIBRARY = 'extensionLibrary';
 const MODAL_SOUND_LIBRARY = 'soundLibrary';
 const MODAL_SPRITE_LIBRARY = 'spriteLibrary';
 const MODAL_TIPS_LIBRARY = 'tipsLibrary';
+const MODAL_RESTORE_POINTS = 'restorePointModal';
+const MODAL_FONTS = 'fontsModal';
+
+// !!! KA !!!
+// !!! 'reducer(s)', 'modal(s)', etc.(?)? ???
 
 const initialState = {
     [MODAL_LOADING_PROJECT]: false,
     [MODAL_TELEMETRY]: false,
     [MODAL_SOUND_RECORDER]: false,
     [MODAL_CONNECTION]: false,
-    [MODAL_CUSTOM_EXTENSION]: false,
+    // [MODAL_CUSTOM_EXTENSION]: false,
     [MODAL_SETTINGS]: false,
     [MODAL_USERNAME]: false,
     [MODAL_BACKDROP_LIBRARY]: false,
@@ -28,7 +33,10 @@ const initialState = {
     [MODAL_EXTENSION_LIBRARY]: false,
     [MODAL_SOUND_LIBRARY]: false,
     [MODAL_SPRITE_LIBRARY]: false,
-    [MODAL_TIPS_LIBRARY]: false
+    [MODAL_TIPS_LIBRARY]: false,
+    [MODAL_CUSTOM_EXTENSION]: false,
+    [MODAL_RESTORE_POINTS]: false,
+    [MODAL_FONTS]: false
 };
 
 const reducer = function (state, action) {
@@ -88,6 +96,12 @@ const openConnectionModal = function () {
 const openCustomExtensionModal = function () {
     return openModal(MODAL_CUSTOM_EXTENSION);
 };
+const openRestorePointModal = function () {
+    return openModal(MODAL_RESTORE_POINTS);
+};
+const openFontsModal = function () {
+    return openModal(MODAL_FONTS);
+};
 const openSettingsModal = function () {
     return openModal(MODAL_SETTINGS);
 };
@@ -130,6 +144,12 @@ const closeConnectionModal = function () {
 const closeCustomExtensionModal = function () {
     return closeModal(MODAL_CUSTOM_EXTENSION);
 };
+const closeRestorePointModal = function () {
+    return closeModal(MODAL_RESTORE_POINTS);
+};
+const closeFontsModal = function () {
+    return closeModal(MODAL_FONTS);
+};
 const closeSettingsModal = function () {
     return closeModal(MODAL_SETTINGS);
 };
@@ -150,6 +170,8 @@ export {
     openTipsLibrary,
     openConnectionModal,
     openCustomExtensionModal,
+    openRestorePointModal,
+    openFontsModal,
     openSettingsModal,
     openUsernameModal,
     closeBackdropLibrary,
@@ -162,7 +184,10 @@ export {
     closeTelemetryModal,
     closeTipsLibrary,
     closeConnectionModal,
-    closeCustomExtensionModal,
+    // closeCustomExtensionModal,
     closeSettingsModal,
-    closeUsernameModal
+    closeUsernameModal,
+    closeCustomExtensionModal,
+    closeRestorePointModal,
+    closeFontsModal
 };

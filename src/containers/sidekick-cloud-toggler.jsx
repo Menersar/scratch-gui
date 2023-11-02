@@ -4,12 +4,19 @@ import React from 'react';
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
 import {connect} from 'react-redux';
 import {setCloud} from '../reducers/sidekick';
+import isScratchDesktop from '../lib/isScratchDesktop';
 
 const messages = defineMessages({
     cloudUnavailableAlert: {
         defaultMessage: 'Cannot use cloud variables, most likely because you opened the editor.',
+        // eslint-disable-next-line max-len
         description: 'Message displayed when clicking on the option to toggle cloud variables when cloud variables are not available',
         id: 'gui.menuBar.cloudUnavailableAlert'
+    },
+    cloudUnavailableDesktop: {
+        defaultMessage: 'Cannot use cloud variables in desktop app.',
+        description: 'Message displayed when clicking on the option to toggle cloud variables in desktop app',
+        id: 'gui.menuBar.cloudUnavailableDesktop'
     }
 });
 
@@ -22,8 +29,13 @@ class CloudVariablesToggler extends React.Component {
     }
     toggleCloudVariables () {
         if (!this.props.canUseCloudVariables) {
+            const message = this.props.intl.formatMessage(
+                isScratchDesktop() ? messages.cloudUnavailableDesktop : messages.cloudUnavailableAlert
+            );
             // eslint-disable-next-line no-alert
-            alert(this.props.intl.formatMessage(messages.cloudUnavailableAlert));
+            // alert(this.props.intl.formatMessage(messages.cloudUnavailableAlert));
+            // !!! KA !!!
+            alert(message);
             return;
         }
         this.props.onCloudChange(!this.props.enabled);
