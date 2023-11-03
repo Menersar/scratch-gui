@@ -50,35 +50,36 @@ import gdxforConnectionIconURL from './gdxfor/gdxfor-illustration.svg';
 import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 
 // !!!
-// import sidekickIcon from './sidekick/sidekick.svg';
+import sidekickIcon from './sidekick/sidekick.svg';
 import sidekickIconURL from './sidekick/icon.png';
 import sidekickInsetIconURL from './sidekick/inset_icon.svg';
 
 import customExtensionIcon from './custom/custom.svg';
 
 // eslint-disable-next-line no-unused-vars
-import unknownIcon from './gallery/unknown.svg';
+// import unknownIcon from './gallery/unknown.svg';
+import returnIcon from './custom/return.svg';
 import galleryIcon from './gallery/gallery.svg';
-import animatedTextIcon from './gallery/animated-text.svg';
-import stretchIcon from './gallery/stretch.svg';
-import gamepadIcon from './gallery/gamepad.svg';
-import cursorIcon from './gallery/cursor.svg';
-import filesIcon from './gallery/files.svg';
-import pointerlockIcon from './gallery/pointerlock.svg';
-import runtimeOptionsIcon from './gallery/runtime-options.svg';
-import utilitiesIcon from './gallery/utilities.svg';
-import sensingPlusIcon from './gallery/sensingplus.svg';
-import clonesPlusIcon from './gallery/clonesplus.svg';
-import looksPlusIcon from './gallery/looksplus.svg';
-import clippingBlendingIcon from './gallery/clippingblending.svg';
-import regexIcon from './gallery/regex.svg';
-import bitwiseIcon from './gallery/bitwise.svg';
-import textIcon from './gallery/text.svg';
-import fetchIcon from './gallery/fetch.svg';
-import box2dIcon from './gallery/box2d.svg';
-import localStorageIcon from './gallery/local-storage.svg';
-import bigIntIcon from './gallery/bigint.svg';
-import jsonIcon from './gallery/json.svg';
+// import animatedTextIcon from './gallery/animated-text.svg';
+// import stretchIcon from './gallery/stretch.svg';
+// import gamepadIcon from './gallery/gamepad.svg';
+// import cursorIcon from './gallery/cursor.svg';
+// import filesIcon from './gallery/files.svg';
+// import pointerlockIcon from './gallery/pointerlock.svg';
+// import runtimeOptionsIcon from './gallery/runtime-options.svg';
+// import utilitiesIcon from './gallery/utilities.svg';
+// import sensingPlusIcon from './gallery/sensingplus.svg';
+// import clonesPlusIcon from './gallery/clonesplus.svg';
+// import looksPlusIcon from './gallery/looksplus.svg';
+// import clippingBlendingIcon from './gallery/clippingblending.svg';
+// import regexIcon from './gallery/regex.svg';
+// import bitwiseIcon from './gallery/bitwise.svg';
+// import textIcon from './gallery/text.svg';
+// import fetchIcon from './gallery/fetch.svg';
+// import box2dIcon from './gallery/box2d.svg';
+// import localStorageIcon from './gallery/local-storage.svg';
+// import bigIntIcon from './gallery/bigint.svg';
+// import jsonIcon from './gallery/json.svg';
 
 import pigpioIconURL from './pigpio/pigpio.png';
 import pigpioInsetIconURL from './pigpio/pigpio-small.svg';
@@ -89,12 +90,12 @@ import pigpioInsetIconURL from './pigpio/pigpio-small.svg';
 // import pivsgpioIconURL from './pivsgpio/pivsgpio.png';
 // import pivsgpioInsetIconURL from './pivsgpio/pivsgpio-small.svg';
 
-const galleryItem = object => ({
-    ...object,
-    tags: ['sidekick'],
-    incompatibleWithScratch: true,
-    featured: true
-});
+// const galleryItem = object => ({
+//     ...object,
+//     tags: ['sidekick'],
+//     incompatibleWithScratch: true,
+//     featured: true
+// });
 
 
 export default [
@@ -106,7 +107,6 @@ export default [
                 id="gui.extension.music.name"
             />
         ),
-        tags: ['scratch'],
         extensionId: 'music',
         iconURL: musicIconURL,
         insetIconURL: musicInsetIconURL,
@@ -117,6 +117,7 @@ export default [
                 id="gui.extension.music.description"
             />
         ),
+        tags: ['scratch'],
         featured: true
     },
     {
@@ -127,7 +128,6 @@ export default [
                 id="gui.extension.pen.name"
             />
         ),
-        tags: ['scratch'],
         extensionId: 'pen',
         iconURL: penIconURL,
         insetIconURL: penInsetIconURL,
@@ -138,6 +138,7 @@ export default [
                 id="gui.extension.pen.description"
             />
         ),
+        tags: ['scratch'],
         featured: true
     },
     {
@@ -148,7 +149,6 @@ export default [
                 id="gui.extension.videosensing.name"
             />
         ),
-        tags: ['scratch'],
         extensionId: 'videoSensing',
         iconURL: videoSensingIconURL,
         insetIconURL: videoSensingInsetIconURL,
@@ -159,6 +159,7 @@ export default [
                 id="gui.extension.videosensing.description"
             />
         ),
+        tags: ['scratch'],
         featured: true
     },
     {
@@ -169,7 +170,6 @@ export default [
                 id="gui.extension.text2speech.name"
             />
         ),
-        tags: ['scratch'],
         extensionId: 'text2speech',
         collaborator: 'Amazon Web Services',
         iconURL: text2speechIconURL,
@@ -181,6 +181,7 @@ export default [
                 id="gui.extension.text2speech.description"
             />
         ),
+        tags: ['scratch'],
         featured: true,
         internetConnectionRequired: true
     },
@@ -219,7 +220,6 @@ export default [
                 id="gui.extension.translate.name"
             />
         ),
-        tags: ['scratch'],
         extensionId: 'translate',
         collaborator: 'Google',
         iconURL: translateIconURL,
@@ -231,12 +231,12 @@ export default [
                 id="gui.extension.translate.description"
             />
         ),
+        tags: ['scratch'],
         featured: true,
         internetConnectionRequired: true
     },
     {
         name: 'Makey Makey',
-        tags: ['scratch'],
         extensionId: 'makeymakey',
         collaborator: 'JoyLabz',
         iconURL: makeymakeyIconURL,
@@ -248,11 +248,11 @@ export default [
                 id="gui.extension.makeymakey.description"
             />
         ),
+        tags: ['scratch'],
         featured: true
     },
     {
         name: 'micro:bit',
-        tags: ['scratch'],
         extensionId: 'microbit',
         collaborator: 'micro:bit',
         iconURL: microbitIconURL,
@@ -264,6 +264,7 @@ export default [
                 id="gui.extension.microbit.description"
             />
         ),
+        tags: ['scratch'],
         featured: true,
         disabled: false,
         bluetoothRequired: true,
@@ -283,7 +284,6 @@ export default [
     },
     {
         name: 'LEGO MINDSTORMS EV3',
-        tags: ['scratch'],
         extensionId: 'ev3',
         collaborator: 'LEGO',
         iconURL: ev3IconURL,
@@ -295,6 +295,7 @@ export default [
                 id="gui.extension.ev3.description"
             />
         ),
+        tags: ['scratch'],
         featured: true,
         disabled: false,
         bluetoothRequired: true,
@@ -314,7 +315,6 @@ export default [
     },
     {
         name: 'LEGO BOOST',
-        tags: ['scratch'],
         extensionId: 'boost',
         collaborator: 'LEGO',
         iconURL: boostIconURL,
@@ -326,6 +326,7 @@ export default [
                 id="gui.extension.boost.description"
             />
         ),
+        tags: ['scratch'],
         featured: true,
         disabled: false,
         bluetoothRequired: true,
@@ -346,7 +347,6 @@ export default [
     },
     {
         name: 'LEGO Education WeDo 2.0',
-        tags: ['scratch'],
         extensionId: 'wedo2',
         collaborator: 'LEGO',
         iconURL: wedo2IconURL,
@@ -358,6 +358,7 @@ export default [
                 id="gui.extension.wedo2.description"
             />
         ),
+        tags: ['scratch'],
         featured: true,
         disabled: false,
         bluetoothRequired: true,
@@ -378,7 +379,6 @@ export default [
     },
     {
         name: 'Go Direct Force & Acceleration',
-        tags: ['scratch'],
         extensionId: 'gdxfor',
         collaborator: 'Vernier',
         iconURL: gdxforIconURL,
@@ -390,6 +390,7 @@ export default [
                 id="gui.extension.gdxfor.description"
             />
         ),
+        tags: ['scratch'],
         featured: true,
         disabled: false,
         bluetoothRequired: true,
@@ -407,27 +408,50 @@ export default [
         ),
         helpLink: 'https://scratch.mit.edu/vernier'
     },
-
-
+    // {
+    //     name: (
+    //         <FormattedMessage
+    //             defaultMessage="Sidekick Extension Gallery"
+    //             description="Name of extensions.sidekick.org in extension library"
+    //             id="gui.extensionGallery.name"
+    //         />
+    //     ),
+    //     // !!! CHANGE !!!
+    //     // href: 'https://mixality.github.io/sidekick-extensions/',
+    //     href: 'https://menersar.github.io/sidekick-extensions/',
+    //     extensionId: '',
+    //     iconURL: galleryIcon,
+    //     description: (
+    //         <FormattedMessage
+    //             // eslint-disable-next-line max-len
+    //             defaultMessage="We list many extensions here for convenience. You can find even more on extensions.sidekick.org."
+    //             description="Description of extensions.sidekick.org in extension library"
+    //             id="gui.extensionGallery.description"
+    //         />
+    //     ),
+    //     tags: ['sidekick'],
+    //     incompatibleWithScratch: true,
+    //     featured: true
+    // },
     {
+        // !!! KA ???
+        // !!! Why? ???
+        // Not really an extension, but:
+        // It is easiest to present it as one.
         name: (
             <FormattedMessage
-                defaultMessage="Sidekick Extension Gallery"
-                description="Name of extensions.sidekick.org in extension library"
-                id="gui.extensionGallery.name"
+                defaultMessage="Custom Reporters"
+                description="Name of custom reporters extension"
+                id="gui.customReporters.name"
             />
         ),
-        // !!! CHANGE !!!
-        // href: 'https://mixality.github.io/sidekick-extensions/',
-        href: 'https://menersar.github.io/sidekick-extensions/',
-        extensionId: '',
-        iconURL: galleryIcon,
+        extensionId: 'procedures_enable_return',
+        iconURL: returnIcon,
         description: (
             <FormattedMessage
-                // eslint-disable-next-line max-len
-                defaultMessage="We list many extensions here for convenience. You can find even more on extensions.sidekick.org."
-                description="Description of extensions.sidekick.org in extension library"
-                id="gui.extensionGallery.description"
+                defaultMessage="Allow custom blocks to output values and be used as inputs."
+                description="Description of custom reporters extension"
+                id="gui.customReporters.description"
             />
         ),
         tags: ['sidekick'],
@@ -456,7 +480,6 @@ export default [
         tags: ['sidekick'],
         featured: true
     },
-
     {
         name: (
             <FormattedMessage
@@ -548,171 +571,171 @@ export default [
     // },
 
 
-    // Extensions loaded from URLs do not support localization, so unfortunately we will just leave English names here.
-    galleryItem({
-        name: 'Animated Text',
-        // eslint-disable-next-line max-len
-        description: 'An easy way to display and animate text. Compatible with Scratch Lab\'s Animated Text experiment.',
-        extensionId: 'text',
-        // extensionURL: 'https://mixality.github.io/sidekick-extensions/lab/text.js',
-        extensionURL: 'https://menersar.github.io/sidekick-extensions/lab/text.js',
-        iconURL: animatedTextIcon
-    }),
-    // !!!
-    galleryItem({
-        name: 'Stretch',
-        description: 'Stretch sprites horizontally or vertically.',
-        extensionId: 'stretch',
-        // extensionURL: 'https://mixality.github.io/sidekick-extensions/stretch.js',
-        extensionURL: 'https://menersar.github.io/sidekick-extensions/stretch.js',
-        iconURL: stretchIcon
-    }),
-    galleryItem({
-        name: 'Gamepad',
-        description: 'Directly access gamepads instead of just mapping buttons to keys.',
-        extensionId: 'Gamepad',
-        // extensionURL: 'https://mixality.github.io/sidekick-extensions/gamepad.js',
-        extensionURL: 'https://menersar.github.io/sidekick-extensions/gamepad.js',
-        iconURL: gamepadIcon
-    }),
-    galleryItem({
-        name: 'Files',
-        description: 'Read and download files.',
-        extensionId: 'files',
-        // extensionURL: 'https://mixality.github.io/sidekick-extensions/files.js',
-        extensionURL: 'https://menersar.github.io/sidekick-extensions/files.js',
-        iconURL: filesIcon
-    }),
-    galleryItem({
-        name: 'Pointerlock',
-        // eslint-disable-next-line max-len
-        description: 'Adds blocks for mouse locking. Mouse x & y blocks will report the change since the previous frame while the pointer is locked.',
-        extensionId: 'pointerlock',
-        // extensionURL: 'https://mixality.github.io/sidekick-extensions/pointerlock.js',
-        extensionURL: 'https://menersar.github.io/sidekick-extensions/pointerlock.js',
-        iconURL: pointerlockIcon
-    }),
-    galleryItem({
-        name: 'Mouse Cursor',
-        description: 'Use custom cursors or hide the cursor. Also allows replacing the cursor with any costume image.',
-        extensionId: 'MouseCursor',
-        // extensionURL: 'https://mixality.github.io/sidekick-extensions/cursor.js',
-        extensionURL: 'https://menersar.github.io/sidekick-extensions/cursor.js',
-        iconURL: cursorIcon
-    }),
-    galleryItem({
-        name: 'Runtime Options',
-        description: 'Get and modify turbo mode, framerate, interpolation, clone limit, stage size, and more.',
-        extensionId: 'runtimeoptions',
-        // extensionURL: 'https://mixality.github.io/sidekick-extensions/runtime-options.js',
-        extensionURL: 'https://menersar.github.io/sidekick-extensions/runtime-options.js',
-        iconURL: runtimeOptionsIcon
-    }),
-    galleryItem({
-        name: 'Sensing Plus',
-        description: 'An extension to the sensing category. Created by ObviousAlexC.',
-        extensionId: 'obviousalexsensing',
-        // extensionURL: 'https://mixality.github.io/sidekick-extensions/obviousAlexC/SensingPlus.js',
-        extensionURL: 'https://menersar.github.io/sidekick-extensions/obviousAlexC/SensingPlus.js',
-        iconURL: sensingPlusIcon
-    }),
-    galleryItem({
-        name: 'Clones Plus',
-        description: 'Expansion of Scratch\'s clone features. Created by LilyMakesThings.',
-        extensionId: 'lmsclonesplus',
-        // extensionURL: 'https://mixality.github.io/sidekick-extensions/Lily/ClonesPlus.js',
-        extensionURL: 'https://menersar.github.io/sidekick-extensions/Lily/ClonesPlus.js',
-        iconURL: clonesPlusIcon
-    }),
-    galleryItem({
-        name: 'Looks Plus',
-        // eslint-disable-next-line max-len
-        description: 'Expands upon the looks category, allowing you to show/hide, get costume data and edit SVG skins on sprites. Created by LilyMakesThings.',
-        extensionId: 'lmsLooksPlus',
-        // extensionURL: 'https://mixality.github.io/sidekick-extensions/Lily/LooksPlus.js',
-        extensionURL: 'https://menersar.github.io/sidekick-extensions/Lily/LooksPlus.js',
-        iconURL: looksPlusIcon
-    }),
-    galleryItem({
-        name: 'Clipping & Blending',
-        description: 'Clipping outside of a specified rectangular area and additive color blending. Created by Vadik1.',
-        extensionId: 'xeltallivclipblend',
-        // extensionURL: 'https://mixality.github.io/sidekick-extensions/Xeltalliv/clippingblending.js',
-        extensionURL: 'https://menersar.github.io/sidekick-extensions/Xeltalliv/clippingblending.js',
-        iconURL: clippingBlendingIcon
-    }),
-    galleryItem({
-        name: 'Text',
-        description: 'Manipulate characters and text. Originally created by CST1229.',
-        extensionId: 'strings',
-        // extensionURL: 'https://mixality.github.io/sidekick-extensions/text.js',
-        extensionURL: 'https://menersar.github.io/sidekick-extensions/text.js',
-        iconURL: textIcon
-    }),
-    galleryItem({
-        name: 'Bitwise',
-        description: 'Blocks that operate on the binary representation of numbers in computers.',
-        extensionId: 'Bitwise',
-        // extensionURL: 'https://mixality.github.io/sidekick-extensions/bitwise.js',
-        extensionURL: 'https://menersar.github.io/sidekick-extensions/bitwise.js',
-        iconURL: bitwiseIcon
-    }),
-    galleryItem({
-        name: 'BigInt',
-        description: 'Math blocks that work on infinitely large integers (no decimals). Created by Skyhigh173.',
-        extensionId: 'skyhigh173BigInt',
-        // extensionURL: 'https://mixality.github.io/sidekick-extensions/Skyhigh173/bigint.js',
-        extensionURL: 'https://menersar.github.io/sidekick-extensions/Skyhigh173/bigint.js',
-        iconURL: bigIntIcon
-    }),
-    galleryItem({
-        name: 'JSON',
-        description: 'Work with JSON objects and arrays.',
-        extensionId: 'skyhigh173JSON',
-        // extensionURL: 'https://mixality.github.io/sidekick-extensions/Skyhigh173/json.js',
-        extensionURL: 'https://menersar.github.io/sidekick-extensions/Skyhigh173/json.js',
-        iconURL: jsonIcon
-    }),
-    galleryItem({
-        name: 'RegExp',
-        description: 'Full interface for working with Regular Expressions. Created by TrueFantom.',
-        extensionId: 'truefantomregexp',
-        // extensionURL: 'https://mixality.github.io/sidekick-extensions/true-fantom/regexp.js',
-        extensionURL: 'https://menersar.github.io/sidekick-extensions/true-fantom/regexp.js',
-        iconURL: regexIcon
-    }),
-    galleryItem({
-        name: 'Box2D Physics',
-        description: 'Two dimensional physics. Originally created by griffpatch.',
-        extensionId: 'griffpatch',
-        // extensionURL: 'https://mixality.github.io/sidekick-extensions/box2d.js',
-        extensionURL: 'https://menersar.github.io/sidekick-extensions/box2d.js',
-        iconURL: box2dIcon
-    }),
-    galleryItem({
-        name: 'Fetch',
-        description: 'Make requests to the broader internet.',
-        extensionId: 'fetch',
-        // extensionURL: 'https://mixality.github.io/sidekick-extensions/fetch.js',
-        extensionURL: 'https://menersar.github.io/sidekick-extensions/fetch.js',
-        iconURL: fetchIcon
-    }),
-    galleryItem({
-        name: 'Local Storage',
-        description: 'Store data persistently. Like cookies, but better.',
-        extensionId: 'localstorage',
-        // extensionURL: 'https://mixality.github.io/sidekick-extensions/local-storage.js',
-        extensionURL: 'https://menersar.github.io/sidekick-extensions/local-storage.js',
-        iconURL: localStorageIcon
-    }),
-    galleryItem({
-        name: 'Utilities',
-        description: 'A bunch of interesting blocks. Originally created by Sheep_maker.',
-        extensionId: 'utilities',
-        // extensionURL: 'https://mixality.github.io/sidekick-extensions/utilities.js',
-        extensionURL: 'https://menersar.github.io/sidekick-extensions/utilities.js',
-        iconURL: utilitiesIcon
-    }),
+    // // Extensions loaded from URLs do not support localization, so unfortunately we will just leave English names here.
+    // galleryItem({
+    //     name: 'Animated Text',
+    //     // eslint-disable-next-line max-len
+    //     description: 'An easy way to display and animate text. Compatible with Scratch Lab\'s Animated Text experiment.',
+    //     extensionId: 'text',
+    //     // extensionURL: 'https://mixality.github.io/sidekick-extensions/lab/text.js',
+    //     extensionURL: 'https://menersar.github.io/sidekick-extensions/lab/text.js',
+    //     iconURL: animatedTextIcon
+    // }),
+    // // !!!
+    // galleryItem({
+    //     name: 'Stretch',
+    //     description: 'Stretch sprites horizontally or vertically.',
+    //     extensionId: 'stretch',
+    //     // extensionURL: 'https://mixality.github.io/sidekick-extensions/stretch.js',
+    //     extensionURL: 'https://menersar.github.io/sidekick-extensions/stretch.js',
+    //     iconURL: stretchIcon
+    // }),
+    // galleryItem({
+    //     name: 'Gamepad',
+    //     description: 'Directly access gamepads instead of just mapping buttons to keys.',
+    //     extensionId: 'Gamepad',
+    //     // extensionURL: 'https://mixality.github.io/sidekick-extensions/gamepad.js',
+    //     extensionURL: 'https://menersar.github.io/sidekick-extensions/gamepad.js',
+    //     iconURL: gamepadIcon
+    // }),
+    // galleryItem({
+    //     name: 'Files',
+    //     description: 'Read and download files.',
+    //     extensionId: 'files',
+    //     // extensionURL: 'https://mixality.github.io/sidekick-extensions/files.js',
+    //     extensionURL: 'https://menersar.github.io/sidekick-extensions/files.js',
+    //     iconURL: filesIcon
+    // }),
+    // galleryItem({
+    //     name: 'Pointerlock',
+    //     // eslint-disable-next-line max-len
+    //     description: 'Adds blocks for mouse locking. Mouse x & y blocks will report the change since the previous frame while the pointer is locked.',
+    //     extensionId: 'pointerlock',
+    //     // extensionURL: 'https://mixality.github.io/sidekick-extensions/pointerlock.js',
+    //     extensionURL: 'https://menersar.github.io/sidekick-extensions/pointerlock.js',
+    //     iconURL: pointerlockIcon
+    // }),
+    // galleryItem({
+    //     name: 'Mouse Cursor',
+    //     description: 'Use custom cursors or hide the cursor. Also allows replacing the cursor with any costume image.',
+    //     extensionId: 'MouseCursor',
+    //     // extensionURL: 'https://mixality.github.io/sidekick-extensions/cursor.js',
+    //     extensionURL: 'https://menersar.github.io/sidekick-extensions/cursor.js',
+    //     iconURL: cursorIcon
+    // }),
+    // galleryItem({
+    //     name: 'Runtime Options',
+    //     description: 'Get and modify turbo mode, framerate, interpolation, clone limit, stage size, and more.',
+    //     extensionId: 'runtimeoptions',
+    //     // extensionURL: 'https://mixality.github.io/sidekick-extensions/runtime-options.js',
+    //     extensionURL: 'https://menersar.github.io/sidekick-extensions/runtime-options.js',
+    //     iconURL: runtimeOptionsIcon
+    // }),
+    // galleryItem({
+    //     name: 'Sensing Plus',
+    //     description: 'An extension to the sensing category. Created by ObviousAlexC.',
+    //     extensionId: 'obviousalexsensing',
+    //     // extensionURL: 'https://mixality.github.io/sidekick-extensions/obviousAlexC/SensingPlus.js',
+    //     extensionURL: 'https://menersar.github.io/sidekick-extensions/obviousAlexC/SensingPlus.js',
+    //     iconURL: sensingPlusIcon
+    // }),
+    // galleryItem({
+    //     name: 'Clones Plus',
+    //     description: 'Expansion of Scratch\'s clone features. Created by LilyMakesThings.',
+    //     extensionId: 'lmsclonesplus',
+    //     // extensionURL: 'https://mixality.github.io/sidekick-extensions/Lily/ClonesPlus.js',
+    //     extensionURL: 'https://menersar.github.io/sidekick-extensions/Lily/ClonesPlus.js',
+    //     iconURL: clonesPlusIcon
+    // }),
+    // galleryItem({
+    //     name: 'Looks Plus',
+    //     // eslint-disable-next-line max-len
+    //     description: 'Expands upon the looks category, allowing you to show/hide, get costume data and edit SVG skins on sprites. Created by LilyMakesThings.',
+    //     extensionId: 'lmsLooksPlus',
+    //     // extensionURL: 'https://mixality.github.io/sidekick-extensions/Lily/LooksPlus.js',
+    //     extensionURL: 'https://menersar.github.io/sidekick-extensions/Lily/LooksPlus.js',
+    //     iconURL: looksPlusIcon
+    // }),
+    // galleryItem({
+    //     name: 'Clipping & Blending',
+    //     description: 'Clipping outside of a specified rectangular area and additive color blending. Created by Vadik1.',
+    //     extensionId: 'xeltallivclipblend',
+    //     // extensionURL: 'https://mixality.github.io/sidekick-extensions/Xeltalliv/clippingblending.js',
+    //     extensionURL: 'https://menersar.github.io/sidekick-extensions/Xeltalliv/clippingblending.js',
+    //     iconURL: clippingBlendingIcon
+    // }),
+    // galleryItem({
+    //     name: 'Text',
+    //     description: 'Manipulate characters and text. Originally created by CST1229.',
+    //     extensionId: 'strings',
+    //     // extensionURL: 'https://mixality.github.io/sidekick-extensions/text.js',
+    //     extensionURL: 'https://menersar.github.io/sidekick-extensions/text.js',
+    //     iconURL: textIcon
+    // }),
+    // galleryItem({
+    //     name: 'Bitwise',
+    //     description: 'Blocks that operate on the binary representation of numbers in computers.',
+    //     extensionId: 'Bitwise',
+    //     // extensionURL: 'https://mixality.github.io/sidekick-extensions/bitwise.js',
+    //     extensionURL: 'https://menersar.github.io/sidekick-extensions/bitwise.js',
+    //     iconURL: bitwiseIcon
+    // }),
+    // galleryItem({
+    //     name: 'BigInt',
+    //     description: 'Math blocks that work on infinitely large integers (no decimals). Created by Skyhigh173.',
+    //     extensionId: 'skyhigh173BigInt',
+    //     // extensionURL: 'https://mixality.github.io/sidekick-extensions/Skyhigh173/bigint.js',
+    //     extensionURL: 'https://menersar.github.io/sidekick-extensions/Skyhigh173/bigint.js',
+    //     iconURL: bigIntIcon
+    // }),
+    // galleryItem({
+    //     name: 'JSON',
+    //     description: 'Work with JSON objects and arrays.',
+    //     extensionId: 'skyhigh173JSON',
+    //     // extensionURL: 'https://mixality.github.io/sidekick-extensions/Skyhigh173/json.js',
+    //     extensionURL: 'https://menersar.github.io/sidekick-extensions/Skyhigh173/json.js',
+    //     iconURL: jsonIcon
+    // }),
+    // galleryItem({
+    //     name: 'RegExp',
+    //     description: 'Full interface for working with Regular Expressions. Created by TrueFantom.',
+    //     extensionId: 'truefantomregexp',
+    //     // extensionURL: 'https://mixality.github.io/sidekick-extensions/true-fantom/regexp.js',
+    //     extensionURL: 'https://menersar.github.io/sidekick-extensions/true-fantom/regexp.js',
+    //     iconURL: regexIcon
+    // }),
+    // galleryItem({
+    //     name: 'Box2D Physics',
+    //     description: 'Two dimensional physics. Originally created by griffpatch.',
+    //     extensionId: 'griffpatch',
+    //     // extensionURL: 'https://mixality.github.io/sidekick-extensions/box2d.js',
+    //     extensionURL: 'https://menersar.github.io/sidekick-extensions/box2d.js',
+    //     iconURL: box2dIcon
+    // }),
+    // galleryItem({
+    //     name: 'Fetch',
+    //     description: 'Make requests to the broader internet.',
+    //     extensionId: 'fetch',
+    //     // extensionURL: 'https://mixality.github.io/sidekick-extensions/fetch.js',
+    //     extensionURL: 'https://menersar.github.io/sidekick-extensions/fetch.js',
+    //     iconURL: fetchIcon
+    // }),
+    // galleryItem({
+    //     name: 'Local Storage',
+    //     description: 'Store data persistently. Like cookies, but better.',
+    //     extensionId: 'localstorage',
+    //     // extensionURL: 'https://mixality.github.io/sidekick-extensions/local-storage.js',
+    //     extensionURL: 'https://menersar.github.io/sidekick-extensions/local-storage.js',
+    //     iconURL: localStorageIcon
+    // }),
+    // galleryItem({
+    //     name: 'Utilities',
+    //     description: 'A bunch of interesting blocks. Originally created by Sheep_maker.',
+    //     extensionId: 'utilities',
+    //     // extensionURL: 'https://mixality.github.io/sidekick-extensions/utilities.js',
+    //     extensionURL: 'https://menersar.github.io/sidekick-extensions/utilities.js',
+    //     iconURL: utilitiesIcon
+    // }),
     {
         name: (
             <FormattedMessage
@@ -721,7 +744,7 @@ export default [
                 id="gui.customExtension.name"
             />
         ),
-        extensionId: '',
+        extensionId: 'custom_extension',
         iconURL: customExtensionIcon,
         description: (
             <FormattedMessage
@@ -731,9 +754,78 @@ export default [
             />
         ),
         tags: ['sidekick'],
-        incompatibleWithScratch: true,
+        // incompatibleWithScratch: true,
         featured: true
+        // Not marked as incompatible with Scratch so that:
+        // Clicking on it doesn't show a prompt.
     }
-
-
 ];
+
+export const galleryLoading = {
+    name: (
+        <FormattedMessage
+            defaultMessage="TurboWarp Extension Gallery"
+            description="Name of extensions.turbowarp.org in extension library"
+            id="gui.extensionGallery.name"
+        />
+    ),
+    href: 'https://extensions.turbowarp.org/',
+    extensionId: 'gallery',
+    iconURL: galleryIcon,
+    description: (
+        <FormattedMessage
+            // eslint-disable-next-line max-len
+            defaultMessage="Loading extension gallery..."
+            description="Appears while loading extension list from the custom extension gallery"
+            id="gui.extensionGallery.loading"
+        />
+    ),
+    tags: ['sidekick'],
+    featured: true
+};
+
+export const galleryMore = {
+    name: (
+        <FormattedMessage
+            defaultMessage="TurboWarp Extension Gallery"
+            description="Name of extensions.turbowarp.org in extension library"
+            id="gui.extensionGallery.name"
+        />
+    ),
+    href: 'https://extensions.turbowarp.org/',
+    extensionId: 'gallery',
+    iconURL: galleryIcon,
+    description: (
+        <FormattedMessage
+            // eslint-disable-next-line max-len
+            defaultMessage="Learn more about extensions at extensions.turbowarp.org."
+            description="Appears after the extension list from the gallery was loaded successfully"
+            id="gui.extensionGallery.more"
+        />
+    ),
+    tags: ['sidekick'],
+    featured: true
+};
+
+export const galleryError = {
+    name: (
+        <FormattedMessage
+            defaultMessage="TurboWarp Extension Gallery"
+            description="Name of extensions.turbowarp.org in extension library"
+            id="gui.extensionGallery.name"
+        />
+    ),
+    href: 'https://extensions.turbowarp.org/',
+    extensionId: 'gallery',
+    iconURL: galleryIcon,
+    description: (
+        <FormattedMessage
+            // eslint-disable-next-line max-len
+            defaultMessage="Error loading extension gallery. Visit extensions.turbowarp.org to find more extensions."
+            description="Appears when an error occurred loading extension list from the custom extension gallery"
+            id="gui.extensionGallery.error"
+        />
+    ),
+    tags: ['sidekick'],
+    featured: true
+};
