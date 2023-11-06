@@ -339,6 +339,7 @@ const createRestorePoint = (
             const assetStore = transaction.objectStore(ASSET_STORE);
             for (const assetId of missingAssets) {
                 await new Promise(resolveAsset => {
+                    // !!! 'TODO'? ???
                     // TODO: should we insert arraybuffer or uint8array?
                     const assetData = projectFiles[assetId];
                     const request = assetStore.add(assetData, assetId);
