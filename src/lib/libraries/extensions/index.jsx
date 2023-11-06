@@ -51,8 +51,8 @@ import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 
 // !!!
 import sidekickIcon from './sidekick/sidekick.svg';
-import sidekickIconURL from './sidekick/icon.png';
-import sidekickInsetIconURL from './sidekick/inset_icon.svg';
+// import sidekickIconURL from './sidekick/icon.png';
+// import sidekickInsetIconURL from './sidekick/inset_icon.svg';
 
 import customExtensionIcon from './custom/custom.svg';
 
@@ -187,29 +187,29 @@ export default [
     },
 
 
-    {
-        name: (
-            <FormattedMessage
-                defaultMessage="test1"
-                description="Name for the test1 extension"
-                id="gui.extension.test1.name"
-            />
-        ),
-        tags: ['scratch'],
-        extensionId: 'test1',
-        collaborator: 'Amazon Web Services',
-        iconURL: test1IconURL,
-        insetIconURL: test1InsetIconURL,
-        description: (
-            <FormattedMessage
-                defaultMessage="Make your projects talk."
-                description="Description for the test1 extension"
-                id="gui.extension.test1.description"
-            />
-        ),
-        featured: true,
-        internetConnectionRequired: true
-    },
+    // {
+    //     name: (
+    //         <FormattedMessage
+    //             defaultMessage="test1"
+    //             description="Name for the test1 extension"
+    //             id="gui.extension.test1.name"
+    //         />
+    //     ),
+    //     tags: ['scratch'],
+    //     extensionId: 'test1',
+    //     collaborator: 'Amazon Web Services',
+    //     iconURL: test1IconURL,
+    //     insetIconURL: test1InsetIconURL,
+    //     description: (
+    //         <FormattedMessage
+    //             defaultMessage="Make your projects talk."
+    //             description="Description for the test1 extension"
+    //             id="gui.extension.test1.description"
+    //         />
+    //     ),
+    //     featured: true,
+    //     internetConnectionRequired: true
+    // },
 
 
     {
@@ -408,6 +408,7 @@ export default [
         ),
         helpLink: 'https://scratch.mit.edu/vernier'
     },
+    {
     // {
     //     name: (
     //         <FormattedMessage
@@ -433,7 +434,7 @@ export default [
     //     incompatibleWithScratch: true,
     //     featured: true
     // },
-    {
+    // {
         // !!! KA ???
         // !!! Why? ???
         // Not really an extension, but:
@@ -467,8 +468,9 @@ export default [
             />
         ),
         extensionId: 'sidekick',
-        iconURL: sidekickIconURL,
-        insetIconURL: sidekickInsetIconURL,
+        iconURL: sidekickIcon,
+        // iconURL: sidekickIconURL,
+        // insetIconURL: sidekickInsetIconURL,
         description: (
             <FormattedMessage
                 defaultMessage="Sidekick Blocks."
@@ -480,27 +482,27 @@ export default [
         tags: ['sidekick'],
         featured: true
     },
-    {
-        name: (
-            <FormattedMessage
-                defaultMessage="Raspberry Pi GPIO"
-                description="Name for the 'Pi GPIO' extension"
-                id="gui.extension.pigpio.name"
-            />
-        ),
-        tags: ['scratch'],
-        extensionId: 'pigpio',
-        iconURL: pigpioIconURL,
-        insetIconURL: pigpioInsetIconURL,
-        description: (
-            <FormattedMessage
-                defaultMessage="Control Raspberry Pi GPIO lines."
-                description="Description for the 'Pi GPIO' extension"
-                id="gui.extension.pigpio.description"
-            />
-        ),
-        featured: true
-    },
+    // {
+    //     name: (
+    //         <FormattedMessage
+    //             defaultMessage="Raspberry Pi GPIO"
+    //             description="Name for the 'Pi GPIO' extension"
+    //             id="gui.extension.pigpio.name"
+    //         />
+    //     ),
+    //     tags: ['scratch'],
+    //     extensionId: 'pigpio',
+    //     iconURL: pigpioIconURL,
+    //     insetIconURL: pigpioInsetIconURL,
+    //     description: (
+    //         <FormattedMessage
+    //             defaultMessage="Control Raspberry Pi GPIO lines."
+    //             description="Description for the 'Pi GPIO' extension"
+    //             id="gui.extension.pigpio.description"
+    //         />
+    //     ),
+    //     featured: true
+    // },
 
     // {
     //     name: 'Raspberry Pi GPIO',
@@ -764,8 +766,8 @@ export default [
 export const galleryLoading = {
     name: (
         <FormattedMessage
-            defaultMessage="TurboWarp Extension Gallery"
-            description="Name of extensions.turbowarp.org in extension library"
+            defaultMessage="Sidekick Extension Gallery"
+            description="Name of sidekick-extensions.mixality.de in extension library"
             id="gui.extensionGallery.name"
         />
     ),
@@ -787,12 +789,13 @@ export const galleryLoading = {
 export const galleryMore = {
     name: (
         <FormattedMessage
-            defaultMessage="TurboWarp Extension Gallery"
-            description="Name of extensions.turbowarp.org in extension library"
+            defaultMessage="Sidekick Extension Gallery"
+            description="Name of sidekick-extensions.mixality.de in extension library"
             id="gui.extensionGallery.name"
         />
     ),
-    href: 'https://extensions.turbowarp.org/',
+    // href: 'https://sidekick-extensions.mixality.de/',
+    href: 'https://menersar.github.io/sidekick-extensions/',
     extensionId: 'gallery',
     iconURL: galleryIcon,
     description: (
@@ -810,8 +813,8 @@ export const galleryMore = {
 export const galleryError = {
     name: (
         <FormattedMessage
-            defaultMessage="TurboWarp Extension Gallery"
-            description="Name of extensions.turbowarp.org in extension library"
+            defaultMessage="Sidekick Extension Gallery"
+            description="Name of sidekick-extensions.mixality.de in extension library"
             id="gui.extensionGallery.name"
         />
     ),

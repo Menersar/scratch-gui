@@ -13,13 +13,9 @@ import Box from '../box/box.jsx';
 import Button from '../button/button.jsx';
 import CommunityButton from './community-button.jsx';
 import ShareButton from './share-button.jsx';
-// !!! KA !!!
-// !!! ???
-// import SeeInsideButton from './sidekick-see-inside.jsx';
 import {ComingSoonTooltip} from '../coming-soon/coming-soon.jsx';
 import Divider from '../divider/divider.jsx';
 import LanguageSelector from '../../containers/language-selector.jsx';
-// import SidekickSaveStatus from './sidekick-save-status.jsx';
 import ProjectWatcher from '../../containers/project-watcher.jsx';
 import MenuBarMenu from './menu-bar-menu.jsx';
 import {MenuItem, MenuSection} from '../menu/menu.jsx';
@@ -30,22 +26,13 @@ import DeletionRestorer from '../../containers/deletion-restorer.jsx';
 import TurboMode from '../../containers/turbo-mode.jsx';
 import MenuBarHOC from '../../containers/menu-bar-hoc.jsx';
 
-import FramerateChanger from '../../containers/sidekick-framerate-changer.jsx';
-import ChangeUsername from '../../containers/sidekick-change-username.jsx';
-import CloudVariablesToggler from '../../containers/sidekick-cloud-toggler.jsx';
-import SidekickSaveStatus from './sidekick-save-status.jsx';
-// import SidekickRestorePointLoader from '../../containers/sidekick-restore-point-loader.jsx';
+import FramerateChanger from '../../containers/tw-framerate-changer.jsx';
+import ChangeUsername from '../../containers/tw-change-username.jsx';
+import CloudVariablesToggler from '../../containers/tw-cloud-toggler.jsx';
+import TWSaveStatus from './tw-save-status.jsx';
 
 import {openTipsLibrary, openSettingsModal, openRestorePointModal} from '../../reducers/modals';
 import {setPlayer} from '../../reducers/mode';
-// import {
-//     isTimeTravel220022BC,
-//     isTimeTravel1920,
-//     isTimeTravel1990,
-//     isTimeTravel2020,
-//     isTimeTravelNow,
-//     setTimeTravel
-// } from '../../reducers/time-travel';
 import {
     autoUpdateProject,
     getIsUpdating,
@@ -77,21 +64,13 @@ import {
     openLoginMenu,
     closeLoginMenu,
     loginMenuOpen
-    // ,
-    // openModeMenu,
-    // closeModeMenu,
-    // modeMenuOpen,
-    // openErrorsMenu,
-    // closeErrorsMenu,
-    // errorsMenuOpen
 } from '../../reducers/menus';
-import {setFileHandle} from '../../reducers/sidekick.js';
+import {setFileHandle} from '../../reducers/tw.js';
 
 import collectMetadata from '../../lib/collect-metadata';
 
 import styles from './menu-bar.css';
 
-// !!! 'value is never read'? ???
 import helpIcon from '../../lib/assets/icon--tutorials.svg';
 import mystuffIcon from './icon--mystuff.png';
 import profileIcon from './icon--profile.png';
@@ -99,19 +78,14 @@ import remixIcon from './icon--remix.svg';
 import dropdownCaret from './dropdown-caret.svg';
 import languageIcon from '../language-selector/language-icon.svg';
 import aboutIcon from './icon--about.svg';
-import errorIcon from './sidekick-error.svg';
-import themeIcon from './sidekick-moon.svg';
+import errorIcon from './tw-error.svg';
+import themeIcon from './tw-moon.svg';
 
-// import scratchLogo from './sidekick-logo.svg';
 import scratchLogo from './scratch-logo.svg';
-// import ninetiesLogo from './nineties_logo.svg';
-// import catLogo from './cat_logo.svg';
-// import prehistoricLogo from './prehistoric-logo.svg';
-// import oldtimeyLogo from './oldtimey-logo.svg';
 
 import sharedMessages from '../../lib/shared-messages';
 
-import SeeInsideButton from './sidekick-see-inside.jsx';
+import SeeInsideButton from './tw-see-inside.jsx';
 import {notScratchDesktop} from '../../lib/isScratchDesktop.js';
 
 const ariaMessages = defineMessages({
@@ -127,9 +101,9 @@ const ariaMessages = defineMessages({
     }
 });
 
-const sidekickMessages = defineMessages({
+const twMessages = defineMessages({
     compileError: {
-        id: 'gui.menuBar.compileError',
+        id: 'tw.menuBar.compileError',
         defaultMessage: '{sprite}: {error}',
         description: 'Error message in error menu'
     }
@@ -202,9 +176,7 @@ AboutButton.propTypes = {
     onClick: PropTypes.func.isRequired
 };
 
-// !!! ???
-// Unlike '<MenuItem href="">':
-// This uses an actual '<a>'.
+// Unlike <MenuItem href="">, this uses an actual <a>
 const MenuItemLink = props => (
     <a
         href={props.href}
@@ -217,7 +189,6 @@ const MenuItemLink = props => (
         <MenuItem>{props.children}</MenuItem>
     </a>
 );
-// rel="noopener noreferrer"
 
 MenuItemLink.propTypes = {
     children: PropTypes.node.isRequired,
@@ -238,9 +209,6 @@ class MenuBar extends React.Component {
             'handleClickRestorePoints',
             'handleClickSeeCommunity',
             'handleClickShare',
-            // 'handleClickPackager',
-            // 'handleClickSeeInside',
-            // 'handleSetMode',
             'handleKeyPress',
             'handleLanguageMouseUp',
             'handleRestoreOption',
@@ -314,43 +282,6 @@ class MenuBar extends React.Component {
             }
         }
     }
-    // handleClickPackager () {
-    //     this.props.onClickPackager();
-    //     this.props.onRequestCloseFile();
-    // }
-    // handleClickSeeInside () {
-    //     this.props.onClickSeeInside();
-    // }
-    // handleSetMode (mode) {
-    //     return () => {
-    //         // Turn on/off filters for modes.
-    //         if (mode === '1920') {
-    //             document.documentElement.style.filter = 'brightness(.9)contrast(.8)sepia(1.0)';
-    //             document.documentElement.style.height = '100%';
-    //         } else if (mode === '1990') {
-    //             document.documentElement.style.filter = 'hue-rotate(40deg)';
-    //             document.documentElement.style.height = '100%';
-    //         } else {
-    //             document.documentElement.style.filter = '';
-    //             document.documentElement.style.height = '';
-    //         }
-
-    //         // Change logo for modes
-    //         if (mode === '1990') {
-    //             document.getElementById('logo_img').src = ninetiesLogo;
-    //         } else if (mode === '2020') {
-    //             document.getElementById('logo_img').src = catLogo;
-    //         } else if (mode === '1920') {
-    //             document.getElementById('logo_img').src = oldtimeyLogo;
-    //         } else if (mode === '220022BC') {
-    //             document.getElementById('logo_img').src = prehistoricLogo;
-    //         } else {
-    //             document.getElementById('logo_img').src = this.props.logo;
-    //         }
-
-    //         this.props.onSetTimeTravelMode(mode);
-    //     };
-    // }
     handleRestoreOption (restoreFun) {
         return () => {
             restoreFun();
@@ -547,7 +478,7 @@ class MenuBar extends React.Component {
                             </div>
                             <LanguageSelector label={this.props.intl.formatMessage(ariaMessages.language)} />
                         </div>)}
-                        {/* Theme toggler. */}
+                        {/* tw: theme toggler */}
                         {this.props.onClickTheme && (
                             <div
                                 className={classNames(styles.menuBarItem, styles.hoverable)}
@@ -561,7 +492,7 @@ class MenuBar extends React.Component {
                                 />
                             </div>
                         )}
-                        {/* Display compile errors. */}
+                        {/* tw: display compile errors */}
                         {this.props.compileErrors.length > 0 && <div>
                             <div
                                 className={classNames(styles.menuBarItem, styles.hoverable, {
@@ -586,25 +517,25 @@ class MenuBar extends React.Component {
                                     onRequestClose={this.props.onRequestCloseErrors}
                                 >
                                     <MenuSection>
-                                        <MenuItemLink href="https://github.com/Menersar/Sidekick/issues">
+                                        <MenuItemLink href="https://scratch.mit.edu/users/GarboMuffin/#comments">
                                             <FormattedMessage
                                                 defaultMessage="Some scripts could not be compiled."
                                                 description="Link in error menu"
-                                                id="gui.menuBar.reportError1"
+                                                id="tw.menuBar.reportError1"
                                             />
                                         </MenuItemLink>
-                                        <MenuItemLink href="https://github.com/Menersar/Sidekick/issues">
+                                        <MenuItemLink href="https://scratch.mit.edu/users/GarboMuffin/#comments">
                                             <FormattedMessage
                                                 defaultMessage="This is a bug. Please report it."
                                                 description="Link in error menu"
-                                                id="gui.menuBar.reportError2"
+                                                id="tw.menuBar.reportError2"
                                             />
                                         </MenuItemLink>
                                     </MenuSection>
                                     <MenuSection>
                                         {this.props.compileErrors.map(({id, sprite, error}) => (
                                             <MenuItem key={id}>
-                                                {this.props.intl.formatMessage(sidekickMessages.compileError, {
+                                                {this.props.intl.formatMessage(twMessages.compileError, {
                                                     sprite,
                                                     error
                                                 })}
@@ -649,7 +580,7 @@ class MenuBar extends React.Component {
                                                 defaultMessage="New window"
                                                 // eslint-disable-next-line max-len
                                                 description="Part of desktop app. Menu bar item that creates a new window."
-                                                id="gui.menuBar.newWindow"
+                                                id="tw.menuBar.newWindow"
                                             />
                                         </MenuItem>
                                     )}
@@ -689,7 +620,7 @@ class MenuBar extends React.Component {
                                                                     defaultMessage="Save to {file}"
                                                                     // eslint-disable-next-line max-len
                                                                     description="Menu bar item to save project to an existing file on the user's computer"
-                                                                    id="gui.saveTo"
+                                                                    id="tw.saveTo"
                                                                     values={{
                                                                         file: extended.name
                                                                     }}
@@ -702,7 +633,7 @@ class MenuBar extends React.Component {
                                                                 defaultMessage="Save as..."
                                                                 // eslint-disable-next-line max-len
                                                                 description="Menu bar item to select a new file to save the project as"
-                                                                id="gui.saveAs"
+                                                                id="tw.saveAs"
                                                             />
                                                         </MenuItem>
                                                     </React.Fragment>
@@ -714,7 +645,7 @@ class MenuBar extends React.Component {
                                                                 defaultMessage="Save to separate file..."
                                                                 // eslint-disable-next-line max-len
                                                                 description="Download the project once, without being able to easily save to the same spot"
-                                                                id="gui.oldDownload"
+                                                                id="tw.oldDownload"
                                                             />
                                                         ) : (
                                                             <FormattedMessage
@@ -737,7 +668,7 @@ class MenuBar extends React.Component {
                                                     defaultMessage="Package project"
                                                     // eslint-disable-next-line max-len
                                                     description="Menu bar item to open the current project in the packager"
-                                                    id="gui.menuBar.package"
+                                                    id="tw.menuBar.package"
                                                 />
                                             </MenuItem>
                                         </MenuSection>
@@ -747,7 +678,7 @@ class MenuBar extends React.Component {
                                             <FormattedMessage
                                                 defaultMessage="Restore points"
                                                 description="Menu bar item to manage restore points"
-                                                id="gui.menuBar.restorePoints"
+                                                id="tw.menuBar.restorePoints"
                                             />
                                         </MenuItem>
                                     </MenuSection>
@@ -807,13 +738,13 @@ class MenuBar extends React.Component {
                                                 <FormattedMessage
                                                     defaultMessage="Turn off 60 FPS Mode"
                                                     description="Menu bar item for turning off 60 FPS mode"
-                                                    id="gui.menuBar.60off"
+                                                    id="tw.menuBar.60off"
                                                 />
                                             ) : (
                                                 <FormattedMessage
                                                     defaultMessage="Turn on 60 FPS Mode"
                                                     description="Menu bar item for turning on 60 FPS mode"
-                                                    id="gui.menuBar.60on"
+                                                    id="tw.menuBar.60on"
                                                 />
                                             )}
                                         </MenuItem>
@@ -823,7 +754,7 @@ class MenuBar extends React.Component {
                                             <FormattedMessage
                                                 defaultMessage="Change Username"
                                                 description="Menu bar item for changing the username"
-                                                id="gui.menuBar.changeUsername"
+                                                id="tw.menuBar.changeUsername"
                                             />
                                         </MenuItem>
                                     )}</ChangeUsername>
@@ -837,20 +768,20 @@ class MenuBar extends React.Component {
                                                     <FormattedMessage
                                                         defaultMessage="Disable Cloud Variables"
                                                         description="Menu bar item for disabling cloud variables"
-                                                        id="gui.menuBar.cloudOff"
+                                                        id="tw.menuBar.cloudOff"
                                                     />
                                                 ) : (
                                                     <FormattedMessage
                                                         defaultMessage="Enable Cloud Variables"
                                                         description="Menu bar item for enabling cloud variables"
-                                                        id="gui.menuBar.cloudOn"
+                                                        id="tw.menuBar.cloudOn"
                                                     />
                                                 )
                                             ) : (
                                                 <FormattedMessage
                                                     defaultMessage="Cloud Variables are not Available"
                                                     description="Menu bar item for when cloud variables are not available"
-                                                    id="gui.menuBar.cloudUnavailable"
+                                                    id="tw.menuBar.cloudUnavailable"
                                                 />
                                             )}
                                         </MenuItem>
@@ -861,7 +792,7 @@ class MenuBar extends React.Component {
                                         <FormattedMessage
                                             defaultMessage="Advanced Settings"
                                             description="Menu bar item for advanced settings"
-                                            id="gui.menuBar.moreSettings"
+                                            id="tw.menuBar.moreSettings"
                                         />
                                     </MenuItem>
                                 </MenuSection>
@@ -874,10 +805,10 @@ class MenuBar extends React.Component {
                             >
                                 <div>
                                     <FormattedMessage
-                                        // String used by scratch-vm for the addons blocks category.
+                                        // Note: this string is used by scratch-vm for the addons blocks category
                                         defaultMessage="Addons"
                                         description="Menu bar item for addon settings"
-                                        id="gui.menuBar.addons"
+                                        id="tw.menuBar.addons"
                                     />
                                 </div>
                             </div>
@@ -890,7 +821,7 @@ class MenuBar extends React.Component {
                                 <FormattedMessage
                                     defaultMessage="Advanced"
                                     description="Text for advanced settings menu item"
-                                    id="gui.menuBar.advanced"
+                                    id="tw.menuBar.advanced"
                                 />
                             </div>
                         </div>
@@ -974,20 +905,20 @@ class MenuBar extends React.Component {
                             />
                         ) : []))}
                     </div>
-                    {/* Add a feedback button. */}
+                    {/* tw: add a feedback button */}
                     <div className={styles.menuBarItem}>
                         <a
                             className={styles.feedbackLink}
-                            href="https://github.com/Mixality/Sidekick/issues"
+                            href="https://scratch.mit.edu/users/GarboMuffin/#comments"
                             rel="noopener noreferrer"
                             target="_blank"
                         >
                             {/* todo: icon */}
                             <Button className={styles.feedbackButton}>
                                 <FormattedMessage
-                                    defaultMessage="Sidekick Feedback"
+                                    defaultMessage="TurboWarp Feedback"
                                     description="Button to give feedback in the menu bar"
-                                    id="gui.feedbackButton"
+                                    id="tw.feedbackButton"
                                 />
                             </Button>
                         </a>
@@ -996,7 +927,7 @@ class MenuBar extends React.Component {
 
                 <div className={styles.accountInfoGroup}>
                     <div className={styles.menuBarItem}>
-                        <SidekickSaveStatus />
+                        <TWSaveStatus />
                     </div>
                 </div>
 
@@ -1032,9 +963,6 @@ MenuBar.propTypes = {
     confirmReadyToReplaceProject: PropTypes.func,
     editMenuOpen: PropTypes.bool,
     enableCommunity: PropTypes.bool,
-    // enableSeeInside: PropTypes.bool,
-    // errorsMenuOpen: PropTypes.bool,
-    // onClickSeeInside: PropTypes.func,
     fileMenuOpen: PropTypes.bool,
     handleSaveProject: PropTypes.func,
     intl: intlShape,
@@ -1042,19 +970,11 @@ MenuBar.propTypes = {
     isRtl: PropTypes.bool,
     isShared: PropTypes.bool,
     isShowingProject: PropTypes.bool,
-    // isTotallyNormal: PropTypes.bool,
     isUpdating: PropTypes.bool,
-    // isPlayerOnly: PropTypes.bool,
     languageMenuOpen: PropTypes.bool,
     locale: PropTypes.string.isRequired,
     loginMenuOpen: PropTypes.bool,
     logo: PropTypes.string,
-    // modeMenuOpen: PropTypes.bool,
-    // modeNow: PropTypes.bool,
-    // mode220022BC: PropTypes.bool,
-    // mode1920: PropTypes.bool,
-    // mode1990: PropTypes.bool,
-    // mode2020: PropTypes.bool,
     onClickAbout: PropTypes.oneOfType([
         PropTypes.func, // button mode: call this callback when the About button is clicked
         PropTypes.arrayOf( // menu mode: list of items in the About menu
@@ -1065,7 +985,6 @@ MenuBar.propTypes = {
         )
     ]),
     onClickAccount: PropTypes.func,
-    // onSetTimeTravelMode: PropTypes.func,
     onClickAddonSettings: PropTypes.func,
     onClickTheme: PropTypes.func,
     onClickPackager: PropTypes.func,
@@ -1075,15 +994,11 @@ MenuBar.propTypes = {
     onClickLanguage: PropTypes.func,
     onClickLogin: PropTypes.func,
     onClickLogo: PropTypes.func,
-    // onClickMode: PropTypes.func,
     onClickNew: PropTypes.func,
     onClickNewWindow: PropTypes.func,
     onClickRemix: PropTypes.func,
     onClickSave: PropTypes.func,
     onClickSaveAsCopy: PropTypes.func,
-    // onClickAddonSettings: PropTypes.func,
-    // onClickTheme: PropTypes.func,
-    // onClickPackager: PropTypes.func,
     onClickSettings: PropTypes.func,
     onClickErrors: PropTypes.func,
     onRequestCloseErrors: PropTypes.func,
@@ -1098,8 +1013,6 @@ MenuBar.propTypes = {
     onRequestCloseFile: PropTypes.func,
     onRequestCloseLanguage: PropTypes.func,
     onRequestCloseLogin: PropTypes.func,
-    // onRequestCloseMode: PropTypes.func,
-    // onRequestCloseErrors: PropTypes.func,
     onSeeCommunity: PropTypes.func,
     onShare: PropTypes.func,
     onStartSelectingFileUpload: PropTypes.func,
@@ -1127,9 +1040,9 @@ const mapStateToProps = (state, ownProps) => {
     return {
         aboutMenuOpen: aboutMenuOpen(state),
         accountMenuOpen: accountMenuOpen(state),
-        authorThumbnailUrl: state.scratchGui.sidekick.author.thumbnail,
-        authorUsername: state.scratchGui.sidekick.author.username,
-        compileErrors: state.scratchGui.sidekick.compileErrors,
+        authorThumbnailUrl: state.scratchGui.tw.author.thumbnail,
+        authorUsername: state.scratchGui.tw.author.username,
+        compileErrors: state.scratchGui.tw.compileErrors,
         fileMenuOpen: fileMenuOpen(state),
         editMenuOpen: editMenuOpen(state),
         isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
@@ -1139,7 +1052,6 @@ const mapStateToProps = (state, ownProps) => {
         languageMenuOpen: languageMenuOpen(state),
         locale: state.locales.locale,
         loginMenuOpen: loginMenuOpen(state),
-        // modeMenuOpen: modeMenuOpen(state),
         projectId: state.scratchGui.projectState.projectId,
         projectTitle: state.scratchGui.projectTitle,
         sessionExists: state.session && typeof state.session.session !== 'undefined',
@@ -1148,12 +1060,6 @@ const mapStateToProps = (state, ownProps) => {
         userOwnsProject: ownProps.authorUsername && user &&
             (ownProps.authorUsername === user.username),
         vm: state.scratchGui.vm
-        // ,
-        // mode220022BC: isTimeTravel220022BC(state),
-        // mode1920: isTimeTravel1920(state),
-        // mode1990: isTimeTravel1990(state),
-        // mode2020: isTimeTravel2020(state),
-        // modeNow: isTimeTravelNow(state)
     };
 };
 
@@ -1173,8 +1079,6 @@ const mapDispatchToProps = dispatch => ({
     onRequestCloseLogin: () => dispatch(closeLoginMenu()),
     onClickErrors: () => dispatch(openErrorsMenu()),
     onRequestCloseErrors: () => dispatch(closeErrorsMenu()),
-    // onClickMode: () => dispatch(openModeMenu()),
-    // onRequestCloseMode: () => dispatch(closeModeMenu()),
     onRequestOpenAbout: () => dispatch(openAboutMenu()),
     onRequestCloseAbout: () => dispatch(closeAboutMenu()),
     onClickNew: needSave => {
@@ -1184,7 +1088,6 @@ const mapDispatchToProps = dispatch => ({
     onClickRemix: () => dispatch(remixProject()),
     onClickSave: () => dispatch(manualUpdateProject()),
     onClickSaveAsCopy: () => dispatch(saveProjectAsCopy()),
-    // onSetTimeTravelMode: mode => dispatch(setTimeTravel(mode)),
     onClickRestorePoints: () => dispatch(openRestorePointModal()),
     onClickSettings: () => {
         dispatch(openSettingsModal());

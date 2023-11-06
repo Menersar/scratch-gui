@@ -1,4 +1,247 @@
 .template {
+    /*  */
+    /*  */
+    /* Corporate Design der Hochschule Emden/Leer */
+    /* https://intranet.hs-emden-leer.de/praesidialbuero-presse-und-kommunikation/corporate-design */
+    /*  */
+    /* Corporate Design-Handbuch */
+    /* https://intranet.hs-emden-leer.de/download/sdl-eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2OTkxOTE1NDMsImV4cCI6MTY5OTI4MTU0MiwidXNlciI6MjgzNCwiZ3JvdXBzIjpbMCwtMiwxNDgsMTQ5LDE4NSwxODYsMjc4LDI4Myw1ODFdLCJmaWxlIjoiZmlsZWFkbWluXC91c2VyX3VwbG9hZFwvaW50cmFuZXRcL3ByZXNzZXN0ZWxsZVwvQ29ycG9yYXRlX0Rlc2lnbi1HZXN0YWx0dW5nc3JpY2h0bGluaWVuXzA3LTIwMjItd2ViLnBkZiIsInBhZ2UiOjQ1NDR9.3R9fawuRps1w_R2HgW6Ns25n7Jmske2MSadaJ__FDQg/Corporate_Design-Gestaltungsrichtlinien_07-2022-web.pdf */
+    /*  */
+    /* Corporate-Design-Gestaltungsrichtlinien */
+    /* Basiselemente */
+    /* Farben */
+    /*  */
+    /* Primär- und Sekundärfarben für den allgemeinen Bereich */
+    /* Hellblau */
+    color: #99CCCC;
+    color: rgb(153, 204, 204);
+    color: rgba(153, 204, 204, 1.0);
+    color: rgba(153, 204, 204, 0.9);
+    color: rgba(153, 204, 204, 0.8);
+    color: rgba(153, 204, 204, 0.7);
+    color: rgba(153, 204, 204, 0.6);
+    color: rgba(153, 204, 204, 0.5);
+    color: rgba(153, 204, 204, 0.4);
+    color: rgba(153, 204, 204, 0.3);
+    color: rgba(153, 204, 204, 0.2);
+    color: rgba(153, 204, 204, 0.1);
+    /* Dunkelblau */
+    color: #0069AF;
+    color: rgb(0, 104, 173);
+    color: rgba(0, 104, 173, 1.0);
+    color: rgba(0, 104, 173, 0.9);
+    color: rgba(0, 104, 173, 0.8);
+    color: rgba(0, 104, 173, 0.7);
+    color: rgba(0, 104, 173, 0.6);
+    color: rgba(0, 104, 173, 0.5);
+    color: rgba(0, 104, 173, 0.4);
+    color: rgba(0, 104, 173, 0.3);
+    color: rgba(0, 104, 173, 0.2);
+    color: rgba(0, 104, 173, 0.1);
+    /* Orange und Himbeerrot werden als weitere Akzentfarben hinzugefügt (jedoch stets in geringerem Verhältnis) und dienen stärkerer Hervorhebung. */
+    /* Orange */
+    color: #FF9900;
+    color: rgb(255, 153, 0);
+    color: rgba(255, 153, 0, 1.0);
+    color: rgba(255, 153, 0, 0.9);
+    color: rgba(255, 153, 0, 0.8);
+    color: rgba(255, 153, 0, 0.7);
+    color: rgba(255, 153, 0, 0.6);
+    color: rgba(255, 153, 0, 0.5);
+    color: rgba(255, 153, 0, 0.4);
+    color: rgba(255, 153, 0, 0.3);
+    color: rgba(255, 153, 0, 0.2);
+    color: rgba(255, 153, 0, 0.1);
+    /* Himbeerrot */
+    color: #E62336;
+    color: rgb(232, 36, 55);
+    color: rgba(232, 36, 55, 1.0);
+    color: rgba(232, 36, 55, 0.9);
+    color: rgba(232, 36, 55, 0.8);
+    color: rgba(232, 36, 55, 0.7);
+    color: rgba(232, 36, 55, 0.6);
+    color: rgba(232, 36, 55, 0.5);
+    color: rgba(232, 36, 55, 0.4);
+    color: rgba(232, 36, 55, 0.3);
+    color: rgba(232, 36, 55, 0.2);
+    color: rgba(232, 36, 55, 0.1);
+    /* Für die übergreifende Abbildung des Themas Nachhaltigkeit werden Hellgrün und Smaragdgrün ergänzt. */
+    /* Hellgrün */
+    color: #A2C617;
+    color: rgb(162, 196, 23);
+    color: rgba(162, 196, 23, 1.0);
+    color: rgba(162, 196, 23, 0.9);
+    color: rgba(162, 196, 23, 0.8);
+    color: rgba(162, 196, 23, 0.7);
+    color: rgba(162, 196, 23, 0.6);
+    color: rgba(162, 196, 23, 0.5);
+    color: rgba(162, 196, 23, 0.4);
+    color: rgba(162, 196, 23, 0.3);
+    color: rgba(162, 196, 23, 0.2);
+    color: rgba(162, 196, 23, 0.1);
+    /* Smaragdgrün */
+    color: #0E9D59;
+    color: rgb(13, 161, 89);
+    color: rgba(13, 161, 89, 1.0);
+    color: rgba(13, 161, 89, 0.9);
+    color: rgba(13, 161, 89, 0.8);
+    color: rgba(13, 161, 89, 0.7);
+    color: rgba(13, 161, 89, 0.6);
+    color: rgba(13, 161, 89, 0.5);
+    color: rgba(13, 161, 89, 0.4);
+    color: rgba(13, 161, 89, 0.3);
+    color: rgba(13, 161, 89, 0.2);
+    color: rgba(13, 161, 89, 0.1);
+    /* Abgeleitet von der Bildmarke, bilden Hell- und Dunkelblau die Haupt-Primärfarben. */
+    /* Hellgrau */
+    color: #808080;
+    color: rgb(128, 128, 128);
+    color: rgba(128, 128, 128, 1.0);
+    color: rgba(128, 128, 128, 0.9);
+    color: rgba(128, 128, 128, 0.8);
+    color: rgba(128, 128, 128, 0.7);
+    color: rgba(128, 128, 128, 0.6);
+    color: rgba(128, 128, 128, 0.5);
+    color: rgba(128, 128, 128, 0.4);
+    color: rgba(128, 128, 128, 0.3);
+    color: rgba(128, 128, 128, 0.2);
+    color: rgba(128, 128, 128, 0.1);
+    /* Dunkelgrau */
+    color: #4d4d4d;
+    color: rgb(77, 77, 77);
+    color: rgba(77, 77, 77, 1.0);
+    color: rgba(77, 77, 77, 0.9);
+    color: rgba(77, 77, 77, 0.8);
+    color: rgba(77, 77, 77, 0.7);
+    color: rgba(77, 77, 77, 0.6);
+    color: rgba(77, 77, 77, 0.5);
+    color: rgba(77, 77, 77, 0.4);
+    color: rgba(77, 77, 77, 0.3);
+    color: rgba(77, 77, 77, 0.2);
+    color: rgba(77, 77, 77, 0.1);
+    /* Abstufungen von Schwarz sind typografischen Anwendungen und Hintergründen vorbehalten. */
+    /* Schwarz */
+    color: #000000;
+    color: rgb(0, 0, 0);
+    color: rgba(0, 0, 0, 1.0);
+    color: rgba(0, 0, 0, 0.9);
+    color: rgba(0, 0, 0, 0.8);
+    color: rgba(0, 0, 0, 0.7);
+    color: rgba(0, 0, 0, 0.6);
+    color: rgba(0, 0, 0, 0.5);
+    color: rgba(0, 0, 0, 0.4);
+    color: rgba(0, 0, 0, 0.3);
+    color: rgba(0, 0, 0, 0.2);
+    color: rgba(0, 0, 0, 0.1);
+    /*  */
+    /* Sekundärfarben für die Fachbereiche */
+    /*  Zur Kennzeichnung der einzelnen Fachbereiche wurden entsprechende Sekundärfarben definiert. */
+    /* Diese sind in Vergleich zu den Primärfarben im reduzierterem Verhältnis einzusetzen. */
+    /* Der Einsatz ist den folgenden Typografie- und Layoutrichtlinien zu entnehmen. */
+    /* Seefahrt und Maritime Wissenschafte */
+    color: #0069AF;
+    color: rgba(0, 104, 173, 1.0);
+    color: rgba(0, 104, 173, 0.9);
+    color: rgba(0, 104, 173, 0.8);
+    color: rgba(0, 104, 173, 0.7);
+    color: rgba(0, 104, 173, 0.6);
+    color: rgba(0, 104, 173, 0.5);
+    color: rgba(0, 104, 173, 0.4);
+    color: rgba(0, 104, 173, 0.3);
+    color: rgba(0, 104, 173, 0.2);
+    color: rgba(0, 104, 173, 0.1);
+    /* Technik */
+    color: #80A86A;
+    color: rgb(130, 168, 107);
+    color: rgba(130, 168, 107, 1.0);
+    color: rgba(130, 168, 107, 0.9);
+    color: rgba(130, 168, 107, 0.8);
+    color: rgba(130, 168, 107, 0.7);
+    color: rgba(130, 168, 107, 0.6);
+    color: rgba(130, 168, 107, 0.5);
+    color: rgba(130, 168, 107, 0.4);
+    color: rgba(130, 168, 107, 0.3);
+    color: rgba(130, 168, 107, 0.2);
+    color: rgba(130, 168, 107, 0.1);
+    /* Wirtschaft */
+    color: #FBBC33;
+    color: rgb(250, 187, 51);
+    color: rgba(250, 187, 51, 1.0);
+    color: rgba(250, 187, 51, 0.9);
+    color: rgba(250, 187, 51, 0.8);
+    color: rgba(250, 187, 51, 0.7);
+    color: rgba(250, 187, 51, 0.6);
+    color: rgba(250, 187, 51, 0.5);
+    color: rgba(250, 187, 51, 0.4);
+    color: rgba(250, 187, 51, 0.3);
+    color: rgba(250, 187, 51, 0.2);
+    color: rgba(250, 187, 51, 0.1);
+    /* Soziale Arbeit und Gesundheit */
+    color: #FB5737;
+    color: rgb(250, 88, 56);
+    color: rgba(250, 88, 56, 1.0);
+    color: rgba(250, 88, 56, 0.9);
+    color: rgba(250, 88, 56, 0.8);
+    color: rgba(250, 88, 56, 0.7);
+    color: rgba(250, 88, 56, 0.6);
+    color: rgba(250, 88, 56, 0.5);
+    color: rgba(250, 88, 56, 0.4);
+    color: rgba(250, 88, 56, 0.3);
+    color: rgba(250, 88, 56, 0.2);
+    color: rgba(250, 88, 56, 0.1);
+    /*  */
+    /*  */
+    
+    /*  */
+    /*  */
+    /* Hochschule Emden Leer */
+    /* Website Relaunch Design Richtlinien */
+    /* Stand April 2017 */
+    /*  */
+    /* Die Farben */
+    /*  */
+    /* Grund- und Zusatzfarben */
+    /* Die Grundfarben der Hochschule Emden generieren sich aus dem Logo. */
+    /* Grundfarben */
+    color: rgb(0, 93, 164);
+    color: rgb(138, 198, 203);
+    color: rgb(87, 87, 87);
+    /* Schmuckfarben */
+    /* Aus den Logofarben wurde folgendes Farbschema für alle nicht fachbereichsspezifischen Seiten erstellt. */
+    color: rgb(210, 233, 235);
+    color: rgb(138, 173, 219);
+    color: rgb(171, 171, 171);
+    color: rgb(191, 217, 205);
+    color: rgb(163, 175, 201);
+    color: rgb(240, 238, 233);
+    /*  */
+    /* Fachbereich Technik */
+    /* Hauptfarbe */
+    color: rgb(94, 168, 45);
+    /* Schmuckfarben */
+    color: rgb(182, 213, 151);
+    /* color: rgb(210, 233, 235); */
+    /* color: rgb(171, 171, 171); */
+    /*  */
+    /* Fachbereich Wirtschaft */
+    /* Hauptfarbe */
+    color: rgb(251, 194, 58);
+    /* Schmuckfarben */
+    color: rgb(252, 232, 137);
+    /* color: rgb(210, 233, 235); */
+    /* color: rgb(171, 171, 171); */
+
+    /* Fachbereich Soziales */
+    /* Hauptfarbe */
+    color: rgb(179, 101, 113);
+    /* Schmuckfarben */
+    color: rgb(179, 101, 113);
+    /* color: rgb(210, 233, 235); */
+    /* color: rgb(171, 171, 171); */
+
+
+
+
     color: #4af;
     color: #ff4d4d;
     color: #61ad43;
@@ -8,9 +251,9 @@
     color: hsl(215, 100%, 65%, 1);
     color: hsla(215, 60%, 50%, 1);
     color: hsl(215, 0%, 20%);
-    color: hsl(215, 100%, 95%);
-    color: hsl(215, 75%, 95%);
-    color: hsl(215, 50%, 90%);
+    color: rgb(230, 240, 255);
+    color: rgb(232, 241, 252);
+    color: rgb(217, 227, 242);
 
     color: hsl(225, 15%, 40%);
 
@@ -20,30 +263,30 @@
 
     color: hsl(215, 100%, 77%);
 
-    color: hsl(215, 100%, 95%);
-    color: hsl(215, 75%, 95%);
-    color: hsl(215, 50%, 90%);
+    color: rgb(230, 240, 255);
+    color: rgb(232, 241, 252);
+    color: rgb(217, 227, 242);
 
     color: hsl(215, 100%, 65%);
-    color: hsla(215, 0%, 20%, 1);
+    color: rgb(51, 51, 51);
     color: hsla(0, 0%, 34%, 1);
 
     /* Dachmarke */
 
     /* Schriftfarbe im Logo: grau */
-    color: #f2f2f2;
-    color: #e2e2e2;
-    color: #d2d2d2;
+    color: rgb(242, 242, 242);
+    color: rgb(227, 227, 227);
+    color: rgb(209, 209, 209);
     color: #c3c3c3;
     color: #b2b2b2;
     color: #a2a2a1;
     color: #919190;
     color: #7e7e7e;
-    color: #6b6b6a;
-    color: #575757;
+    color: rgb(107, 107, 107);
+    color: rgb(87, 87, 87);
 
     /* Hausfarbe Blau */
-    color: #eaeff8;
+    color: rgb(237, 241, 250);
     color: #d4def0;
     color: #bfcee8;
     color: #a7bedf;
@@ -55,7 +298,7 @@
     color: #1e6bac;
 
     /* Hausfarbe Türkis */
-    color: #f6fafb;
+    color: rgb(245, 249, 250);
     color: #ecf5f7;
     color: #e1eff2;
     color: #d6e9ed;
@@ -64,12 +307,12 @@
     color: #b5dadf;
     color: #a8d3d9;
     color: #9cced4;
-    color: hsl(187, 40%, 69%);
+    color: rgb(143, 200, 209);
 
     /* Fachbereich Technik */
-    color: hsl(93, 36%, 95%);
-    color: hsl(93, 38%, 90%);
-    color: hsl(90, 38%, 84%);
+    color: rgb(242, 247, 237);
+    color: rgb(229, 240, 219);
+    color: rgb(214, 230, 199);
     color: #c8deb4;
     color: #b9d5a0;
     color: #aacc8b;
@@ -117,13 +360,13 @@
     /* Hausfarbe Türkis */
     color: #8ac6cb;
     /* Farbverlauf für Flyer */
-    color: #80f2cc;
-    color: #57e6b0;
+    color: rgb(130, 242, 205);
+    color: rgb(87, 229, 175);
 
     /* Schriftfarbe im Logo: grau */
-    color: #575757;
+    color: rgb(87, 87, 87);
     /* Für Flyer */
-    color: #333333;
+    color: rgb(51, 51, 51);
 
     /* Schriftschnitte */
     /* Für hochwertige Image-Drucksachen wie z.B. die Zeugnisse, Urkunden und zu besonderen Anlässen der Hochschule wird die Quadraat Sans in ihren Schriftschnitten verwendet. */
