@@ -353,8 +353,9 @@ module.exports = [
                     patterns: [
                         {
                             from: 'node_modules/scratch-vm/dist/static',
-                            to: 'static',
-                            flatten: true
+                            to: 'static'
+                            // ,
+                            // flatten: true
                         }
                     ]
                 })
