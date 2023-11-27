@@ -22,6 +22,9 @@ import translateInsetIconURL from './translate/translate-small.png';
 import makeymakeyIconURL from './makeymakey/makeymakey.png';
 import makeymakeyInsetIconURL from './makeymakey/makeymakey-small.svg';
 
+import pigpioIconURL from './pigpio/pigpio.png';
+import pigpioInsetIconURL from './pigpio/pigpio-small.svg';
+
 import microbitIconURL from './microbit/microbit.png';
 import microbitInsetIconURL from './microbit/microbit-small.svg';
 import microbitConnectionIconURL from './microbit/microbit-illustration.svg';
@@ -81,8 +84,8 @@ import galleryIcon from './gallery/gallery.svg';
 // import bigIntIcon from './gallery/bigint.svg';
 // import jsonIcon from './gallery/json.svg';
 
-import pigpioIconURL from './pigpio/pigpio.png';
-import pigpioInsetIconURL from './pigpio/pigpio-small.svg';
+// import pigpioIconURL from './pigpio/pigpio.png';
+// import pigpioInsetIconURL from './pigpio/pigpio-small.svg';
 
 // import pisensehatIconURL from './pisensehat/pisensehat.png';
 // import pisensehatInsetIconURL from './pisensehat/pisensehat-small.svg';
@@ -251,6 +254,24 @@ export default [
         tags: ['scratch'],
         featured: true
     },
+
+    {
+        name: 'Raspberry Pi GPIO',
+        extensionId: 'pigpio',
+        collaborator: 'Raspberry Pi',
+        iconURL: pigpioIconURL,
+        insetIconURL: pigpioInsetIconURL,
+        description: (
+            <FormattedMessage
+                defaultMessage="Control Raspberry Pi GPIO lines"
+                description="Description for the 'Pi GPIO' extension"
+                id="gui.extension.pigpio.description"
+            />
+        ),
+        tags: ['scratch'],
+        featured: true
+    },
+
     {
         name: 'micro:bit',
         extensionId: 'microbit',
