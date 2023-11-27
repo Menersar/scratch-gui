@@ -265,6 +265,16 @@ module.exports = [
                     }
                 ]
             }),
+            new CopyWebpackPlugin({
+                patterns: [
+                    {
+                        from: 'node_modules/scratch-vm/src/',
+                        // !!! ???
+                        // to: 'static'
+                        to: ''
+                    }
+                ]
+            }),
             // new CopyWebpackPlugin({
             //     patterns: [
             //         {
@@ -334,6 +344,16 @@ module.exports = [
                         {
                             from: 'src/lib/libraries/*.json',
                             to: 'libraries',
+                            flatten: true
+                        }
+                    ]
+                }),
+                // Include gpiolib.node file for the gpio extension's functionality.
+                new CopyWebpackPlugin({
+                    patterns: [
+                        {
+                            from: 'node_modules/scratch-vm/dist/static',
+                            to: 'static',
                             flatten: true
                         }
                     ]
