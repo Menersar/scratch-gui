@@ -111,6 +111,23 @@ const base = {
                     }
                 }
             }]
+        },
+        {
+            test: /\.node$/,
+            loader: 'file-loader',
+            // include: path.resolve(__dirname, 'src')
+            // options: {
+            //     outputPath: 'static/',
+            //     // Emit file from the context directory into the output directory;
+            //     // retaining the full directory structure:
+            //     // (https://v4.webpack.js.org/loaders/file-loader/)
+            //     // name: "[path][name].[ext]",
+            //     name: '[name].[ext]'
+            // }
+            options: {
+                outputPath: 'static/',
+                publicPath: `${STATIC_PATH}/`
+            }
         }]
     },
     // optimization: {
@@ -146,8 +163,9 @@ module.exports = [
             'editor': './src/playground/editor.jsx',
             'embed': './src/playground/embed.jsx',
             'fullscreen': './src/playground/fullscreen.jsx',
-            'player': './src/playground/player.jsx',
-            'credits': './src/playground/credits/credits.jsx'
+            'player': './src/playground/player.jsx'
+            // ,
+            // 'credits': './src/playground/credits/credits.jsx'
         },
         output: {
             path: path.resolve(__dirname, 'build')
@@ -301,7 +319,8 @@ module.exports = [
                 path: path.resolve('dist'),
                 // publicPath: `${STATIC_PATH}/`,
                 filename: 'js/[name].js',
-                chunkFilename: 'js/[name].js',
+                chunkFilename: 'js/[name].js'
+                // ,
             },
             externals: {
                 'react': 'react',
@@ -347,18 +366,19 @@ module.exports = [
                             flatten: true
                         }
                     ]
-                }),
-                // Include gpiolib.node file for the gpio extension's functionality.
-                new CopyWebpackPlugin({
-                    patterns: [
-                        {
-                            from: 'node_modules/scratch-vm/dist/static',
-                            to: 'static'
-                            // ,
-                            // flatten: true
-                        }
-                    ]
                 })
+                // ,
+                // // Include gpiolib.node file for the gpio extension's functionality.
+                // new CopyWebpackPlugin({
+                //     patterns: [
+                //         {
+                //             from: 'node_modules/scratch-vm/dist/static',
+                //             to: 'static'
+                //             // ,
+                //             // flatten: true
+                //         }
+                //     ]
+                // })
             ])
         })) : []
 );
